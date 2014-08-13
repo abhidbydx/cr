@@ -1,8 +1,0 @@
-<div pt-widgetcontainer name-param="requestWidgetName">        
-    <div class="widgeteDetailContainer">
-        <div class="row-fluid">            
-            <button ng-disabled="disableSellBtn" ng-class='{ active: disableSellBtn }' ng-show="!requestedToSell" pt-click="sell()" pt-confirmclick="labels.common.message.SELL_PROPERTY" class="btn-action">{{labels.portfolio.label.SELL_PROPERTY_BUTTON}}</button>
-            <button ng-disabled="disableLoandBtn" ng-class='{ active: disableLoandBtn }' ng-show="showLoanBtn || !askedForHomeLoan" ng-click="request()" class="btn-action">{{labels.portfolio.label.HOME_LOAN_BUTTON}}</button>
-        </div>
-    </div>
-</div>
