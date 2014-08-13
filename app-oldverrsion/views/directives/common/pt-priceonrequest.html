@@ -1,0 +1,14 @@
+<div ng-if="project.projectStatus != 'On Hold'">
+    <div class="price-range" ng-if=" project.maxResaleOrPrimaryPrice && project.minResaleOrPrimaryPrice">
+        <span pt-shallow-range property-name="ResaleOrPrimaryPrice" base-object="project" type='price'> </span>
+        <i class="fa fa-exclamation-circle" tooltip="Some property prices of this project are currently unavailable" ng-if="project.hasPriceOnRequest"></i>
+    </div>
+    <div class="price-na" ng-if="!project.maxResaleOrPrimaryPrice || !project.minResaleOrPrimaryPrice">
+        <span>Price on request</span>
+        <a ng-click="openLeadForm($event, 'newPrice', 'hidden-pricerequest-mid')"> Request Price </a>
+        <i class="fa fa-question-circle" tooltip="Exact price of this project is currently unavailable. Please get in touch with us for further details"></i>
+    </div>
+</div>
+<div ng-if="project.projectStatus == 'On Hold'" class="price-na paddingB25">
+    Project On Hold <i class="fa fa-question-circle" tooltip="This project is currently on hold"></i>
+</div>

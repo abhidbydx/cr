@@ -1,0 +1,4 @@
+<div class="btn-group filter-radio">
+    <button ng-repeat="(key, value) in keys" type="button" class="btn" ng-class="{active : selected.item === value}" ng-model="selected.item" ng-click="btnClicked($event, value)" once-text="value"></button>
+</div>
+<div ng-transclude></div>

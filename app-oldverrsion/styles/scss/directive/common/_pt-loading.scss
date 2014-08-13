@@ -1,0 +1,92 @@
+/* 
+Desc: loading Scss Document 
+Author: Sanjeev Verma
+Date: 23 Nov 2013
+*/
+
+.parent-blocking { position:relative; 
+	width:$body-width; 
+	height:$body-width; 
+	text-align:center;	
+	.loader-info{ display:block;
+		top:0px;
+		left:0px;
+		&:before{ content: '';
+			height:100%;
+			vertical-align:middle;
+		}
+		i{ display:block;
+			display: none\9;
+			font-size :$body-font-size + 18px; 
+			color: $darkligh-gray-color; 
+			line-height:normal;
+		}
+		.big-loader{display:none;
+			display:block\9;
+			.spinLoader{ width:20px;
+				height:20px;
+				display:inline-block;			 
+				background: url("../images/loader_small.gif");
+			}
+		}
+		
+	}
+}
+.mapSpin{width:$body-width; 
+	height:$body-width;
+	display:table;
+	.parent-blocking { vertical-align:middle; 
+		display:table-cell;
+		i{ display:none\9; }		
+		.big-loader{display:none;
+			display:block\0;
+			.spinLoader{ width:20px;
+				height:20px;
+				display:inline-block;			 
+				background: url("../images/loader_small.gif");
+			}
+		}
+	}
+}
+
+#veil {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	z-index: 3;
+	width:100%;	
+	background: #000000;
+	cursor:default;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+#feedLoading {
+	position: absolute;
+	top:46%;
+	left:48%;
+	width:82px;
+	z-index: 4;
+	text-align: center;
+	font-size: 3em;
+	color:#333333;
+	line-height:normal;
+}
+.loadingArea{
+	background: #FFFFFF;
+	padding:15px 25px;
+	border:1px solid #414141;
+	@include rounded($radius:5px);
+	i{ width:72px; 
+		height:72px; 
+		background:url(../images/loader.gif) no-repeat top center;
+		display:block;
+		margin:0 auto;}
+	}
+.neighbr_load {
+	position: absolute;
+	top: 40%;
+	text-align: center;
+	left: 0%;
+	width:100%;
+}

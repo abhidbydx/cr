@@ -1,0 +1,195 @@
+<div class="header">
+    <div class="row-fluid headerSection">
+        <div class="span6">
+            <div class="pull-left logoArea">
+                <a href="/" ng-click="headerTracking('header', 'clicked', 'ptLogo', 'Logo Clicked')" class="pull-left" alt="Property in India">
+                    <i class="icons-inner-logo"></i>
+                    <i class="icons-inner-logo" style="display:none;"></i>
+                </a>
+            </div>
+            <ul class="nav-top pull-left nav-city"> 
+                <li pt-dropdown classlink="dropdown-toggle" linktext='Select City' classtextli='caret' classmenu="dropdownMenu" citytoshow='cityToShow'> 
+                    <ul class="dropdownlist" id="city-list">
+                        <li ng-if="city.displayPriority == 1 || city.displayPriority == 2" ng-repeat="city in cityList" class="{{city.class}}">
+                            <a ng-click="cityChanged(city.label, city.id)" ng-class="{'city-bold' : city.displayPriority === 1}">{{city.label}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav-top pull-left nav-servers">
+                <li pt-dropdown classlink="dropdown-toggle" linktext='Buy' classtextli='caret' classmenu="dropdownMenu">
+                    <ul class="dropdownlist">
+                        <li ng-repeat="obj in buylinks"> <a ng-href="/{{ obj.link }}" ng-click="headerTracking('Buy', 'clicked', obj.text)"> {{ obj.text }} </a> </li>
+                        <li class="dotLine"></li>
+                        <li><a ng-href="/{{ curPath }}/filters?listingType=false" ng-click="headerTracking('Buy', 'clicked', 'New Projects')">New Projects {{ buyEntity }}</a></li>
+                        <li><a ng-href="/{{ curPath }}/filters?listingType=true" ng-click="headerTracking('Buy', 'clicked', 'Resale Projects')">Resale Projects {{ buyEntity }} </a></li>
+                        <li class="dotLine"></li>
+                        <li><a ng-href="/{{ curPath }}/filters?projectStatus=not launched,pre launch" ng-click="headerTracking('Buy', 'clicked', 'Upcoming Projects')">Upcoming Projects {{ buyEntity }} </a></li>
+                        <li><a ng-href="/{{ curPath }}/filters?projectStatus=launch" ng-click="headerTracking('Buy', 'clicked', 'New Launch Projects')">New Launch Projects {{ buyEntity }} </a></li>
+                        <li><a ng-href="/{{ curPath }}/filters?projectStatus=under construction" ng-click="headerTracking('Buy', 'clicked', 'Under Construction Projects')">Under Construction Projects {{ buyEntity }} </a></li>
+                        <li class="dotLine"></li>
+                        <li><a ng-click="headerTracking('Buy', 'clicked', 'Buying with Proptiger')" href="/faqs">Buying with Proptiger</a></li>
+                    </ul>
+                </li>
+                <li pt-dropdown classlink="dropdown-toggle" linktext='Sell' classtextli='caret' classmenu="dropdownMenu"> 
+                    <ul class="dropdownlist">
+                        <li>
+                            <a ng-click="headerTracking('Sell', 'clicked', 'Track your investment')" href="/portfolio/index" ng-if="loggedIn">Track your investment</a>
+                            <a href="" ng-if="!loggedIn" ng-click="openSignIn('portfolio/index')">Track your investment</a>
+                        </li>
+                        <li class="dotLine"></li>
+                        <li class="button-info"><button class="btn-primary small-btn" ng-click="sellProperty('Header')">Sell your property now</button></li>
+                    </ul>
+                </li>
+                <!--<li>
+                    <a href="">Other Services<i class="caret"></i></a>
+                    <ul class="dropdownlist">
+                        <li><a ng-click="headerTracking('Other', 'clicked', 'Home Loan')" href="/homeloan.php">Home Loan</a></li>
+                        <li><a href="">Site Visit</a></li>
+                    </ul>
+                </li>-->
+               <li pt-dropdown classlink="" linktext='More' classtextli='caret' classmenu="dropdownMenu"> 
+                    <ul class="dropdownlist">
+                        <li>
+                            <a ng-click="headerTracking('More', 'clicked', 'My Portfolio')" href="/portfolio/index" ng-if="loggedIn">My Portfolio</a>
+                            <a ng-click="openSignIn('portfolio/index');headerTracking('More', 'clicked', 'My Portfolio')" href="" ng-if="!loggedIn">My Portfolio</a>
+                        </li>
+                        <li><a target="_self" ng-click="headerTracking('More', 'clicked', 'Proptiger Blog')" href="/blog">Proptiger Blog</a></li>
+                        <li><a target="_self" ng-click="headerTracking('More', 'clicked', 'Real Estate News')" href="/news">Real Estate News</a></li>
+                        <li class="dotLine"></li>
+                        <li><a ng-click="headerTracking('More', 'clicked', 'FAQs')" href="/faqs">FAQs</a></li>
+                        <li><a href="/homeloan">Home Loan</a></li>
+                        <li class="dotLine"></li>
+                        <li><a ng-click="headerTracking('More', 'clicked', 'Vaastu Tips')" href="/vaastu">Vaastu Tips</a></li>
+                        <li><a ng-click="headerTracking('More', 'clicked', 'EMI Calculator')" href="/emi">EMI Calculator</a></li>
+                        <li><a ng-click="headerTracking('More', 'clicked', 'NRI Services')" href="/nri">NRI Services</a></li>
+                        <li class="dotLine"></li>
+                        <li><a target="_self" ng-click="headerTracking('More', 'clicked', 'Careers')" href="/careers.php">Careers</a></li>
+                        <li><a ng-click="headerTracking('More', 'clicked', 'About Us')"  href="/aboutus">About Us</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="span3">
+            <ul class="nav-top call-informaction pull-left">
+                <li class="dropdown pull-left">
+                    <a href="">
+                        <i class="{{defHeaderPhone.class}}"></i>
+                        +{{defHeaderPhone.number}}
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdownlist">
+                        <li>
+                            <div class="contactNoArea">
+                                <h7>Contact No</h7>
+                                <span ng-repeat="phone in headerPhone">
+                                    <input name="phno" type="radio" ng-model="phoneChecked" value="{{phone.name}}" ng-click="updateHeaderPhone(phone)"/>
+                                    <i class="{{phone.class}}"></i> +{{phone.number}}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>        
+        <div class="span3">            
+            <ul class="nav-informaction pull-right">
+                <!--<li class="dropdown pull-left" style="display:block;">
+                    <a href="">
+                        <i class="fa fa-bell-o"></i>
+                        <span>Alerts</span>
+                    </a>
+                </li>-->
+                <li class="dropdown pull-left comp-nav" ng-controller="compareBucket"  id="compare_bucket">
+                    <a class="dropdown-toggle" ng-click="toggleCompareBucket()">
+                        <label ng-if="projects.length" id="compare_count">{{projects.length}}</label>
+                        <i class="fa fa-check-square-o"></i>
+                        <span>Compare</span>
+                    </a>
+                    <ul class="dropdownlist compareList">
+                        <li class="comp-list-info">
+                            <ul>
+                                <li ng-repeat="project in projects | reverse track by $index " class="comp-row-info">    
+                                    <div class="row-fluid">
+                                        <div class="comp-checkbox span1" ng-if="projects.length > 4">
+                                            <input  type="checkbox" 
+                                                    ng-model="project.selected"
+                                                    ng-disabled="selectedProjects.length == 4 && !project.selected"
+                                                    ng-change="updateSelection()">
+                                            </input>
+                                        </div>
+                                        <div class="comp-prop-info span11" ng-class="{'selected': project.selected}">
+                                            <a ng-href="/{{project.url}}">
+                                            	<div class="row-fluid">
+                                                    <img class="proj-image pull-left"  ng-src="{{project.imageURL}}"/>
+                                                    <div class="proj-det-info pull-left">
+                                                        <span class="comp-head">{{project.builder}} {{project.name}}</span> 
+                                                        <span class="comp-cont-info">{{project.locality}},
+                                                        {{project.city}} </span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="comp-proj-delete pull-right" ng-click="removeFromCompare(project, 'Header')">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="comp-action-info">
+                            <button class="pull-right btn-primary small-btn"
+                                ng-class="{'disabled': !enableCompare}"
+                                ng-click="compare()" 
+                                tooltip="{{compareButtonTitle}}" 
+                                ng-if="projects.length">
+                                    {{compareButtonLabel}}
+                            </button>
+                            <div class="comp-mess-info pull-left">
+                                <span ng-if="projects.length > 4">
+                                    {{selectedProjects.length}}/4 Selected
+                                    <div>
+                                        Compare max 4 projects
+                                    </div>
+                                </span>
+                                <span ng-if="!projects.length">
+                                    Please select projects
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown tab-switch pull-left" ng-if="!loggedIn" ng-click="openSignIn()">
+                    <a href="">
+                        <i class="account-login fa fa-user"></i>
+                        <span>Sign In</span>
+                    </a>
+                </li>
+                <li class="dropdown pull-left" ng-if="loggedIn">
+                    <a class="dropdown-toggle account-info" ng-mouseover="setBgColor()" ng-mouseleave="unSetBgColor()" ng-style="nameAvatarColor">
+                        <div pt-avatar user-info="userInfo" avatar-type="'header'"></div>
+                        <span>Account</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="marginL15 user-info" ng-if="userInfo.USERNAME">Hi, <span>{{nameToShow}}</span></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'My Account')" target="_self" href="/my-account.php">My Account</a></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'My Portfolio')" href="/portfolio/index">My Portfolio</a></li>
+                        <li class="dotLine"></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'Saved Searches')" href="/portfolio/savedsearches">Saved Searches</a></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'My Favorites')" href="/portfolio/myfavorites">My Favorites</a></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'Recently Viewed')" href="/portfolio/recentlyviewed">Recently Viewed</a></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'Enquired Properties')" href="/portfolio/enquiredproperty">Enquired Properties</a></li>
+                        <li class="dotLine"></li>
+                        <li><a ng-click="headerTracking('myAccount', 'clicked', 'Settings')" target="_self" href="/my-account-setting.php">Settings</a></li>
+                        <li class="button-info" ng-click="logout()"><button class="btn-primary small-btn">Logout</button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <pt-listingfilter id="appHeader" ng-show="!hideSearch">
+    </pt-listingfilter>    
+</div>

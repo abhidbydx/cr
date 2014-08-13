@@ -1,0 +1,40 @@
+<div ng-if="projects.length > 0" class="contentBoxContainer padding20 marginB15" id="sim_projs">
+	<div class="proj-see-more-info row-fluid tabContainer paddingB15">
+    	<div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="{{classIndex[0]}}" ng-click="changeProjectType(0)"><a>{{current_header}}</a></li>
+                <li ng-if="!hideNearBy" class="{{classIndex[1]}}" ng-click="changeProjectType(1)"><a>Nearby Projects</a></li>
+            </ul>
+        </div>
+    </div>
+	<div class="content-info">
+		<div class="thumbsHolder row-fluid" ng-if="!isPropertyPage || currentIndex == 1">
+			<div ng-repeat="project in projects" class="simil-prop-info span3" >
+				<a ng-href="/{{project.URL}}" ng-click="widgetTracking(classIndex[0],project.projectId,project.locality.cityId);">
+                	<div class="image-view-info" image-block image-source="project.smallImage" fitop="true"></div>
+					<div class="simil-prop-detail-info">
+						<span class="prop-name">{{project.builder.name}}</span>
+	                    <span class="prop-name">{{project.name}}</span>
+						<span class="prop-address paddingT5">{{project.address}}</span>
+						<div class="prop-detail-info"><span ng-if="project.minPrice"><i class="fa fa-rupee"></i>{{project.minPrice | formatPrice}}</span><span ng-if="project.maxPrice"> - <i class="fa fa-rupee"></i>{{project.maxPrice | formatPrice}}</span></div>
+					</div>
+				</a>
+			</div>
+		</div>
+        <div class="thumbsHolder row-fluid" ng-if="isPropertyPage && currentIndex == 0">
+            <div ng-repeat="property in projects" class="simil-prop-info span3" >
+               <a ng-href="/{{property.URL}}">
+                    <div class="image-view-info" image-block image-source="property.smallImage" fitop="true"></div>
+                    <div class="simil-prop-detail-info">
+                        <span class="prop-name">{{property.project.builder.name}}</span>
+                        <span class="prop-name">{{property.project.name}}</span>
+                        <span class="prop-address paddingT5">{{property.project.address}}</span>
+                        <div class="prop-detail-info" ng-if="property.budget"><i class="fa fa-inr"></i> {{property.budget | formatPrice}}</div>
+                        <div class="prop-detail-info">{{property.unitName}} ({{property.size}} {{property.measure}})</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

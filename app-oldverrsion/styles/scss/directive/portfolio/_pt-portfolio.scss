@@ -1,0 +1,46 @@
+/* 
+Desc: Portfolio Scss Document 
+Author: Sanjeev Verma
+Date: 12 June 2014
+*/ 
+
+.graphTopContentView{ width:$body-width;
+	padding:0 40px;
+	@include box-sizing(border-box);
+	label{ width:auto;
+		display:inline-block !important;
+		float:left;
+		margin-right:15px;
+		input{ margin:0; }
+	}
+}
+
+.socialLink {
+	ul {
+		&.dropdown-menu {
+			min-width:60px;
+			li {
+				display:inline !important;
+				padding:5px;
+				margin:0;
+				a {
+					display:inline;
+					padding:5px 6px;
+					&:hover {
+						background:#ffffff !important;
+						color:#0081c2;
+					}
+					.fa-facebook {
+						font-size:16px;
+					}
+					.fa-twitter {
+						font-size:16px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.decline-class { color:#08C31E !important;}
+.gain-class { color:red !important;}

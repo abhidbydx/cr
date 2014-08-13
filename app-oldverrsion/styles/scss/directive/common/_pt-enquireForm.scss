@@ -1,0 +1,32 @@
+/* 
+Desc: Enquire Form Scss Document 
+Author: Nitish Saraswat & Sabjeev Verma
+Date: 16 Dec 2013
+*/
+
+.enq-form-info{
+	.form-info{ width:$body-width - 10%;
+		padding:10px 5%;
+	}
+	.error{
+		input{ border:1px solid $error-color;}
+		select{ border:1px solid $error-color;}
+		.error-info{ @include fontStyle($openSans:true);
+			font-size:$body-font-size - 1px;
+			color:$error-form-color;
+			margin:-7px 0 10px 0;
+			float:left;
+			display:block;
+		}
+	}
+	input[type="text"], input[type="password"], input[type="email"]{ width:$body-width;
+		height:30px;
+		@include box-sizing(border-box);
+		margin:0 0 10px 0;
+	}
+	select{ font-size: $body-font-size;
+		color:$lighter-grey-textColor;
+		width:$body-width;
+	}
+	
+}

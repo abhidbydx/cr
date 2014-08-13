@@ -1,0 +1,208 @@
+/* 
+Desc: Project Camparison View Scss Document 
+Author: Sanjeev Verma
+Date: 8 Jan 2014
+*/
+
+.comparison-Wrapper{ width:$body-width;
+	padding:10px 15px 15px 15px;
+	@include box-sizing(border-box);
+	.borderTop{ border-top:1px solid $light-gray-color;}
+	.comp-left-link{ width:16.66666666666667%;
+		.builder-info{ height:92px;}
+		ul.comp-nav{
+			li{ @include fontStyle($openSansBold:true);
+				font-size:$body-font-size;
+				color:$darkligh-gray-color;
+				text-align:right;
+				text-transform:uppercase;
+				padding:0 15px 0 0;
+				&.data-info{ height:205px;
+					ul.sub-comp-nav{ padding:23px 0 0 0;
+						li{ line-height:28px;
+							.deals-info{ @include fontStyle($openSansBold:true);
+								background:$lighter-orange-color; 
+								color:$darkBlack-gray-color !important;
+								padding:1px 5px;
+								i{padding:0 3px 0 0;}
+							}
+						}
+					}
+				}
+				&.type-info{ height:330px;
+					ul.sub-comp-nav{ padding:12px 0 0 0;
+						li{ line-height:29px;
+						&.paddingT10{ padding-top:10px !important;}
+						&.paddingT30{ padding-top:30px !important;}
+						}
+					}
+				}
+				&.rating-info{
+					ul.sub-comp-nav{ padding:12px 0 0 0;
+						li{ line-height:29px;}
+					}
+				}
+			}
+		}
+	}
+	.comp-container{  width:83.33333333333333%;
+		@include box-sizing(border-box);
+		.comp-content-container{ padding:0 0 0 7px;
+			display:table;
+		}
+		.comp-prop-detail-info:first-child{ border-left:none;}
+		.comp-prop-detail-info:last-child{ 
+			.rating-wrapper{
+				.rating-overlay{ right:0;}
+			}
+		}
+		.comp-prop-detail-info{ width:25%; 
+			position:relative;
+			padding:0 8px 20px 8px;
+			border-left:1px solid $light-gray-color;
+			@include box-sizing(border-box);
+			display:table-cell;
+			vertical-align:top;
+			.btn-close{ right:7px !important;}
+			.prop-image{ width:$body-width;
+				 height:92px;
+				 background:$darkligh-mid-gray-color;
+				 z-index:0;
+				 img{ width:$body-width;
+				 	height:$body-width;
+				 }
+				 .comp-prop-detail{ position:absolute; 
+				  	top:0;
+					width:$body-width;
+					height: $body-width;
+					padding:8px 15px;
+					z-index:1;
+					@include box-sizing(border-box);
+				}
+				.proj-gray-info{ position:absolute; 
+				  	top:0;
+					width:$body-width;
+					height: $body-width;
+					background:$darkBlack-gray-color;
+					z-index:0;
+					opacity:0.7;
+					filter:Alpha(Opacity=70);}				
+			}		
+			.comp-price-trend{ width:$body-width;
+				padding:25px 0 5px 15px;
+				@include box-sizing(border-box);
+				.appraisal-icon-cont{ font-size:$body-font-size + 2px; float:left;}
+				.appraisal-label{ font-size:$body-font-size - 1px; float:left; padding:0 0 0 5px;}
+				&.comp-hide{ height:50px;}
+			}
+			.comp-proj-img{ padding:15px 0 15px 0;
+				cursor: pointer;
+				height:170px;
+				.comp-img-info{ position:relative;
+					overflow:hidden;
+					width:$body-width;
+					height: $body-width;
+				}
+				&:hover{
+					background-color:$lighter-gray-color;
+				}				
+			}
+			.comp-proj-content{ @include fontStyle($openSans:true);
+				font-size:$body-font-size + 2px;
+				color:$dark-gray-color;
+				line-height:18px;
+				width:$body-width;
+				float:left;
+				padding:5px 0 5px 15px;
+				@include box-sizing(border-box);
+				&.comp-hide{ height:28px;}
+			}
+			.comp-proj-text{ @include fontStyle($openSans:true);
+				font-size:$body-font-size + 2px;
+				color:$dark-gray-color;
+				line-height:18px;
+				width:$body-width;
+				float:left;
+				@include box-sizing(border-box);
+			}
+			.comp-rowbg{ background:$White-gray-color;}
+			
+			
+		}
+		.proj-name{ @include fontStyle($latoBold:true);
+			font-size:$body-font-size + 4px;
+			color:$white-color;
+			display:block;
+		}
+		.proj-address{ @include fontStyle($openSans:true);
+			font-size:$body-font-size + 2px;
+			color:$light-gray-color;
+			line-height:16px;
+			display:block;
+			padding:5px 0 0 0;
+			.icon-favorite{ font-size:$body-font-size + 8px;}
+		}
+		.comp-proj-data{height:220px; }
+		.comp-proj-type-data{ height:332px;}
+		.comp-proj-ratting-data{ height:80px;}
+		.comp-proj-amenity-data{ 
+			.stat-block:nth-child(even){ background:$White-gray-color; }
+			.stat-block{width:$body-width;
+				float:left;
+			}
+			.comp-proj-amenity-content{@include fontStyle($openSans:true);
+				font-size:$body-font-size + 2px;
+				color:$dark-gray-color;
+				line-height:18px;
+				width:$body-width;
+				float:left;
+				padding:5px 0 5px 15px;
+				@include box-sizing(border-box);
+			}
+		}		
+		.comp-prop-add-info{ width:25%;
+			height:$body-width;
+			background:$White-gray-color;
+			display:table-cell;
+			vertical-align:top;
+			border-left:1px solid $white-color;
+			@include box-sizing(border-box);
+			.comp-prop-add-detail{background:$dark-gray-color;
+				width:$body-width;
+				height:92px;
+				padding:12px 10px 0 10px;
+				@include box-sizing(border-box);
+			}
+			.comp-to-add{ @include fontStyle($openSans:true);
+				font-size:$body-font-size + 2px;
+				color:$white-color;
+				display:block;
+				text-align:center;
+				padding:0 0 8px 0;
+				text-transform:uppercase;
+			}
+			.comp-search-proj{
+				width:$body-width;
+				padding:0;
+				@include box-sizing(border-box);
+				input{ width:$body-width;
+					height:30px;
+					@include box-sizing(border-box);
+					margin:0;
+				}
+			}
+		}
+	}
+}
+
+.comp-project-block{
+	height: 62px;
+	width: 100%;
+}
+.image-show{
+	display: block;
+}
+
+.image-hide{
+	display: none;
+}

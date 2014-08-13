@@ -1,0 +1,27 @@
+<div class="contentBoxContainer padding20 marginB15 relativePostion" ng-if="reviewCount">
+	<div class="contentHeader">
+		<h5>
+            Reviews
+		</h5>
+	</div>
+    <div class="row-fluid paddingT10 review-info">
+    	<div class="row-full review-update" ng-repeat="rev in review">
+            <div pt-avatar user-info="rev.user" avatar-type="'discussion'"></div>
+            <div class="review-cont-info content-info">
+            	<div class="row-full paddingB10">
+                	<span class="review-head">{{rev.forumUser.username}} |</span> 
+                    <span class="review-date">{{formatDate(rev.commenttime)}}</span>
+                    <div class="pull-right" ng-if="rev.localityRatings.overallRating">
+                    	<span class="review-rating-head">{{rev.localityRatings.overallRating}}</span> 
+                    </div>
+                </div>
+                <div class="review-head">{{rev.reviewLabel}}</div>
+                <div>{{rev.review}}</div>
+            </div>
+        </div>
+        <div class="view-more-info marginT10" ng-if="showMore" ng-click="getMore()">
+            <div>Load More <i class="fa fa-chevron-down"></i></div>
+        </div>        
+    </div>
+    
+</div>

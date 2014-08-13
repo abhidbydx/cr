@@ -1,0 +1,161 @@
+/**
+ * Name: Portfolio Others Directive
+ * Description: pt-propertylist is curently shown on portfolio page to show all property listings of user
+ * in grid format.
+ * @author: [Nakul Moudgil]
+ * Date: Oct 25, 2013
+ **/
+'use strict';
+angular.module('serviceApp').directive('ptFinancialsummary',function(){
+    return{
+	restrict : 'A',
+	templateUrl : 'views/directives/portfolio/pt-financialSummary.html',
+	//replace : true,
+	scope:{},
+	controller: function($scope, $rootScope, WidgetConfig, GraphParser, PropertyService, $stateParams){
+            $scope.fsWidgetName = $rootScope.labels.portfolio.label.FINANCIAL_SUMMARY;
+
+	    var cleanAssesmentData = function (assesmentData) {
+		// cleaning assesment data for stacked graph
+		
+		if (assesmentData.changeAmount < 0) {
+		    // in this case we must return purchase price, new price + return
+		    return {
+			'changeAmount': {"data":[null, 0-assesmentData["changeAmount"]], color:"#f84000", legendIndex:2},
+			'totalPrice': {"data":[assesmentData["totalPrice"], null], legendIndex:0},
+			'currentPrice' : {"data":[null, assesmentData["currentPrice"]], legendIndex:1}
+		    };
+		}
+		else if (assesmentData.changeAmount === 0) {
+		    return {
+			'totalPrice': {"data":[assesmentData["totalPrice"], null], legendIndex:0},
+			'currentPrice': {"data":[null, assesmentData["currentPrice"]], legendIndex:1}
+		    };
+		}
+		else {
+		    // in this case we must return purchase price, purchase price + return
+		    return {
+			'changeAmount': {"data":[null, assesmentData["changeAmount"]], color:"#00a688", legendIndex:1},
+			'totalPrice': {"data":[assesmentData["totalPrice"], assesmentData["totalPrice"]], legendIndex:0}
+		    };
+		}
+	    };
+	    
+            var tempAssesment = {}, tempTrend = {};
+            $scope.assesment = {}, $scope.trend = {};
+            var assesmentConf = WidgetConfig.FinancialSummary.ActualvsCurrent.widgetData.displayInfo;
+            var trendConf = WidgetConfig.FinancialSummary.PriceTrend.widgetData.displayInfo;
+            
+            $.extend(tempAssesment, WidgetConfig.FinancialSummary.ActualvsCurrent);
+            $.extend(tempTrend, WidgetConfig.FinancialSummary.PriceTrend);
+			tempAssesment.widgetData.displayInfo.tooltip = {
+			formatter : function () {
+				var price;
+				if(this.y >= 10000000 || this.y <= -10000000){
+					price = Math.round(this.y*100/10000000) / 100 + 'Cr';
+				}
+				else if(this.y >= 100000 || this.y <= -100000){
+					price = Math.round(this.y * 100 /100000) / 100 + 'L';
+				}
+				else{
+					price = this.y;
+				}
+				return this.series.name + ": " + price;
+			}
+		},
+
+		$scope.assesment = tempAssesment;
+		$scope.trend = tempTrend;
+
+		PropertyService.getProperty(assesmentConf.seriesMeta.properties.field, $stateParams.propertyId).then(function (data) {
+			$scope.assesmentData = data;
+		});
+		PropertyService.getPropertyPriceTrend($stateParams.propertyId).then(function (data) {
+			$scope.trendData = data;
+		});
+
+		var setReturnLabel = function (chAmount, data) {
+		var newData = [];
+		$.each(data, function (idx, val) {
+		    if (val.name == "Overall Return") {
+			if (chAmount < 0) {
+			    val.name = "Decline";
+			}
+			else{
+			    val.name = "Gain";
+			}
+		    }
+		    newData.push(val);
+		});
+		return newData;
+	    }
+
+        $scope.$watch('assesmentData', function(newVal, oldVal){
+		if(newVal){
+		    var goalAmount = newVal.goalAmount;
+		    var changeAmount = newVal.changeAmount;
+		    newVal = cleanAssesmentData(newVal);
+		    var data = GraphParser.parse(assesmentConf, newVal);
+		    data = setReturnLabel(changeAmount, data);
+		    $scope.assesment.widgetData.displayInfo.series = data;
+		    if (goalAmount) {
+			var series_old = $scope.assesment.widgetData.displayInfo.series.filter(function (x) {
+			    if (x.name != "Goal") {
+				return true;
+			    }
+			    return false;
+			});
+			series_old.push({
+		    	    name: 'Goal',
+		    	    legendIndex : series_old.length,
+		    	    type: 'line',
+		    	    color: '#f84000',
+		    	    marker : {
+		    		enabled : false
+		    	    },
+		    	    data: [goalAmount]
+			});
+			$scope.assesment.widgetData.displayInfo.yAxis.plotLines = [{
+			    value: goalAmount,
+			    width : 2,
+			    dashStyle : 'line',
+			    color : '#f84000',
+			    label : {
+				text : 'Goal'
+			    }
+			}];
+			$scope.assesment.widgetData.displayInfo.series = series_old;
+		    }
+		    else {
+			$scope.assesment.widgetData.displayInfo.yAxis.plotLines = [];
+		    }
+		}
+		});
+
+		$scope.$watch('trendData', function(newVal, oldVal){
+		if(newVal){
+			var data = GraphParser.parse(trendConf, newVal);
+			$scope.trend.widgetData.displayInfo.series = data.yAxis;
+			$scope.trend.widgetData.displayInfo.xAxis.categories = data.xAxis;
+			console.log($scope.assesment.widgetData.displayInfo);
+			if($scope.assesment.widgetData.displayInfo.series[2] && $scope.assesment.widgetData.displayInfo.series[2] !=""){
+            $scope.trend.widgetData.displayInfo.yAxis.plotLines = [{
+                value: $scope.assesment.widgetData.displayInfo.series[2].data[0],
+                width : 2,
+                dashStyle : 'line',
+                color : '#f84000',
+                label : {
+                text : 'Goal'
+                }
+            }];
+            $scope.trend.widgetData.displayInfo.series[1] = $scope.assesment.widgetData.displayInfo.series[2];
+        }
+
+
+		}
+		});
+	},
+	link: function(){
+	}
+	}
+});

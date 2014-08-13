@@ -1,0 +1,42 @@
+/**
+   * Name: Run.js
+   * Description: Services mentioned in this file are made instatiated on app start and made avialable globally.
+   * This way we can access services in templates.
+   * @author: [Nakul Moudgil]
+   * Date: Sep 9, 2013
+**/
+'use strict';
+
+angular.module('serviceApp')
+    .run(['$rootScope', 'TrackingService', 'LangService', 'SearchService', 'SeoService', '$location', function($rootScope, TrackingService, LangService, SearchService, SeoService, $location) {
+    	LangService.then(function(data) {
+	    $rootScope.labels = data;
+	});
+        $rootScope.seoData = {};
+        
+        $rootScope.$on('$locationChangeSuccess', function () {
+            SeoService.getSeoTags($location.path()).then(function (data) {
+                $rootScope.seoData = SeoService.parseSeoTags(data);
+                if ($rootScope.seoData.title) {
+                    angular.element("title").html($rootScope.seoData.title);
+                }
+                
+            });
+        });
+        //Added TrackingService for GA/MIXPANEl event to access globaly
+		$rootScope.TrackingService = TrackingService;
+        $rootScope.interestRate = 11;
+        $rootScope.noOfInstallments = 240;
+        $rootScope.downPaymentPercentage = 20;  
+	$rootScope.$watch('PARSED_URL_DATA', function(newVal, oldVal){
+            if(newVal && newVal.VIEW_TYPE !== -1){
+  		SearchService.searchController(newVal, oldVal); 
+            }
+        var isMaps = function(){
+        var curURL = $location.path();
+        return curURL.indexOf('maps') != -1;
+      }
+
+      $scope.isMaps = isMaps;    
+  	});
+    }]);

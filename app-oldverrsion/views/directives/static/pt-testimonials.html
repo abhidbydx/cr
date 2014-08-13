@@ -1,0 +1,20 @@
+<div pt-breadcrum b-crum="bCrum" b-crum-text="bCrumText" seo-data="seoData"></div>
+<div class="row-fluid">
+    <div pt-Sidebar class="span3 staticView">
+        <div pt-quicklinks id="portQuickLinks paddingT15"></div>
+    </div>
+    <div class="span9">
+        <div class="contentBoxContainer marginB15 paddingTB20LR25">
+            <div class="contentHeader">
+                <h4>Client Testimonials</h4>
+            </div>
+            <div class="row-fluid paddingT10">
+                <div ng-repeat="testimonial in testimonials" class="testimo-quote-info testimo-info row-two-column pull-left">
+                    <p class="paddingT10 border-Top"><i class="fa fa-quote-left left"></i> <span ng-bind-html="testimonial.clientComment"></span> <i class="fa fa-quote-right right"></i></p>
+                    <h6 class="marginB15">{{testimonial.clientName}}</h6>
+                </div>  
+            </div>    
+        </div>
+    </div>
+</div>
+

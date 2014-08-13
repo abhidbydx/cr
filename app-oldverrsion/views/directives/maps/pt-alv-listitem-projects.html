@@ -1,0 +1,48 @@
+<div class="alv-listitem-projects">
+	
+    <div class="proj-name-wrap">
+        <span ng-if="data.avgPriceRisePercentage && data.avgPriceRisePercentage !== 0" class="proj-name" href="javascript(0)" once-title="data.fullName" once-text="data.fullName"></span>
+        <span ng-if="data.avgPriceRisePercentage === 0 || data.avgPriceRisePercentage === undefined" class="proj-name big" href="javascript(0)" once-title="data.fullName" once-text="data.fullName"></span>
+        <span ng-if="data.avgPriceRisePercentage > 0" class="rise-fall green" once-title="data.avgPriceRiseMonthsHtml">
+            (<span once-text="data.avgPriceRisePercentage"></span>% <i class="fa fa-arrow-up"></i>)
+        </span>
+        <span ng-if="data.avgPriceRisePercentage < 0" class="rise-fall grey" once-title="data.avgPriceRiseMonthsHtml">
+            (<span once-text="-data.avgPriceRisePercentage"></span>% <i class="fa fa-arrow-down"></i>)
+        </span>
+        
+        <div class="btn-area">
+        	<div class="wrap projFav_{{data.projectId}}" pt-favorite project-id='data.projectId' caller="callerLocation"></div>
+            <div class="wrap" pt-compare-button project='data' caller="callerLocation"></div>
+            <div class="wrap"><button class="gray-icon-btn-action enquire" tooltip="Enquire" ng-click="openLeadForm($event, undefined, 'hidden-enquiry-listing')"><i class="fa fa-envelope"></i></button></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col1 img-wrap">
+        <img class="proj-imgs" once-alt="data.name" ng-src="{{ data.imageThumbUrl }}" width="70" height="55" />
+        <div ng-if="data.projectStatus === 'New Launch'" class="proj-status">
+            <div class="bnr green">New Launch</div>
+        </div>
+        <div ng-if="data.projectStatus === 'Launching Soon'" class="proj-status">
+            <div class="bnr blue" tooltip="Launching Soon">Launching...</div>
+        </div> 
+    </div>
+    <div class="col2">
+        <div class="address" once-title="data.address" once-text="data.address"></div>
+        <div class="prop-types" once-text="data.bhkInfo"></div>
+        <div class="prices">
+            New: <span ng-if="data.newPriceHtml != 'Price On Request'" once-html="data.newPriceHtml"></span>
+            <span ng-if="data.newPriceHtml == 'Price On Request'"><a href="javascript:void(0)" ng-click="openLeadForm($event, 'newPrice', 'hidden-pricerequest-listing')">Price On Request</a></span><br/>
+            <div ng-if="data.resalePriceHtml">
+                Resale: <span once-html="data.resalePriceHtml"></span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="data.offerDesc && data.offerDesc !== 'none' && data.offerDesc != ''" class="deal-wrap">
+        <div class="deal-bar">
+            <i class="fa fa-bell-o"></i><br />
+            <strong class="trotate">DEAL</strong> 
+            <div class="deal-info" once-text="data.offerDesc"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

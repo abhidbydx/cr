@@ -1,0 +1,30 @@
+<div class="dropPortfolio">
+    <div class="ContentContainer">
+        <div class="requireText paddingT1B4 text-right">
+            <div class="dropdown displayinlineBlock socialLink">
+                <a class="dropdown-toggle" data-toggle="dropdown">Share this Portfolio Tool</a> with Friends and Family
+                <ul class="dropdown-menu" role="menu">
+                    <li class="facebook">
+                        <a href="https://www.facebook.com/sharer.php?app_id=653740348027914&sdk=joey&u=http%3A%2F%2Fwww.proptiger.com%2Fproperty-portfolio-tracker.php&display=popup" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="google plus">
+                        <a href="https://plus.google.com/share?url='http://www.proptiger.com/property-portfolio-tracker.php'" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
+                                src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a>
+                    </li>
+                    <li class="twitter">
+                        <a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Flocalhost%3A9000%2Fportfolio%2Findex&text=I%20just%20used%20the%20My%20Portfolio%2C%20India%27s%20first%20property%20tracker%20from%20Proptiger.com%20%40proptiger&tw_p=tweetbutton&url=http%3A%2F%2Fwww.proptiger.com%2Fproperty-portfolio-tracker.php" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="more-results-container" ng-if="!loaderHide">
+            <div pt-loading-block class="searchLoad"></div><div class="searchLoad paddingL5">Loading ...</div>
+        </div>
+        <div pt-sortable class="widgetContentContainer"></div>
+    </div>
+</div>

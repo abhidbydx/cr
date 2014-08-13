@@ -1,0 +1,21 @@
+<div>
+    <div class="closeBtn ng-scope"  ng-click="dismiss()">
+        <i class="fa fa-times"></i>
+    </div>
+    <div class="modal-header">
+        <!--<button type="button" class="closeBtn" ng-click="dismiss()">x</button>-->
+        <span>Welcome {{userInfo.USERNAME}}!</span>
+    </div>
+
+    <div class="modal-body">
+        <div class="modal-min-ht">
+        <p>Save this search for your future reference*</p>
+        <p class="error">{{errMsg}}</p>
+        <input type="text" placeholder="" ng-model="searchText" class="input-xlarge bigger">
+        <button class="btn-primary ng-binding" ng-click="saveSearch( searchText )">Save</button>
+        </div>
+        <p>*Once saved, you may access this search in your "Account" section</p>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>

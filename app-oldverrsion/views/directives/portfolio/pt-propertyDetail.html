@@ -1,0 +1,73 @@
+<div>
+    <div pt-widgetcontainer name-param="propDetailWidgetName">
+        <div class="widgeteDetailContainer formArea">
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.PROPTIGER_PROPERTY_NAME}}:</label>
+                    <span>{{property.name}}</span>
+                </div>
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.PURCAHSE_PRICE}}:</label>
+                    <span><i class="fa fa-inr"> {{property.formattedtotalPrice}}</i></span>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.PROJECT_NAME}}:</label>
+                    <span>{{property.projectName}}</span>
+                </div>
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.CURRENT_PRICE}}:</label>
+                    <span><i class="fa fa-inr"> {{property.formattedcurrentPrice}}</i></span>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.common.items.LOCALITY}}:</label>
+                    <span>{{property.locality}}, &nbsp;{{property.cityName}}</span>
+                </div>
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.GOAL_AMOUNT}}:</label>
+                    <span><i class="fa fa-inr" ng-show="property.formattedgoalAmount"> {{property.formattedgoalAmount}}</i></span>
+                    <span ng-show="!property.formattedgoalAmount">Not Specified</span>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.common.items.BUILDER}}:</label>
+                    <span>{{property.builderName}}</span>
+                </div>
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.CONSTRUCTION_STATUS}}:</label>
+                    <span>{{property.projectStatus}}</span>
+                </div>                
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.common.items.TYPE}}:</label>
+                    <span>{{property.unitType}} - {{property.unitName}}</span>
+                </div>
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.EXPECTED_POSSESSION_DATE}}:</label>
+                    <span>{{property.completionDate | date:'longDate'}}</span>
+                </div>                
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.common.items.SIZE}}:</label>
+                    <span>{{property.listingSize}} {{property.measure}}</span>
+                </div>
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.DATE_OF_PURCAHSE}}:</label>
+                    <span>{{property.purchaseDate | date:'longDate'}}</span>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <label class="pull-left">{{labels.portfolio.label.UNIT_NO}}:</label>
+                    <span>{{unit}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

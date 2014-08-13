@@ -1,0 +1,79 @@
+<div pt-notification  class="notification-info"></div>
+<div id="myLoader" class="loader_implement">
+	<div pt-loading-block  class="mapSpin"></div>    
+</div>
+<div class="body_map">
+    <section class="map-body">
+        <div class="map_canvas_wrap">
+            <img src="images/center.png" style="display:none;"><img src="images/resize.png" style="display:none;">
+            <div pt-map id="map_canvas" state="map.state" events="map.events" services="map.services"></div>
+            <div id="projectLoader" class="proj_loader_implement">
+            	<div pt-loading-block class="mapSpin"></div>    
+            </div>
+            <div ng-show="displaySettings.projectDetail">
+                <div class="proj-card-wrap" pt-projectdetail data="projectDetail" map="map" display-set = "displaySettings" show-un-mapped="displaySettings.showUnMapped" close-project-detail="closeProjectDetailCard(showNeighbourhood, closeCard)" add-neighbourhood="addNeighbourhood(type, level, position, radius, direction)" remove-neighbourhood="removeNeighbourhood(type, level, callback)" neighbourhood-items="neighbourhoodItems(radius,position)" neighbourhood-value="neighbourhoodValue"></div>
+            </div>
+            <div ng-if="displaySettings.neighbourhood && !displaySettings.showUnMapped">
+                <div pt-neighbourhood-dd map="map" add-neighbourhood="addNeighbourhood(type, level, position)" remove-neighbourhood="removeNeighbourhood(type, level, callback)" neighbourhood-items="neighbourhoodItems(radius,position)" neighbourhood-value="neighbourhoodValue"></div>
+            </div>
+            <div pt-zoom-map back-to-city="displaySettings.alvDisplayType === 'project'" city-name="selectedCity.label" back="backToCity()"></div>
+            <div ng-show="displaySettings.alvDisplayType === 'project'" ng-if="displaySettings.showpriceposs">
+                <div pt-showby-price-poss show-type="markerSettings.displayType" ranges="gradientRanges"></div>
+            </div>
+
+            <div pt-select-city selected-city="selectedCity" ng-if="showCitiesModal"></div>
+        </div>
+        
+        <div pt-alv state="alvState">
+            <div class="for-scroll" pt-scroll refresh="pageSetting.resetScroll" load-more="loadMore()">
+                <div ng-show="displaySettings.showErrorMsg" class="sorry-noproject">
+                    <i class="fa fa-frown-o fa-3"></i>
+                    <div class="sad-smiley">Sorry! No projects found for the filters you applied.</div>
+                    <div class="sad-text">To see projects, please modify your selection by using filters on the top.</div>
+                </div>
+                <div ng-hide="displaySettings.showErrorMsg" ng-switch on="displaySettings.alvDisplayType">
+                    <div ng-switch-when="project">
+                        <div class="alv-result-count-proj">
+                            <div class="proj-count">
+                                <strong>{{ pageSetting.alvVisibleList.length + pageSetting.alvHiddenList.length + pageSetting.unMappedCount }}</strong>
+                                <span>Projects Around</span> 
+                                <strong class="loc" tooltip="{{localityCenter}}" tooltip-placement="bottom">{{localityCenter}}</strong>
+                            </div>
+                            <div class="unmapped-wrap">
+                                <span ng-if="pageSetting.unMappedCount && !displaySettings.showUnMapped" class="unmapped" ng-click="switchMappedProject()">{{ pageSetting.unMappedCount }} unmapped <i class="fa fa-question-circle" tooltip="We don’t have exact location of these projects on map." tooltip-placement="right"></i></span> 
+                                <span ng-if="displaySettings.showUnMapped" class="back-to-mapped" ng-click="switchMappedProject()">
+                                    <i class="fa fa-reply"></i> Go Back to Mapped Projects
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-if="!displaySettings.showUnMapped">
+                            <div ng-repeat="mrkr in pageSetting.alvVisibleList" pt-alv-listitem-projects marker="mrkr"></div>
+                        </div>
+                        <div ng-if="displaySettings.showUnMapped">
+                            <div ng-repeat="mrkr in pageSetting.unMappedProjects" pt-alv-listitem-projects marker="mrkr"></div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="locality">
+                        <div class="alv-result-count-prop">
+                            <strong>{{ pageSetting.projectCount }}</strong> Projects in <strong>{{ pageSetting.localityCount }}</strong> Localities
+                        </div>
+                        <div pt-alv-listitem-locality ng-repeat="mrkr in pageSetting.alvVisibleList" marker="mrkr" map="map.state"></div>
+                    </div>
+                    <!-- commenting out similar property logic for map-V2 release
+                    <div ng-switch-when="simi-prop">
+                        <div class="alv-result-count-prop">
+                        
+                        </div>
+                        <div pt-alv-listitem-simi-prop ng-repeat="simi-prop in localities.data" data="prop" clicked="simi-prop.clicked(prop)" hover="simi-prop.mouseHover(prop)"></div>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="clearfix"></div>
+    </section>
+    <!-- we dont need to show loader for maps -->
+    <!--footer class="map-footer"> </footer-->
+    <div class="clearfix"></div>
+</div>

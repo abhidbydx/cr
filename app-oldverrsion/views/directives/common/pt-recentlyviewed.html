@@ -1,0 +1,8 @@
+<div class="ContentContainer">
+    <div pt-widgetcontainer class="marginT21" id="portRecentlyViewed" name-param="rvWidgetName">				
+        <div ng-show="!noRecentView" class="widgeteDetailContainer" pt-widgetgrid g-options="pgOptions" g-data="pgData"></div>
+    	<div ng-show="noRecentView" class="widgeteDetailContainer">
+	        {{errorMessage}}
+    	</div>
+    </div>
+</div>

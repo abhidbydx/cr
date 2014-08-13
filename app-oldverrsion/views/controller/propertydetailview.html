@@ -1,0 +1,93 @@
+<div class="contentHeader">
+  <h5>{{propOption.name}}</h5>
+</div>
+<div class="content-info row-fluid">
+  <div class="row-fluid paddingT15 pull-left">
+    <div class="pull-left">
+      <span class="pull-left paddingL10 report-info"><a ng-click="sellProperty('Project')">Sell Your Property</a></span>
+      <span ng-if="paymentPlanImages[0].data.length > 0" class="pull-left paddingL15"><a ng-click="open_payment_plan_modal()">View Payment Plan</a></span>
+    </div>
+  </div>
+</div>
+<div class="content-info row-fluid">
+  <div class="row-fluid paddingB10">
+    <div class="span6">
+      <div ng-if="selected_property.servantRoom || selected_property.poojaRoom" class="proj-prop-det-info row-full">
+        <label>Additional Details</label>
+        <span ng-if="selected_property.servantRoom">Servant Room</span>
+        <span ng-if="selected_property.poojaRoom && selected_property.servantRoom">and</span>
+        <span ng-if="selected_property.poojaRoom">Pooja Room</span>
+      </div>
+      <div class="proj-prop-det-info row-full" ng-if="selected_property.size">
+        <label>Size</label>
+        <span>{{selected_property.size}} {{selected_property.measure}}</span>
+      </div>
+      <div class="proj-prop-det-info row-full" ng-if="selected_property.budget">
+        <label>New Price</label>
+        <span><i class="fa fa-inr"></i> {{selected_property.budget | formatPrice}} (<i class="fa fa-inr"></i> {{selected_property.pricePerUnitArea }} / {{selected_property.measure}})</span>
+      </div>
+      <div class="proj-prop-det-info row-full" ng-if="!selected_property.budget">
+        <label>New Price</label>
+        <a ng-click="openLeadForm($event, 'newPrice', 'hidden-pricerequest-mid', selected_property)"><span>On Request</span></a>
+      </div>
+      <div class="proj-prop-det-info row-full" ng-if="selected_property.resalePrice">
+        <label>Resale Price</label>
+        <span><i class="fa fa-inr"></i> {{selected_property.resalePrice | formatPrice}}</span>
+      </div>
+      <div class="proj-prop-det-info row-full" ng-if="emi">
+        <label>EMI</label>
+        <span><a ng-click="goToEl('emi_calc', 'EMI')" tooltip="for {{noOfYears}} years"><i class="fa fa-inr"></i> {{emi}}</a></span>
+      </div>
+    </div>
+    <div class="span6" ng-if="selected_property.floorPlanImage">
+      <div class="proj-floor-plan-img-info">
+        <div class="proj-prpt-img-info relativePostion">
+          <div class="proj-floor-plan-info">Floor Plan</div>
+          <img ng-src="{{selected_property.floorPlanImage[0].data[0].smallImage}}" ng-click="open_image_modal()" class="cursorZoomIn"></div>
+      </div>                
+    </div>
+    <div class="span6" ng-if="!selected_property.floorPlanImage">
+      <div class="proj-floor-plan-img-info">
+        <div class="proj-prpt-img-info relativePostion">
+          <div class="proj-floor-plan-info">Floor Plan</div>
+          <img ng-src="../../../styles/images/no-floor-plan.jpg" ng-click="openLeadForm($event, 'floorPlan', 'hidden-floorrequest-mid', selected_property)" class="cursorZoomIn"></div>
+      </div>                
+    </div>
+  </div>
+  <div class="row-fluid marginB15">
+    <div class="span2"></div>
+    <div class="span10 border-Top paddingT10">
+      <div class="span12">
+        <button class="btn-action pull-left" ng-click="openLeadForm($event, undefined, 'hidden-enquiry-mid')"><i class="fa fa-phone paddingR5"></i>Get Call back</button>
+        <div class="pull-left">
+          <span class="pull-left paddingL10 paddingT5 report-info"><a ng-click="sellProperty('Project')">Sell Your Property</a></span>
+          <span ng-if="paymentPlanImages[0].data.length > 0" class="pull-left paddingL15 paddingT5"><a ng-click="open_payment_plan_modal()">View Payment Plan</a></span>
+        </div>
+        <div class="pull-right">            
+          <div class="pull-left discla-info overlay-modal discla-right marginR15">{{labels.common.label.DISCLAIMER}}
+            <div class="overlay-Wrapper padding10 content-info">{{labels.common.label.DISCLAIMER_INFO}}</div>
+          </div>
+          <div class="report-info pull-left"><a ng-click="showErrorForm()" class="grayLink"><i class="fa fa-exclamation-triangle"></i> Report Error</a></div>
+        </div>
+      </div>
+    </div>                        
+  </div>
+  <div class="row-fluid paddingT20" ng-if="other_sim_props_list.length > 0">
+    <div class="contentHeader">
+      <h6>Other {{other_sim_props_header}} units</h6>
+    </div>
+    <div class="row-fluid paddingL15">
+      <div ng-repeat="oth_prop in other_sim_props_list" class="paddingR20 pull-left"><a ng-click="update_prop(oth_prop)"><span class="font-weight">{{oth_prop.name}}</span></a></div>
+    </div>
+  </div>
+  <div class="row-fluid paddingT30">
+    <div ng-click="toggleAllProperties()" class="contentHeader cursorPointer marginB15">
+      <h6>All Properties in the Project
+        <div class="pull-right paddingR10">
+          <i class="fa fa-chevron-{{arrowState}} cursorPointer"></i>
+        </div> 
+      </h6>
+    </div>
+    <div class="relativePostion pull-left row-full paddingT15 marginB15" pt-property-listings page-type="project-property" ng-if="project && project.properties && isAllProperties" properties="project.properties" project='project' open-lead-form="openLeadForm" floorplanimagelist="floorPlanImageList" page="projectDetail"></div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+/* 
+Desc: Property listing table information Scss Document 
+Author: Sanjeev Verma
+Date: 06 Jan 2014
+*/
+.additional-table{ width:$body-width;
+	 border:1px solid $light-gray-color;
+	 margin:0;
+	tr{
+		&:nth-child(odd){
+			td{ background:$white-light-white-color;}
+		}		
+		&.header-row{ background: $light-gray-color;
+			th{ @include fontStyle($openSansBold:true);
+				font-size:$body-font-size - 1px;
+				color:$darkBlack-gray-color;
+				width:$body-width - 80%;
+				padding:0px;
+				text-align:center;
+				text-transform:uppercase;
+			}
+			&:hover{background:$light-gray-color;
+				cursor:default;
+				th{	color:$darkBlack-gray-color !important; 
+					background:$light-gray-color;
+				}
+			}
+		}
+		&.more-option-info{
+			.text-inde-info{
+				a{ padding-left:25%;}
+			}
+		}
+		td{ @include fontStyle($openSansBold:true);
+			font-size:$body-font-size;
+			color:$darkBlack-gray-color;
+			padding:1px 5px;
+			width:$body-width - 80%;
+			height:37px;
+			@include box-sizing(border-box);
+			text-align:center;
+			vertical-align:middle;
+			line-height:normal;
+			border-top:1px solid $light-gray-color;
+			border-left:1px solid $light-gray-color;
+			&.colu-hidden{ 
+				span{ visibility:hidden; }
+			}
+			.requ-info{ a{ display:none;}}
+			.rate{ display:none;}			
+		}
+		&:hover{ 
+			td{ background:$lighter-mid-light-gray-color;
+				color:$darkBlack-gray-color !important;
+				.requ-info{ 
+					span{ display:none;}
+					a{ display:block;}
+				}
+				.rate{ display:block; 
+					color:$gray-color;
+				}
+			}
+		}
+	}
+}
+.more-info{ position:absolute;
+	bottom:-13px;
+	width:$body-width;
+	height: 16px;
+	background-color: $darkligh-gray-color;
+	@include fontStyle($openSansBold:true);
+	font-size:$body-font-size - 1px;
+	line-height: 11px;
+	color: $white-color;
+	cursor: pointer;
+	padding:2px 20px;
+	text-align:center;
+	@include box-sizing(border-box);
+}
+.view-more-info{ position:absolute;
+	bottom:-5px;
+	left:0;
+	width:$body-width;
+	background-color:$lighter-mid-gray-color;
+	@include fontStyle($openSansBold:true);
+	font-size:$body-font-size;
+	line-height: 11px;
+	color: $darkligh-gray-color;
+	cursor: pointer;
+	padding:7px 20px;
+	text-align:center;
+	@include rounded($bottom:true, $radius:5px);
+	@include box-sizing(border-box);
+	&:hover{ background:$darkligh-mid-gray-color;
+		color:$white-color;
+	}
+}
+	

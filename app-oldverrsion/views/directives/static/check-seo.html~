@@ -1,0 +1,38 @@
+<div pt-breadcrum b-crum="bCrum" b-crum-text="bCrumText" seo-data="seoData"></div>
+<div class="row-fluid">
+    <div pt-Sidebar class="span3 staticView">
+        <div pt-aboutlinks></div>
+        <div pt-quicklinks id="portQuickLinks"></div>
+    </div>
+    <div class="span9">
+        <div class="contentBoxContainer marginB15 paddingTB20LR25">
+            <div class="contentHeader">
+                <h4>About Us</h4>
+            </div>	
+            <p>PropTiger is an independent real estate advisor with a pan-India presence. We possess vast experience and knowledge of real estate in India, and aspire to be your first port of call if you want to buy a residential property in India. Led by a group of dynamic and visionary investors, PropTiger aims to utilize its vast knowledge of the real estate sector to help those looking to buy property in India.</p>
+            <p>Our mission is:</p>
+            <p class="mis-txt">"To help Indian families buy their dream home."</p>
+            <p>Headquartered in the National Capital Region of Delhi (NCR), PropTiger has been founded by alumni of Harvard Business School, IIT and ISB who possess decades of combined experience in real estate in India as well as abroad.</p>
+            <p>PropTiger has a team of real estate experts spread across 8 cities in India, namely <strong>Noida</strong>, <strong>Gurgaon</strong>, <strong>Mumbai</strong>, <strong>Pune</strong>, <strong>Bangalore</strong>, <strong>Chennai</strong>, <strong>Kolkata</strong> and <strong>Ahmedabad</strong>. Each of our staff is well trained across various aspects of buying residential property – we assist you right from narrowing down the various options to selecting the ideal property for you and completing the final paperwork related to the transaction. Rest assured, that our assistance is completely transparent.</p>    
+        </div>
+        <div class="contentBoxContainer marginB15 paddingTB20LR25 relativePostion">
+            <div class="contentHeader">
+                <h4>Client Testimonials <a class="pull-right" href="testimonials">View all Testimonials <i class="fa fa-chevron-right"></i></a></h4>            
+            </div>
+            <p>I would like to appreciate the service and support got from Ms Gorima of Proptiger, Pune.
+    Because of her sincere service and support I finally took the decision to buy one flat in Pune. She very nicely and logically cleared all my queries and doubts and convinced me to take a final decision. Whenever I ring , she gladly replies and explains my queries.<br />
+    May God bless her !!!</p>
+            <h6 class="marginB15">Tapan Das <br /> 
+                <span class="lightColor">Pune</span>
+            </h6>
+            <!--<div class="more-testimo-info"><i class="fa fa-chevron-down"></i></div>-->
+        </div>
+        <div class="contentBoxContainer marginB15 row-fluid leadContainer comm-prom-info">
+            <div pt-staticimage class="span8 prop-img-info"></div>
+            <div class="span4" ng-controller="leadController">
+                <div class="enqu-form-container" pt-enquireform city-enabled="cEnabled" locality-enabled="lEnabled" data-initial="myData"></div>
+            </div>
+        </div>    	
+    </div>
+</div>
+

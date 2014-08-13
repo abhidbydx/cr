@@ -1,0 +1,107 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{HTTP_USER_AGENT} (httrack|GermCrawler|squider|mbot) [NC]
+RewriteRule .* - [G]                                
+
+RewriteCond %{HTTP_USER_AGENT} Amazon.CloudFront
+RewriteRule ^robots\.txt$ robots-cdn.txt [L]
+
+RewriteCond %{HTTP_USER_AGENT} (android|blackberry|googlebot-mobile|iemobile|iphone|ipod|opera\ mobile|palmos|webos) [NC]
+RewriteRule ^(.*)$ mobile/$1  [L]
+
+#RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|yugal) [NC]
+#RewriteRule ^(.*)$ /old/$1  [L]
+
+RewriteCond %{HTTP_HOST} ^proptiger.com
+RewriteRule ^(.*)$ http://www.proptiger.com/$1 [NE,R=301,L,QSA]
+
+RewriteCond %{REQUEST_URI} !^/check-seo$
+RewriteCond %{QUERY_STRING} _escaped_fragment_=$
+RewriteRule ^(.*)$ /snapshots/$1/? [NC,L]
+
+RewriteCond %{QUERY_STRING} _escaped_fragment_=$
+RewriteRule ^(.*)$ /1.html [R=301,L]
+
+RewriteRule ^$ /index.php [L]
+
+ErrorDocument 404 /404.html
+RewriteCond %{REQUEST_URI} ^/404/$
+RewriteRule ^(.*)$ /404.html [L]
+
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteRule (.*) /${lc:$1} [R=301,L]
+
+RewriteRule ^property-portfolio-tracker.php$ portfolio-tracker.php [L]
+
+RewriteRule ^property\/[A-Za-z]+(\/[a-zA-Z0-9-]*)*$ /list.php [L]
+
+RewriteRule ^careers/(.*)\.php$ /careers.php?s=$1 [L]
+RewriteRule ^resale-property-in-(.*).php$ google_page_9.php?url=$1 [QSA]
+RewriteRule ^properties-in-(.*).php$ google_page_9.php?newLaunch=$1 [QSA]
+
+RewriteRule ^([\w]+)-real-estate/([\w\-]+-\d{5,5}/)?schools$ amenities.php?viewType=school [L]
+RewriteRule ^([\w]+)-real-estate/([\w\-]+-\d{5,5}/)?restaurants$ amenities.php?viewType=restaurant [L]
+RewriteRule ^([\w]+)-real-estate/([\w\-]+-\d{5,5}/)?banks$ amenities.php?viewType=bank [L]
+RewriteRule ^([\w]+)-real-estate/([\w\-]+-\d{5,5}/)?hospitals$ amenities.php?viewType=hospital [L]
+RewriteRule ^([\w]+)-real-estate/([\w\-]+-\d{5,5}/)?petrol-pumps$ amenities.php?viewType=petrol_pump [L]
+RewriteRule ^([\w]+)-real-estate/([\w\-]+-\d{5,5}/)?atms$ amenities.php?viewType=atm [L]
+RewriteRule ^google_page\.php$ /google_page_4.php [QSA,R=301]
+RewriteRule ^google_page_[123567]\.php$ /google_page_4.php [QSA]
+RewriteRule ^google_gosf\.php$ / [QSA,R=301]
+RewriteRule ^all-builders$ all_builders\.php [L]
+RewriteRule ^(([\w]+)/)?all-localities$ /localities-in\.php?cityName=$2 [QSA,L]
+RewriteRule ^(([\w]+)/)?all-cities$ /all_cities.php [L]
+RewriteRule ^([\w]+)/all-builders$ /builders-in\.php?cityName=$1 [QSA,L]
+RewriteRule ^([\w]+)-real-estate/\1-sitemap\.php$ sitemap-details.php?cityName=$1 [L]
+RewriteRule ^residential-apartments-flats-([\w\-]+)\.php$ sitemap-details.php?cityName=$1
+RewriteRule ^([\w]+)-real-estate/localities$ localities_in_city.php?viewType=localities [L]
+
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+  # Options +SymLinksIfOwnerMatch
+    RewriteEngine On
+  # RewriteBase /
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-s
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !/styles
+    RewriteCond %{REQUEST_URI} !/index.php
+    RewriteRule ^(.*) index.php [L,QSA]
+</IfModule>
+
+<Files  ~ "\.less$">
+  Order allow,deny
+  Deny from all
+</Files>
+
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(eot|font.css|otf|ttc|ttf|woff)$">
+ Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+</IfModule>
+
+#<ifmodule mod_rewrite.c>
+#RewriteBase /blog/
+#RewriteRule ^index\.php$ - [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /blog/index.php [L]
+#</ifmodule>
+
+

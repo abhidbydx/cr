@@ -1,0 +1,676 @@
+/* 
+Desc: Home page Scss Document 
+Author: Sanjeev Verma
+Date: 23 May 2014
+*/
+.propSearch{ background:$Black-gray-color url(../images/topSearch.jpg) no-repeat; 
+	background-size: $body-width; 
+	height: $body-width - 20%;
+	min-height:344px;
+}
+.homeSearch{ @include fontStyle($latoBold:true);
+	font-size:$body-font-size*2 - 4px;
+	color:$white-color;
+}
+.findTextInfo{ padding:48px 0 0px 0;
+	.findLightHead{@include fontStyle($openSansLight:true);
+		font-size:$body-font-size*5 - 8px;
+		line-height:$body-font-size*5 - 6px;
+		color:$white-color;
+		text-align:right;
+		
+	}
+	.findTextHead{@include fontStyle($openSans:true);
+		font-size:$body-font-size*5 - 8px;
+		line-height:$body-font-size*5 - 6px;
+		color:$white-color;
+		text-align:right;
+		text-shadow:0 0 20px #555555;
+		
+	}
+}
+.transBlackColor{position:absolute;
+	height:$body-width;
+	width:$body-width; 
+	@include background-image(linear-gradient(top, rgba(17,17,17,0.3) 0%,rgba(255,255,255,0) 15%,rgba(255,255,255,0) 70%,rgba(17,17,17,0.3) 100%));
+}
+.propSearchInfo{ background:$white-light-white-color;
+	@include rounded( $radius:5px);
+	padding:5px 15px 15px 15px;
+	.propSearchBox{ padding:15px 0 0 0;
+		width:$body-width;
+		@include box-sizing(border-box);
+		.propSearchBoxInfo{ width:$body-width;
+			input{ width: $body-width - 20%; 
+				@include box-sizing(border-box);
+				border-top-right-radius:0;
+				border-bottom-right-radius:0;
+				@include rounded($left:true, $radius:5px);
+				margin:0;	
+				height:40px;
+				&.redBorder {
+				border:1px solid red;
+				}
+			}
+			.searchHomeBtn{ width: $body-width - 80%;
+				background: $btn-primary-bgcolor;
+				@include fontStyle($openSans:true);
+				font-size:$body-font-size + 3px;
+				color:$btn-primarycolor;
+				text-transform:uppercase;
+				padding:10px;
+				border:none;
+				font-weight:bold;
+				@include rounded($right:true, $radius:5px);	
+				@include box-sizing(border-box);			
+			}
+		}		
+	}
+}
+.propWhy{ background:$white-color;
+	padding:3% 0;
+	.whyHeading{ @include fontStyle($openSans:true);
+		font-size:$body-font-size*3 + 4px;
+		line-height:$body-font-size*4 - 2px;
+		color:$dark-gray-color;
+	}
+	.askTextinfo{ @include fontStyle($openSans:true);
+		font-size:$body-font-size + 6px;
+		line-height:$body-font-size + 8px;
+		color:$darkligh-mid-gray-color;
+		display:block;
+		padding:2% 0 0 0;
+	}
+	.propWhyText{ @include fontStyle($openSans:true);
+		font-size:$body-font-size*2 - 4px;
+		line-height:$body-font-size*2;
+		color:$darkBlack-gray-color;
+	}
+	.circleBox{ 
+		padding:5% 0;
+	}
+	a{ font-size:$body-font-size + 4px; 
+		padding:5% 0 0 0;
+	}
+}
+
+
+.propCityView{ background:$darkBlack-gray-color;
+	padding:10px 0 0;
+	.propCityHead{ @include fontStyle($openSans:true);
+		font-size:$body-font-size*2 - 4px;
+		color:$light-gray-color;
+		text-align:center;
+		padding:0 0 10px 0;
+	}
+	.propCityName{ position:absolute;
+		top:10px;
+		left:0px;
+		@include fontStyle($openSans:true);
+		font-size: $body-font-size + 4px; 
+		color:$light-gray-color;
+		background: rgba(17,17,17,0.7);
+		padding:5px;
+		white-space:nowrap;
+		z-index:1;
+		line-height:16px;
+	}
+	ul{
+		li{ min-width: 20px;
+			max-width:14.7%;
+			height:125px;
+			margin:10px .95%;
+			display:inline-block;
+			@include box-sizing(border-box);
+			overflow:hidden;
+			position:relative;
+			button{ display:none;}
+			&:hover{
+				&:before{ content: '';
+					background: $black-color; 
+					opacity:0.6;
+					filter: alpha(opacity=60);
+					position:absolute;
+					top:0;
+					left:0;
+					width:$body-width;
+					height:$body-width;
+					display:inline-block !important;
+				}
+				button{ width:$body-width - 30%;
+					top:$body-width - 45%;
+					left:$body-width - 85%;
+					position:absolute;
+					display:block;
+					z-index:1;
+					@include box-sizing(border-box);
+					
+				}
+			}
+			
+		}
+	}
+}
+.propSkyScraper{ padding:15px 0 0 0;
+	background: $white-color; 	 
+	.skyScraperContentInfo{ width:$body-width;
+		height:480px; 
+		background: url(../images/sky-scraper.jpg) no-repeat bottom center;
+	}
+	.propOfficeInfo{ position:absolute;
+		top:172px;
+		left:187px;
+	}
+	.propOfficeHead{ @include fontStyle($openSansBold:true);
+		font-size: $body-font-size*3; 
+		color:$Black-gray-color;
+		line-height: $body-font-size*3 + 4px;
+	}
+	.propAgentText{ @include fontStyle($openSans:true);
+		font-size: $body-font-size*2 + 2px; 
+		color:$darkligh-gray-color;
+		line-height: $body-font-size*2 + 6px;
+	}
+	.propHappyCustomerInfo{position:absolute;
+		top:66px;
+		left:370px;
+	}
+	.propSkyHead{ @include fontStyle($openSansBold:true);
+		font-size: $body-font-size*2; 
+		color:$body-selected-color;
+		line-height: $body-font-size*2 + 2px;
+	}
+	.propSkyText{ @include fontStyle($openSans:true);
+		font-size: $body-font-size*2 - 6px; 
+		color:$darkligh-gray-color;
+		line-height: $body-font-size*2 - 2px;
+	}
+	.propSearchLoanInfo{ position:absolute;
+		top:205px;
+		left:523px;
+	}
+	.propSoldInfo{ position:absolute;
+		top:123px;
+		left:860px;
+	}
+	.skyScraperPopup{ display:none;
+		position:absolute;
+		padding:10px;
+		bottom:65px;
+		width:275px;
+		left:0;
+		z-index:2;
+		background: $white-color;
+		@include box-sizing(border-box); 
+		@include box-shadow($darkligh-mid-gray-color 0px 0px 10px);
+		&:before{ content: "";
+			display: inline-block;
+			width: 0;
+			height: 0;
+			position:absolute;
+			left:14px;
+			bottom:-9px;
+			vertical-align: top;
+			border-top: 9px solid $darkligh-mid-gray-color;
+			border-right: 9px solid transparent;
+			border-left: 9px solid transparent;
+		}
+		&:after{ content: "";
+			display: inline-block;
+			width: 0;
+			height: 0;
+			position:absolute;
+			left:15px;
+			bottom:-8px;
+			vertical-align: top;
+			border-top: 8px solid $white-color;
+			border-right: 8px solid transparent;
+			border-left: 8px solid transparent;
+		}
+		.skyScraperPopText{ @include fontStyle($openSans:true);
+			font-size: $body-font-size + 4px; 
+			color:$dark-gray-color;
+			line-height: $body-font-size*2 - 4px;
+		}
+		.row-two-column{ 
+			padding:0;
+			font-size:$body-font-size + 2px;
+			font-weight:500;
+			color:#444;
+		}
+	}
+	.skyScraperOverlay{
+		&:hover{
+			.propSkyHead{ @include fontStyle($openSansBold:true);
+				font-size: $body-font-size*2 + 4px; 
+				color:$Black-gray-color;
+				line-height: $body-font-size*2 + 6px;
+			}
+			.propSkyText{ @include fontStyle($openSans:true);
+				font-size: $body-font-size*2 - 2px; 
+				color:$darkligh-gray-color;
+				line-height: $body-font-size*2;
+			}
+			.skyScraperPopup{ display:block;}
+		}
+	}
+}
+.propRealEstate{ padding:3% 0;
+	.propRealEstatInfo{ background: $white-color; 
+		@include box-shadow($darkligh-mid-gray-color 0px 0px 10px);
+		 
+	}
+	.realEstatImageInfo{ overflow:hidden;
+	}
+	.authDiscInfo{@include fontStyle($openSansBold:true);
+		font-size:$body-font-size + 6px;
+		line-height:$body-font-size*2;
+		color:$dark-gray-color;
+		padding:10px 10px 0;
+		min-height:70px;
+		@include box-sizing(border-box);
+	}
+	.authorText{ @include fontStyle($openSans:true);
+		font-size:$body-font-size + 2px;
+		line-height:$body-font-size + 4px;
+		color:$darkligh-gray-color;
+		padding:5px 10px 10px 10px;
+		overflow:hidden;
+		img{ @include rounded($radius:50%); }
+	}
+
+}
+.homeHeading{ @include fontStyle($openSans:true);
+	font-size:$body-font-size*3 + 4px;
+	line-height:$body-font-size*4 - 2px;
+	color:$dark-gray-color;
+}
+.homeTextInfo{ @include fontStyle($openSans:true);
+	font-size:$body-font-size*2 - 4px;
+	line-height:$body-font-size*2;
+	color:$darkligh-mid-gray-color;
+}
+.propReason{ padding:3% 0;
+	background: url(../images/better-reason.jpg) no-repeat; 
+	background-size: $body-width;
+	&:before{ content: '';
+		background: $black-color; 
+		opacity:0.8;
+		filter: alpha(opacity=80);
+		position:absolute;
+		top:0;
+		left:0;
+		width:$body-width;
+		height:$body-width;
+		display:inline-block !important;
+	}
+	.homeHeading{ color:$lighter-mid-gray-color;}
+	.propReasInfo{ position:relative;
+		z-index:1;
+		.propReasonContent{ padding:5% 3% 0 3%;
+			@include box-sizing(border-box);
+			.reasSubhead{ @include fontStyle($openSans:true);
+				font-size:$body-font-size*2 + 6px;
+				line-height:$body-font-size*2 + 8px;
+				color: $white-color;
+				opacity:0.3;
+				filter: alpha(opacity=30);
+			}
+			ul.reasonList{ padding:3% 0 0 0; 
+				li{ background: url(../images/right-list.png) no-repeat 0 50%;
+					@include fontStyle($openSans:true);
+					font-size:$body-font-size*2 + 1px;
+					line-height:$body-font-size*2 + 4px;
+					color:$lighter-mid-gray-color;
+					padding:3% 0 3% 10%;
+				}			
+			}
+			ul.rightList{
+				li{ background: url(../images/cross-list.png) no-repeat right 50% !important;
+					padding:3% 10% 3% 0;
+				}
+			}
+		}
+	}
+}
+.propTechInfo{  background: url(../images/prop-tech-01.jpg) no-repeat; 
+	background-size: $body-width; 
+}
+.propImageSlider{ height:530px; 
+	margin:0;
+	overflow:hidden;
+	.propSliderTab{ height:59px;
+		border-bottom:1px solid $light-gray-color;
+		.carousel-indicators{ width: $body-width;
+			top:0;
+			li{ @include fontStyle($openSans:true);
+				font-size:$body-font-size*2 - 4px;
+				color:$lighter-gray-color;
+				@include rounded($radius:0);
+				background:none;
+				width:33%;
+				height:58px;
+				text-indent:inherit;
+				margin:0;
+				padding:0 0 0 10%;
+				@include box-sizing(border-box);
+				span{ display:inline-block; 
+					cursor:pointer;
+					border-bottom:none;
+					padding:18px;
+				}
+				&:hover{ @include fontStyle($openSans:true);
+					color:$white-color; 
+					span{ border-bottom:4px solid $light-gray-color;
+					}
+				}
+				&.active{ @include fontStyle($openSansBold:true);
+					color:$white-color; 
+					span{ border-bottom:4px solid $light-gray-color;
+					}
+				}
+			}
+		}
+	}
+	.carousel-inner{ height:470px; 
+		@include box-sizing(border-box);
+		.item{padding: 46px 0 0 0;}
+		.carou-head-text{ @include fontStyle($openSansLight:true);
+			font-size:$body-font-size*5 - 6px;
+			line-height:$body-font-size*5 - 4px;
+			color:$white-color;
+		}
+		.carou-subhead-text{@include fontStyle($openSansBold:true);
+			font-size:$body-font-size*5 - 6px;
+			line-height:$body-font-size*5 - 4px;
+			color:$white-color;}
+		.carou-text-info{ @include fontStyle($openSansLight:true);
+			font-size:$body-font-size*2 + 2px;
+			line-height:$body-font-size*2 + 4px;
+			color:$white-color;}
+	}
+	.mapSpaceCarou{ padding-top:90px !important;}
+	.appTextSpacInfo{ padding-top:150px;}
+	.portSpaceCarou{padding-top:95px !important;}
+	.carousel-control { width:auto; 
+		height:auto;
+		color:$white-color;
+		background:none;
+		border:none;
+		z-index:3;
+	} 
+}
+
+.propSocialNetwork{ padding:5% 0;
+	background:$white-color;
+	a{ height:68px;}
+	.socialFaceInfo{ background:$white-color;
+		width:$body-width - 40%;
+		text-align:center;
+		color:#1a609c;
+		padding:15%;
+		float:left;
+		border:1px solid #1a609c;
+		@include rounded($radius:50%);
+		&:hover{ background:#1a609c;
+		color:$white-color;
+		border:1px solid #1a609c;
+		}
+	} 
+	.socialGoogleInfo{ background:$white-color;
+		width:$body-width - 40%;
+		text-align:center;
+		padding:15%;
+		color: #d65b2b;
+		float:left;
+		border:1px solid #d65b2b;
+		@include rounded($radius:50%);
+		&:hover{  background:#d65b2b;
+		color:$white-color;
+		border:1px solid #d65b2b;
+		}
+	}
+	.socialTwitterInfo{ background:$white-color;
+		width:$body-width - 40%;
+		text-align:center;
+		padding:15%;
+		color:#3391e2;
+		float:left;
+		border:1px solid #3391e2;
+		@include rounded($radius:50%);
+		&:hover{  background:#3391e2;
+		color:$white-color;
+		border:1px solid #3391e2;
+		}
+	}
+	.socialLinkInfo{ background:$white-color;
+		width:$body-width - 40%;
+		text-align:center;
+		color:#1a609c;
+		padding:15%;
+		float:left;
+		border:1px solid #1a609c;
+		@include rounded($radius:50%);
+		&:hover{ background:#1a609c;
+		color:$white-color;
+		border:1px solid #1a609c;
+		}
+	} 
+	.socialYoutubeInfo{ background:$white-color;
+		width:$body-width - 40%;
+		text-align:center;
+		padding:15%;
+		color:#d65b2b;
+		float:left;
+		border:1px solid #d65b2b;
+		@include rounded($radius:50%);
+		&:hover{  background:#d65b2b;
+		color:$white-color;
+		border:1px solid #d65b2b;
+		}
+	}
+	i{ font-size:$body-font-size*4 + 2px;
+		line-height:$body-font-size*5 + 8px;
+	}
+}
+.homeTabContainer{
+	.nav-tabs{ border-bottom:1px solid $light-gray-color;
+		li{ border-bottom:5px solid transparent !important;
+			&:hover{ border-bottom:5px solid $body-selected-color !important;}
+			&.active{ border-bottom:5px solid $body-selected-color !important;}				
+		}
+		a{ background:transparent !important;}
+	}
+}
+.propTestimonialSection{background:$white-color;
+	padding:5% 0 3% 0;
+	.carousel{ position:relative;
+		margin:0 0 20px 0;
+		height:200px;
+		.carousel-inner {
+			margin:0 auto;
+			width:$body-width - 10%;
+		}
+	}
+	.testiContent{ position:relative;
+		padding: 30px;
+	}
+	.testiDesContent{ font-size:$body-font-size + 6px;
+		color:#888;
+		line-height: $body-font-size*2 + 2px;
+		position:relative;
+	}
+	.testClientInfo{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size*2;
+		color:$dark-gray-color;
+		padding: 15px 0 0 30px;
+		.testClientCompInfo{ @include fontStyle($openSans:true);  
+			font-size:$body-font-size + 6px;
+			color:$darkligh-mid-gray-color;
+			display:block;
+			padding:7px 0 0 0;
+		}
+	}
+	.testiQuoteTop{ position:absolute;
+		top:0;
+		left:-20px;
+		font-size:$body-font-size*4 + 2px;
+		color:$lighter-mid-gray-color;
+		z-index:0;
+	}
+	.testiQuoteBottom{ position:absolute;
+		bottom:0;
+		right:0;
+		font-size:$body-font-size*4 + 2px;
+		color:$lighter-mid-gray-color;
+		z-index:0;
+	}
+	.carousel-control { width:auto; 
+		height:auto;
+		color:$gray-color;
+		background:none;
+		z-index:3;
+	}	
+}
+.testlink{ @include fontStyle($openSans:true);
+	font-size:$body-font-size + 6px;
+}
+
+.propAddressInfo{ padding: 15px 0 3% 0;
+	height:460px;
+	.propAddressDescInfo{ width:auto;
+		min-width:100px;		
+		max-width:350px;
+		padding:15px;
+		background: $white-color;
+		@include rounded($radius:5px);
+		@include box-sizing(border-box); 
+		@include box-shadow($darkligh-mid-gray-color 0px 0px 10px);
+	}
+	.propAggressHead{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size;
+		color:$dark-gray-color;
+		text-transform:uppercase;
+	}
+	.propAggressText{ @include fontStyle($openSans:true);
+		font-size:$body-font-size + 5px;
+		color:$dark-gray-color;
+	}
+	.propAggressSubText{ @include fontStyle($openSans:true);
+		font-size:$body-font-size + 1px;
+		color:$dark-gray-color;
+		font-style:italic;
+	}
+	.propAggressLink{ @include fontStyle($openSans:true);
+		font-size:$body-font-size + 6px;
+		color:$anchor-link-color;
+		a {
+			color:$anchor-link-color;
+			font-size:$body-font-size + 6px;
+		}
+	}
+	button{ width:$body-width;}
+	
+}
+.noidaMap{ background: $white-color url(../images/noida-map.jpg) no-repeat center 57px;}
+.gurgaonMap{ background: $white-color url(../images/gurgaon-map.jpg) no-repeat center 57px;}
+.mumbaiMap{ background: $white-color url(../images/mumbai-map.jpg) no-repeat center 57px;}
+.bangaloreMap{ background: $white-color url(../images/banglore-map.jpg) no-repeat center 57px;}
+.ahmedabadMap{ background: $white-color url(../images/ahmedabad-map.jpg) no-repeat center 57px;}
+.puneMap{ background: $white-color url(../images/pune-map.jpg) no-repeat center 57px;}
+.chennaiMap{ background: $white-color url(../images/chennai-map.jpg) no-repeat center 57px;}
+.kolkataMap{ background: $white-color url(../images/kolkata-map.jpg) no-repeat center 57px;}
+
+.tabContainer .nav-tabs.paddingL90 { padding-left:90px;}
+.propNewsSection{ background:$white-color;
+	padding:4% 0 0 0;
+	.newsInfo{ height:573px; 
+		background: url(../images/news-section.jpg) no-repeat 0 0;
+		padding:25px 0 0 25px;
+		@include box-sizing(border-box);
+	}
+	.playerContainer{ width:640px; 
+		height:384px;
+		float:left;
+		#player{ height:384px !important;}
+	}
+	.playerControl{ width:73px; 
+		height:384px;
+		float:left;
+		margin:0 0 0 50px;
+		position:relative;
+		.playerBtnUp{ position:absolute; 
+			top:0;
+			left:20px; 
+			z-index:1; 
+			cursor:pointer;
+			i{ font-size:$body-font-size*3 - 2px;
+				color:$light-gray-color;
+			}
+		}
+		.playerBtnDown{ position:absolute;
+			left:20px;
+			bottom:0;
+			z-index:1; 
+			cursor:pointer;
+			i{ font-size:$body-font-size*3 - 2px;
+				color:$light-gray-color;
+			}
+		}
+		.disable{ opacity:0.5;
+			filter: alpha(opacity=50);
+			cursor:default;
+		}
+		.playerViewInfo{ position:relative;
+			overflow:hidden;
+			height:288px;
+			margin:40px 0 0 0;
+		}
+		.scrollThumb{ position:relative;
+			img{ margin:10px 0;
+				cursor:pointer;
+			}
+		}
+	}
+}
+
+
+.buttonFixedShow {
+  position: fixed;
+  right: 0;
+}
+
+.center-page {
+  text-align: center;
+}
+
+.bktop {
+	position: fixed;
+	bottom:0;
+	margin-bottom:15px;
+	right:25px;
+	color:#fff;
+	cursor:pointer;
+	opacity:0.6;
+	filter: alpha(opacity=60);
+	.backtotop {
+		background:$body-selected-color;
+		@include rounded($radius:0px);
+		padding:8px 10px;
+		.fa-chevron-up {
+			font-size:20px;
+		}
+	}
+	&:hover {
+		opacity:1;
+		filter: alpha(opacity=100);
+	}
+	span {
+		 @include fontStyle($openSans:true);
+		font-size:$body-font-size;
+		display:block;
+		color:$dark-gray-color;
+		text-align:center;
+		text-transform:uppercase;
+	}
+}

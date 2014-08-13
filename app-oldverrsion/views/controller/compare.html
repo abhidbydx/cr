@@ -1,0 +1,62 @@
+<div pt-notification ></div>
+<div class="comparison-Wrapper row-fluid">
+	<div class="comp-left-link pull-left">
+    	<ul class="comp-nav">
+        	<li class="builder-info borderTop"></li>
+            <li class="data-info borderTop">
+            	<ul class="sub-comp-nav">
+                	<li>Price Trend</li>
+                    <li>Project Status</li>
+                    <li>Launch date</li>
+                    <li>Possession date</li>
+                    <li><span class="deals-info"><i class="fa fa-bell-o"></i>Deals</span></li>
+                </ul>
+            </li>
+            <li class="type-info borderTop">
+            	<ul class="sub-comp-nav">
+                	<li>Property type</li>
+                    <li class="paddingT10">bath</li>
+                    <li>area</li>
+                    <li>rate</li>
+                    <li>total price</li>
+                    <li class="paddingT30">Floor plan</li>
+                </ul>
+            </li>
+            <li class="rating-info borderTop">
+            	<ul class="sub-comp-nav">
+                	<li>locality rating</li>
+                </ul>
+            </li>            
+        </ul>
+    </div>
+    <div class="comp-container pull-left ">
+    	<div class="contentBoxContainer comp-content-container">
+        	<div class="comp-prop-detail-info" ng-repeat="project in projects">
+                <div pt-compare-panel project='project.PROJECT' remove='remove'></div>
+            </div>
+            <div class="comp-prop-add-info" ng-if="projects.length < 4">
+                <div class="comp-prop-add-detail">
+                    <span class="comp-to-add">Add to compare</span>
+                    <span class="comp-search-proj"><input type="text"
+                            ng-model="addThisProject" 
+                            placeholder="Enter project name"
+                            typeahead-input-formatter="$model = ''" 
+                            typeahead="result.displayText for result in projectSuggestions($viewValue) | limitTo:8" 
+                            typeahead-on-select="projectSelected($item)"/>
+                    </span>
+                </div>
+                <span ng-if="addFailed">
+                        {{addProjectError}}
+                </span>
+            </div>        
+        </div>
+    	
+    
+    
+    
+    </div>
+	
+</div>
+
+
+

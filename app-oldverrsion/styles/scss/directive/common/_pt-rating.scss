@@ -1,0 +1,205 @@
+/* 
+Desc: Rating View Scss Document 
+Author: Sanjeev Verma
+Date: 06 Jan 2014
+*/
+.rating-wrapper{
+	.avg-rating{ background:$light-mid-green-color; 
+		float:left;
+		padding:0px 8px;
+		@include fontStyle($openSans:true);
+		font-size:$body-font-size;
+		font-weight:bold;
+		color:$white-color;
+	}
+	.total-rating{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size - 1px;
+		float: left;
+		color:$gray-color;
+		border-bottom:1px dashed $gray-color;
+		padding:0 0 0 5px;
+		line-height:19px;
+	}
+	.rating-overlay{ margin-top:20px;
+		width:370px;
+		position:absolute;
+		padding:20px; 
+		background:$widget-container-bgcolor;
+		@include box-shadow($darkligh-gray-color 0px 0px 10px);
+		border:1px solid $lighter-gray-color \9;
+		z-index:3;
+		white-space:nowrap;
+		-moz-transition:opacity 0.2s ease-out, visibility 0.1s linear;
+		-webkit-transition:opacity 0.2s ease-out, visibility 0.1s linear;
+		-ms-transition:opacity 0.2s ease-out, visibility 0.1s linear;
+		-o-transition:opacity 0.2s ease-out, visibility 0.1s linear;
+		transition:opacity 0.2s ease-out, visibility 0.1s linear;
+		opacity:0;
+		visibility:hidden;
+		.row-fluid [class*="span"] {
+			min-height:10px !important;
+		}
+		.total-perf-text{
+			@include fontStyle($latoBold:true);
+			font-size:$body-font-size + 6px;
+			color:$darkBlack-gray-color;
+			text-align:center;
+			text-transform:capitalize;
+			
+		}
+		.total-avg-rating{ background:$light-mid-green-color;
+			padding:10px 20px;
+			@include fontStyle($openSansBold:true);
+			font-size:$body-font-size + 12px;
+			color:$white-color;
+			display:inline-block;
+			margin:10px 0 0 0;
+			.total-avg-text{ font-size:$body-font-size + 2px;
+			}
+		}
+		.total-rating-box{ padding:4px 0 0 0;}
+		.total-rating-head-info{ @include fontStyle($openSansBold:true);
+			font-size:$body-font-size + 2px;
+			color:$darkligh-gray-color;
+		}
+		.total-rating-cont-info{ @include fontStyle($openSansBold:true);
+			font-size:$body-font-size - 1px;
+			color:$darkligh-gray-color;
+			text-transform:uppercase;
+		}
+		.total-rating-cont-text{ @include fontStyle($openSansBold:true);
+			font-size:$body-font-size;
+			color:$darkligh-gray-color;
+		}
+		
+	
+	}
+	&:hover{
+		.rating-overlay{ opacity:1;
+			visibility:visible;
+			@include transition-delay(0.5s);
+		}
+	}
+	
+}
+.rating-pop-info{
+	.avg-rating{ background:$light-mid-green-color; 
+		float:left;
+		padding:0px 8px;
+		@include fontStyle($openSans:true);
+		font-size:$body-font-size;
+		font-weight:bold;
+		color:$white-color;
+	}
+	.total-rating{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size - 1px;
+		float: left;
+		color:$gray-color;
+		padding:0 0 0 5px;
+		line-height:19px;
+	}
+}
+.not-rating-info{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size;
+		float: left;
+		color:$dark-gray-color;
+		padding:0 0 0 5px;
+		line-height:19px;
+		i{ font-size:$body-font-size + 3px;
+			padding:2px 0 0 5px;
+		}
+	}
+.rat-icon-info{
+	i{ cursor:pointer;}
+	.fa-star{ font-size:$body-font-size + 4px; color:$light-mid-green-color;}
+	.fa-star-o{ font-size:$body-font-size + 4px; color:$darkligh-gray-color;}
+	&.cursorDefault{
+		i{ cursor:default;}
+		.fa-star-o{ color:$light-mid-gray-color;}
+	}
+}
+.rating-right-info{
+	.rating-wrapper{ position:relative;
+		.rating-overlay{ right:0;}
+	}
+}
+.row-four-column:nth-child(4){
+	@extend .rating-right-info;
+}
+.comm-rating-first-info{ @include fontStyle($openSansBold:true);
+	font-size:$body-font-size;
+	color:$dark-gray-color;
+}
+.rating-star-overlay{ margin-top:20px;
+	width:370px;
+	position:absolute;
+	padding:20px; 
+	background:$widget-container-bgcolor;
+	@include box-shadow($darkligh-gray-color 0px 0px 10px);
+	z-index:3;
+	top:0;
+	margin:0;
+	white-space:nowrap;
+}
+.comm-rating-head-info{ 
+	@include fontStyle($openSansBold:true);
+	font-size:$body-font-size + 2px;
+	color:$dark-gray-color;
+	padding-bottom:15px;
+	
+	&.pt-rate {
+		text-align: center;
+	}
+	
+	&.your-rating {
+		font-weight:normal;
+		color:#888;
+		font-size:$body-font-size;
+		text-transform: uppercase;
+		padding-bottom: 5px;
+	}
+}
+.comm-rating-cont-info{ @include fontStyle($openSansBold:true);
+	font-size:$body-font-size;
+	color:$darkligh-gray-color;
+	text-transform:uppercase;
+}
+.comm-rating-text-info{ background:$rating-cont-text-bgcolor;
+	@include fontStyle($openSansBold:true);
+	font-size:$body-font-size;
+	color:$white-color;
+	padding:2px 5px;
+}
+.comm-review-cont-info{ font-size:$body-font-size + 4px;}
+
+.blank-rating{background:$White-gray-color;
+	height: 10px;
+	width: 5px;
+	position: relative;
+	float: left;
+}
+.exce-rating{ background:$light-mid-green-color;
+	@extend .blank-rating;
+}
+.good-rating{ background:$yellow-green-color;
+	@extend .blank-rating;
+}
+.aver-rating{background:$lighter-mid-yellow-color;
+	@extend .blank-rating;
+}
+.poor-rating{background:$lighter-mid-gray-yellow-color;
+	@extend .blank-rating;
+}
+
+.not-rated {
+	background: #F0F0F0;
+    color: #A7A7A7;
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 10px;
+}
+
+.rating-focus {
+	border: 1px solid $gray-color;
+	border-radius: 3px;
+}

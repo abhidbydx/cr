@@ -1,0 +1,49 @@
+<div class="contentBoxContainer padding20 marginB15" >
+    <div class="contentHeader">
+        <h5>Locality Rating</h5>
+    </div>
+    <div class="content-info row-fluid paddingL15 row-full">
+        <div class="row-fluid">
+            <div class="span6 border-Right" ng-if="areaInfo.data.trend.safetyScore || areaInfo.data.trend.livabilityScore">
+                <div class="row-fluid">
+	                <div class="comm-rating-head-info pt-rate">PROPTIGER RATING</div>
+                    <div tooltip="Safety Score" class="span5 pull-left safety-lyfstyl for-loc-rating paddingR15" ng-class="{'center-it': !areaInfo.data.trend.livabilityScore}" ng-if="areaInfo.data.trend.safetyScore">
+                        <i class="fa fa-shield"></i> 
+                        <div class="txt-wrap">
+                            <div class="txt">Safety</div>
+                            <span class="count">{{areaInfo.data.trend.safetyScore}}</span>
+                        </div>
+                    </div>
+                    <div tooltip="Quality of Life Score" class="span6 pull-left safety-lyfstyl for-loc-rating lyfstyl paddingR15" ng-class="{'center-it': !areaInfo.data.trend.safetyScore}"  ng-if="areaInfo.data.trend.livabilityScore">
+                        <i class="icons-lifestylesmall"></i> 
+                        <div class="txt-wrap">
+                            <div class="txt">Lifestyle</div>
+                            <span class="count">{{areaInfo.data.trend.livabilityScore}}</span>
+                        </div>
+                    </div>
+                </div>            
+            </div>        
+            <div class="span6" ng-if="updateFlag">
+                <div class="row-fluid">
+	                <div class="span6">
+                        <div class="comm-rating-head-info">USER RATING</div>
+                        <div pt-rating ratings="localityRatings" ng-show="localityRatings && localityRatingsLength" class="pull-left paddingL10 paddingT15 showStuff"></div>
+                        <span class="pull-left not-rating-info marginT15" ng-if="localityRatingsLength == 0">
+                            <span class="pull-left">Not rated</span>
+                            <i class="fa fa-exclamation-circle pull-left" tooltip="We do not have enough verified ratings at the moment"></i>
+                        </span>
+                    </div>
+                    <div class="span6 paddingT30">
+                        <div class="comm-rating-head-info your-rating">Your Rating</div>
+                        <div>
+                            <rating class="rat-icon-info" value="rate" max="max" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-hover="ovrRating(value)" on-leave="overStar = null" ng-click="rateLocality(rate);rate = 0;" ng-if="!userLoggedIn"></rating>
+                            <rating class="rat-icon-info" value="rate" max="max" state-on="'fa fa-star'" state-off="'fa fa-star-o'" on-hover="ovrRating(value)" on-leave="overStar = null" ng-click="rateLocality()" ng-if="userLoggedIn"></rating>
+                            <!--button class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button-->
+                        </div>
+                    </div>
+                </div>
+                <button ng-if="pageType == 'locality-overview'" class="btn-primary marginT15 pull-right" ng-click="writeReview()">Write a Review</button>
+            </div>
+        </div>
+    </div>
+</div>

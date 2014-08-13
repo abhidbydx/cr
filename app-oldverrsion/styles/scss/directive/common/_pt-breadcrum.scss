@@ -1,0 +1,52 @@
+/* 
+Desc: Breadcrum View Scss Document 
+Author: Sanjeev Verma
+Date: 07 Jan 2014
+*/ 
+
+.breadcrum{ width:$body-width;
+	padding:0 15px 5px 15px;
+	@include box-sizing(border-box);
+	.bread-head-info{ @include fontStyle($openSans:true);
+		font-size:$body-font-size;
+		color:$gray-color;
+		font-weight:bold;
+		text-transform:uppercase;
+	}
+	.bread-update-info{@include fontStyle($openSans:true);
+		font-size:$body-font-size;
+		color:$dark-gray-color;
+		padding:0 0 0 5px;
+		font-weight:bold;
+	}
+	ul.bread-link-info{ padding:0;
+		li{ @include fontStyle($openSans:true);
+			font-size:$body-font-size;
+			color:$dark-gray-color;
+			display:inline-block;
+			padding:0 10px 0 0;
+			text-transform:capitalize;
+			a{ @include fontStyle($openSans:true);
+				font-size:$body-font-size;
+				color:$dark-gray-color;
+				line-height:16px;
+				&:hover{ color:$anchor-link-color;
+					text-decoration:underline;
+				} 
+			}
+			span + i{ display:none !important;}		
+			.breadArrow{content: "";
+				display: inline-block;
+				width: 0;
+				height: 0;
+				vertical-align: top;
+				border-left: 4px solid $darkligh-gray-color;
+				border-top: 4px solid transparent;
+				border-bottom: 4px solid transparent;
+				margin:7px 0 0 3px;
+			}
+			
+		}
+	}
+}
+.bread-last-update{ height:20px;}

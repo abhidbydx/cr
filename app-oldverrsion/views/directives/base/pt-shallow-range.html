@@ -1,0 +1,13 @@
+<span ng-if="min != max && min && max"> 
+	<i class="fa fa-rupee" ng-if="type == 'price'"></i> {{min}} - <i class="fa fa-rupee" ng-if="type == 'price'"></i> {{max}}  <span ng-if="unit">{{unit}}</span>
+</span>
+<span ng-if="min == max && min && min != 'NA'"> 
+	<i class="fa fa-rupee" ng-if="type == 'price'"></i> {{min}}  <span ng-if="unit">{{unit}}</span>
+</span>
+<span ng-if="min == 'NA' && propertyName=='Size'">  
+	<a ng-click="openLeadForm($event, 'size', 'hidden-sizerequest-listing')" >Size On Request</a>
+</span>
+<span ng-if="min == 'NA' && propertyName!='Size'"> 
+	<i class="fa fa-rupee" ng-if="type == 'price'"></i> {{min}}  <span ng-if="unit">{{unit}}</span>
+</span>
+

@@ -1,0 +1,37 @@
+<div class="row-fluid" ng-show="showImage">
+    <div class="span12 pull-left">
+        <div id="bannerscollection_zoominout_generous">            
+            <div class="myloader myloaderLarge"></div>
+            <ul class="bannerscollection_zoominout_list">              
+                    <li data-initialZoom="1" data-finalZoom="1" data-duration="0" data-text-id="#photoText1{{($index+1)}}" data-horizontalPosition="left" data-verticalPosition="top" ng-repeat="slide in ptslides" data-bottom-thumb="{{slide.image}}?width=130&height=100" >
+                    <img ng-src="{{slide.image}}?width={{options.imageWidth}}&height={{options.imageHeight}}" ng-alt="{{slide.text}}" style="margin:auto;" />
+                    </li>                    
+            </ul>
+            <div ng-click="expand()" class="expand-btn"><i class="fa fa-expand"></i></div>
+        </div>
+        <div class="photoGalleryTab">
+             <ul>
+                <li ng-repeat="image in currentImageObject">
+                    <a ng-click="updateAlbum(image)" ng-class="image.selected">{{image.index}}</a>
+                </li>
+            </ul>
+        </div>      
+    </div>
+</div>
+<div class="row-fluid" ng-show="noImage">
+    {{noImageText}}
+</div>
+<div ng-repeat="slide in ptslides" >
+    <div id="photoText1{{($index+1)}}" class="bannerscollection_zoominout_texts">              
+        <div class="bannerscollection_zoominout_text_line textElement12_MiniGallery1" data-initial-left="190" data-initial-top="200" data-final-left="30" data-final-top="16" data-duration="0.5" data-fade-start="0" data-delay="0.23">{{slide.text}}<br /> </div>            
+   </div>
+</div>
+
+<div style="display:none">
+    <ul>
+        <li ng-repeat="item in perfImages">
+            <img ng-src="{{item.image}}?width={{options.imageWidth}}&height={{options.imageHeight}}" width="{{options.width}}" height="{{options.height}}" ng-alt="{{slide.text}}" style="margin:auto;" />
+            <img ng-src="{{item.image}}?width=130&height=100" width="{{options.width}}" height="{{options.height}}" ng-alt="{{slide.text}}" style="margin:auto;" />
+        </li> 
+    </ul>
+</div>

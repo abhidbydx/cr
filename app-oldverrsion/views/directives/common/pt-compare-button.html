@@ -1,0 +1,8 @@
+<button class="gray-icon-btn-primary pull-left check"
+            ng-class="{'active': exist(), 'disabled': isDisabled()}"
+            tooltip="{{title}}"
+            data-animation="animation-flipX" 
+            ng-click="$event.stopPropagation();toggleCompare($event)"
+            >
+            <i class="fa fa-check-square-o"></i>
+</button>

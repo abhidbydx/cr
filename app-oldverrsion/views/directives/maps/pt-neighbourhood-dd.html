@@ -1,0 +1,39 @@
+<div class="neighbourhood-dd-wrap" ng-mouseenter="tracking()"> 
+    <div class="neighbourMain">
+    	<span class="neighbour" ng-mouseenter="neighbourhoodItems()">Neighbourhood  <i class="fa fa-caret-down"></i> <span class="exit-btn" ng-click="exit()">EXIT</span></span>
+		
+        <div class="neighbourhood-dd">
+			<div id="neighbourhoodLoader" class="neighbr_load">
+			<div pt-loading-block  class="spinLoader"></div>    
+			</div>
+            <ul>
+				<li>
+                    <a class="" ng-click="itemClicked($event, 'school')" data-type="school" name="school">
+                        <i class="fs0 icon-school"></i> Schools<span ng-if="neighbourhoodValue.school !== '' && neighbourhoodValue.school !== 'undefined'">({{neighbourhoodValue.school}})</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" ng-click="itemClicked($event, 'restaurant')" data-type="restaurant" name="restaurant">
+                        <i class="fs0 icon-restaurant"></i> Restaurants<span ng-if="neighbourhoodValue.restaurant !== ''">({{neighbourhoodValue.restaurant}})</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" ng-click="itemClicked($event, 'hospital')" data-type="hospital" name="hospital">
+                        <i class="fs0 icon-hospital"></i> Hospitals<span ng-if="neighbourhoodValue.hospital !== ''">({{neighbourhoodValue.hospital}})</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" ng-click="itemClicked($event, 'gas_station')" data-type="gas_station" name="gas_station">
+                        <i class="fs0 icon-petrol-station"></i> Petrol Pumps<span ng-if="neighbourhoodValue.gas_station !== ''">({{neighbourhoodValue.gas_station}})</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" ng-click="itemClicked($event, 'bank')" data-type="bank" name="bank">
+                        <i class="fs0 icon-bank"></i> ATM/Banks<span ng-if="neighbourhoodValue.bank !== ''">({{neighbourhoodValue.bank}})</span>
+                    </a>
+                </li>
+			</ul>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<div class="contentBoxContainer marginB15 relativePostion" ng-if= "meta.cardType != 'builder'">
+	<div class="row-fluid list-cit-loca-info">
+    	<div class="span10 paddingT10RB0L15 list-cit-loca-left-info">
+        	<div class="contentHeader"  ng-class="{'proj-list-head-info': cardState == 'MIN' || (!card.detail.description && cardState == 'MED')}">
+                <h4> 
+                	<span class="paddingR20">{{card.detail.label}}</span>   
+                	<span tooltip="Last {{card.detail.avgPriceRiseMonths}}  months" ng-if="card.detail.avgPriceRiseMonths"> 
+                        <span ng-if="card.detail.avgPriceRisePercentage > 0" class="appraisal-posi-cont"><i class="fa fa-arrow-up"></i> {{card.detail.avgPriceRisePercentage}}%</span> 
+                        <span ng-if="card.detail.avgPriceRisePercentage < 0" class="appraisal-nega-cont"><i class="fa fa-arrow-down"></i> {{-1*card.detail.avgPriceRisePercentage}}%</span>
+                    </span>    
+                    <span class="local-sub-top-link paddingL10"><a ng-href="{{card.detail.overviewUrl}}" ng-click="mainCartTracking('More about')" target='_blank'>More about {{card.detail.label}} <i class="fa fa-external-link"></i></a></span>
+                    <span  class="pull-right">
+                        <a class="pull-left marginR10"  href="{{card.detail.overviewUrl}}#pbuilder" target="_blank">
+                            Top Builders
+                        </a>
+                        <a class="pull-left marginR10"  href="{{card.detail.overviewUrl}}#trlocality" ng-click="mainCartTracking('Top Rated Localities')" target="_blank">
+                            Top Rated Localities
+                        </a>
+                        <a class="pull-left" href="{{card.detail.overviewUrl}}#blog" ng-click="mainCartTracking('Blog')" target="_blank">
+                            Blog
+                        </a>
+                    </span>
+                </h4>
+            </div>
+        	<div pt-description
+                description="card.detail.description"
+                callerid="card.detail.id"
+                callertype="Main"
+                short-length=300  
+                class="content-info paddingB15"
+                ng-if="card.detail.description"
+                ng-class="{'hide': cardState == 'MIN', 'show': cardState != 'MIN'}"
+                large-length=500
+                link='card.detail.overviewUrl'
+                label="card.detail.label"
+
+            >
+            </div>
+            <div class="paddingL15" ng-class="{'show':cardState=='MAX', 'hide': cardState!='MAX'}">
+                <div class="row-fluid paddingT10">
+                    <div class="span4" ng-class="{'show':card.detail.projectCount, 'hide': !card.detail.projectCount}">
+                        <div class="ratingHead">TOTAL PROJECTS</div> 
+                        <span class="ratingLabel">{{card.detail.projectCount}}</span>
+                    </div>
+                    <div class="span4" ng-class="{'show':card.detail.avgPricePerUnitArea, 'hide': !card.detail.avgPricePerUnitArea}">
+                        <div class="ratingHead">AVERAGE RATE </div>
+                        <span class="ratingLabel"><i class="fa fa-rupee"></i> {{card.detail.avgPricePerUnitArea | rateFMT}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row-full paddingT20" ng-class="{'show':cardState=='MAX', 'hide': cardState!='MAX'}">
+                <div ng-if="cardState == 'MAX'" pt-blog count="1" card="1" cityid="meta.cityInfo.id" cityname="meta.cityInfo.name" class="list-loca-blog-info"></div>
+                <div class="row-fluid paddingB15 marginT10" ng-class="{'show':card.topLocalities.length, 'hide': !card.topLocalities.length}">
+                    <h6 class="sub-Header openSansFamily">
+                        Top Rated Localities
+                        
+                        <a href="{{card.detail.overviewUrl}}#localities" class="view-more pull-right">
+                            View all localities <i class="fa fa-chevron-right"></i>
+                        </a>
+                        
+                    </h6>
+                    <div class="content-info paddingL15 paddingT5">
+                        <div class="row-four-column pull-left" ng-repeat="locality in card.topLocalities">
+                            <div class="ratingHead proj-local-rat-info"><a href="{{locality.url}}">{{locality.label}}</a></div>
+                            <div class="paddingT5" pt-rating ratings="locality.ratings"></div>
+                        </div>
+                    </div> 
+                </div>
+
+
+                <div class="row-fluid paddingB15 marginT10" ng-class="{'show':card.nearbyLocalities.length, 'hide': !card.nearbyLocalities.length}">
+                    <h6 class="sub-Header openSansFamily">
+                        Nearby Localities
+                    </h6>
+                    <div class="content-info paddingL15 paddingT5">
+                        <div class="row-four-column pull-left" ng-repeat="locality in card.nearbyLocalities">
+                            <div class="ratingHead proj-local-rat-info"><a href="{{locality.url}}">{{locality.name}}</a></div>
+                            <div class="loc_distance font-weight" ng-if="locality.subName">{{locality.subName}}</div>
+                        </div>
+                    </div> 
+                </div>
+                
+                <div class="row-fluid paddingB15 marginT10" ng-class="{'show':card.topBuilders.length, 'hide': !card.topBuilders.length}">
+                    <h6 class="sub-Header openSansFamily">
+                        Top Builders
+                        
+                        <a href="{{card.detail.overviewUrl}}#pbuilder" class="view-more pull-right">
+                            View all Builders <i class="fa fa-chevron-right"></i>
+                        </a>
+                        
+                    </h6>
+                    <div class="content-info paddingL15 paddingT5">
+                        <a class="row-four-column pull-left" ng-repeat="builder in card.topBuilders | limitTo : 4"  href="{{builder.url}}" ng-click="mainCartTracking('Builder', builder.id)">
+                            <div class="buld-img-info">
+                                <span class="image-view-info" image-block image-source="builder.imageURL" TYPE="THUMBNAIL" fit="true"></span>
+                            </div>
+                            <div class="paddingT5 text-center">{{builder.name}}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            
+        
+        </div>
+        <div class="span2 list-cit-loca-right-info" ng-class="{'list-loca-img-view-info' : cardState == 'MIN', 'list-loca-med-img-info': cardState=='MED'}">
+        	<div class="image-view-info list-over-img-info" image-block image-source="image.absolutePath" TYPE="MOBILE_1"   ng-repeat="image in card.detail.images | limitTo : 4"></div>            
+        </div>
+    	<!-- commenting for npow / IMAGE not available
+    	<div ng-class="{'span10': cardState=='MAX'}">
+        -->
+        <!--commenting for now, IMAGE is not availabale
+    	<div class="span2" ng-if="cardState=='MAX' && card.imagetoBeFetched">
+			PHOTO CONTAINER
+        </div>
+        -->
+    </div>
+    <div class="more-detail-info" ng-click="changeCardState()">
+        <i class="fa fa-chevron-up" ng-if="cardState=='MAX'"></i>
+        <i class="fa fa-chevron-down" ng-if="cardState=='MIN' || cardState=='MED'"></i>
+        <div class="more-detail-bgarea"></div>
+    </div>
+</div>
+<span pt-builder-overview-card card="card" ng-if="meta.cardType == 'builder'" large-length=500 desc-modal="true" hide-link="true"></span> 

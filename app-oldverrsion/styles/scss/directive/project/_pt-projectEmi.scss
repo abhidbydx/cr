@@ -1,0 +1,125 @@
+/* 
+Desc: EMI Calculator Scss Document 
+Author: Sanjeev Verma
+Date: 16 Jan 2014
+*/
+
+.cal-cont-info{
+	label{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size + 2px;
+		color:$darkligh-gray-color;
+		cursor:default;
+		width:$body-width - 70%;
+		float:left;
+		padding:0; 
+	}
+	.cal-cont-input{ width:$body-width - 30%;
+		float:left;
+		.cal-tot-cost-info{ min-width:100px; 
+			max-width:150px;
+		}
+		input{ width:100px;
+			@include fontStyle($openSansBold:true);
+			font-size:$body-font-size + 2px; 
+			color:$darkBlack-gray-color;
+			text-align:right;
+		}
+		.prop-drop-info{
+			a{
+				&.dropdown-toggle{ color:$darkBlack-gray-color;
+					font-weight:bold;
+				}
+			} 
+		}
+	}
+	.cal-pres-text{@include fontStyle($openSansBold:true);
+		font-size:$body-font-size;
+		color:$darkligh-gray-color;
+	}
+	.cal-input-text{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size;
+		color:$light-gray-color;
+	}
+}
+.cal-view-info{ 
+	label{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size - 1px;
+		color:$darkligh-mid-gray-color;
+		text-transform:uppercase;
+		cursor:default;
+	}
+	.cal-cont-input{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size + 2px;
+		color:$darkligh-mid-gray-color;
+	}
+	
+}
+.eligb-check-info{
+	input{ margin:0;}
+	label{ @include fontStyle($openSansBold:true);
+		font-size:$body-font-size + 2px;
+		color:$darkligh-mid-gray-color;
+		padding:0 0 0 5px;
+	}
+}
+.emi-cont-info{@include fontStyle($openSansBold:true);
+	font-size:$body-font-size + 2px;
+	color:$darkligh-gray-color;
+}
+.income_slide{
+	.income-text-info{ @include fontStyle($openSans:true);
+		font-size:$body-font-size;
+		font-weight:bold;
+		color:$darkligh-mid-gray-color;
+	}
+	.check-annu-info{ color:$darkBlack-gray-color !important; }
+	.cal-slid-info{ margin:5px 10px 0 10px; 
+		width:$body-width - 40%;		
+	}
+	.ui-slider-horizontal{
+		.ui-slider-handle{
+			top: 0.8em !important;
+		}
+	}
+}
+.cal-emi-info{
+	padding:5px 10px;
+	margin:0;
+	&.exclamation{ color:$light-gray-color;
+		span{ color:$light-gray-color;
+			&.emi-month-info{ color:$light-gray-color;
+				.emi-amount{ color:$light-gray-color;}
+				.icon{ color:$light-gray-color;}
+			}
+		}
+	}
+	.emi-cal-text-info{ width:$body-width - 40%;
+		padding:5px 10px;
+		@include box-sizing(border-box);
+	}
+	.emi-year-info{ @include fontStyle($openSans:true);
+		font-size:$body-font-size + 2px;
+		color:$dark-gray-color;
+	}
+	.emi-month-info{ 
+		.emi-amount{ @include fontStyle($openSans:true);
+			font-size:$body-font-size + 6px;
+			font-weight:bold;
+			color:$darkBlack-gray-color;		
+		}
+		.icon{ font-size:$body-font-size + 6px;
+			color:$dark-gray-color;
+			padding:0 0 0 5px;
+		}
+	}
+	.get-btn{ display:none;}
+	&:hover{
+		background:$White-gray-color;
+		.get-btn{ display:block;}
+	}
+}
+
+.hidden {
+	display: none;
+}
+

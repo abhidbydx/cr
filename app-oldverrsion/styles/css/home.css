@@ -1,0 +1,457 @@
+/* 
+Desc: Variable Scss Document 
+Author: Sanjeev Verma
+Date: 09 oct 2013
+*/
+/*** Body ***/
+/*** Color ***/
+/*** common ***/
+/*** Header ***/
+/*** Side Bar ***/
+/*** Grid ***/
+/*** Widget ***/
+/*** Custom DropDown ***/
+/*** Button ***/
+/*** Listing Tab***/
+/*** Filters ***/
+/*** Model ***/
+/* scrollbar */
+/*** Tooltip ***/
+/*** Rating ***/
+/*** Footer ***/
+/***  Path for fonts files ***/
+/* 
+Desc: Mixin Scss Document 
+Author: Sanjeev Verma
+Date: 24 Sept 2013
+*/
+/* line 106, home-icons/*.png */
+.home-icons-sprite, .home-icons-down-arrow, .home-icons-pt-sky-happycustomer, .home-icons-pt-sky-officeinfo, .home-icons-pt-sky-searchloan, .home-icons-pt-sky-sold, .home-icons-sky-happy-customer, .home-icons-sky-home-loan, .home-icons-sky-house-sold, .home-icons-sky-office { background: url('../images/home-icons-sb2e5239ba9.png') no-repeat; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-down-arrow { background-position: 0 -1533px; height: 41px; width: 40px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-pt-sky-happycustomer { background-position: 0 0; height: 360px; width: 124px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-pt-sky-officeinfo { background-position: 0 -663px; height: 255px; width: 73px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-pt-sky-searchloan { background-position: 0 -918px; height: 223px; width: 67px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-pt-sky-sold { background-position: 0 -360px; height: 303px; width: 105px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-sky-happy-customer { background-position: 0 -1141px; height: 97px; width: 94px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-sky-home-loan { background-position: 0 -1349px; height: 92px; width: 80px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-sky-house-sold { background-position: 0 -1441px; height: 92px; width: 107px; }
+
+/* line 60, ../../../../../lib/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.home-icons-sky-office { background-position: 0 -1238px; height: 111px; width: 100px; }
+
+/* 
+Desc: Home page Scss Document 
+Author: Sanjeev Verma
+Date: 23 May 2014
+*/
+/* line 6, ../scss/controller/_pt-home.scss */
+.propSearch { background: #111111 url("../images/topSearch.jpg") no-repeat; background-size: 100%; height: 80%; min-height: 344px; }
+
+/* line 11, ../scss/controller/_pt-home.scss */
+.homeSearch { font-family: "lato", Arial Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 20px; color: white; }
+
+/* line 15, ../scss/controller/_pt-home.scss */
+.findTextInfo { padding: 48px 0 0px 0; }
+/* line 16, ../scss/controller/_pt-home.scss */
+.findTextInfo .findLightHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 300; font-style: normal; font-size: 52px; line-height: 54px; color: white; text-align: right; }
+/* line 23, ../scss/controller/_pt-home.scss */
+.findTextInfo .findTextHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 52px; line-height: 54px; color: white; text-align: right; text-shadow: 0 0 20px #555555; }
+
+/* line 32, ../scss/controller/_pt-home.scss */
+.transBlackColor { position: absolute; height: 100%; width: 100%; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(17, 17, 17, 0.3)), color-stop(15%, rgba(255, 255, 255, 0)), color-stop(70%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(17, 17, 17, 0.3))); background-image: -webkit-linear-gradient(top, rgba(17, 17, 17, 0.3) 0%, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0) 70%, rgba(17, 17, 17, 0.3) 100%); background-image: -moz-linear-gradient(top, rgba(17, 17, 17, 0.3) 0%, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0) 70%, rgba(17, 17, 17, 0.3) 100%); background-image: -o-linear-gradient(top, rgba(17, 17, 17, 0.3) 0%, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0) 70%, rgba(17, 17, 17, 0.3) 100%); background-image: linear-gradient(top, rgba(17, 17, 17, 0.3) 0%, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0) 70%, rgba(17, 17, 17, 0.3) 100%); }
+
+/* line 37, ../scss/controller/_pt-home.scss */
+.propSearchInfo { background: #f9f9f9; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; padding: 5px 15px 15px 15px; }
+/* line 40, ../scss/controller/_pt-home.scss */
+.propSearchInfo .propSearchBox { position: relative; padding: 15px 0 0 0; width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* line 44, ../scss/controller/_pt-home.scss */
+.propSearchInfo .propSearchBox .dropdown-menu { top: 100% !important; left: 0 !important; }
+/* line 45, ../scss/controller/_pt-home.scss */
+.propSearchInfo .propSearchBox .propSearchBoxInfo { width: 100%; }
+/* line 46, ../scss/controller/_pt-home.scss */
+.propSearchInfo .propSearchBox .propSearchBoxInfo input { width: 80%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; border-top-right-radius: 0; border-bottom-right-radius: 0; -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-left-radius: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; margin: 0; height: 40px; }
+/* line 53, ../scss/controller/_pt-home.scss */
+.propSearchInfo .propSearchBox .propSearchBoxInfo input.redBorder { border: 1px solid red; }
+/* line 57, ../scss/controller/_pt-home.scss */
+.propSearchInfo .propSearchBox .propSearchBoxInfo .searchHomeBtn { width: 20%; background: #f39c13; font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 15px; color: white; text-transform: uppercase; padding: 10px; border: none; font-weight: bold; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* line 72, ../scss/controller/_pt-home.scss */
+.propWhy { background: white; padding: 3% 0; }
+/* line 74, ../scss/controller/_pt-home.scss */
+.propWhy .whyHeading { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 40px; line-height: 46px; color: #555555; }
+/* line 79, ../scss/controller/_pt-home.scss */
+.propWhy .askTextinfo { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 18px; line-height: 20px; color: #999999; display: block; padding: 2% 0 0 0; }
+/* line 86, ../scss/controller/_pt-home.scss */
+.propWhy .propWhyText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 20px; line-height: 24px; color: #333333; }
+/* line 91, ../scss/controller/_pt-home.scss */
+.propWhy .circleBox { padding: 5% 0; }
+/* line 94, ../scss/controller/_pt-home.scss */
+.propWhy a { font-size: 16px; padding: 5% 0 0 0; }
+
+/* line 100, ../scss/controller/_pt-home.scss */
+.propCityView { background: #333333; padding: 10px 0 0; }
+/* line 102, ../scss/controller/_pt-home.scss */
+.propCityView .propCityHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 20px; color: #cccccc; text-align: center; padding: 0 0 10px 0; }
+/* line 108, ../scss/controller/_pt-home.scss */
+.propCityView .propCityName { position: absolute; top: 10px; left: 0px; font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 16px; color: #cccccc; background: rgba(17, 17, 17, 0.7); padding: 5px; white-space: nowrap; z-index: 1; line-height: 16px; }
+/* line 121, ../scss/controller/_pt-home.scss */
+.propCityView ul li { min-width: 14.7%; max-width: 14.7%; height: 125px; margin: 10px .95%; display: inline-block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; overflow: hidden; position: relative; }
+/* line 129, ../scss/controller/_pt-home.scss */
+.propCityView ul li button { display: none; }
+/* line 131, ../scss/controller/_pt-home.scss */
+.propCityView ul li:hover a { display: block; }
+/* line 132, ../scss/controller/_pt-home.scss */
+.propCityView ul li:hover a:before { content: ''; background: black; opacity: 0.6; filter: alpha(opacity=60); position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: inline-block !important; }
+/* line 144, ../scss/controller/_pt-home.scss */
+.propCityView ul li:hover button { width: 70%; top: 55%; left: 15%; position: absolute; display: block; z-index: 1; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/* line 158, ../scss/controller/_pt-home.scss */
+.cityInfo { height: 125px; width: 172px; }
+
+/* line 159, ../scss/controller/_pt-home.scss */
+.more-city { background: #111111 url(../images/city-sprite.jpg) 0 -1500px; }
+
+/* line 160, ../scss/controller/_pt-home.scss */
+.noida-city { background: url(../images/city-sprite.jpg) 0 0; }
+
+/* line 161, ../scss/controller/_pt-home.scss */
+.gurgaon-city { background: url(../images/city-sprite.jpg) 0 -125px; }
+
+/* line 162, ../scss/controller/_pt-home.scss */
+.mumbai-city { background: url(../images/city-sprite.jpg) 0 -250px; }
+
+/* line 163, ../scss/controller/_pt-home.scss */
+.pune-city { background: url(../images/city-sprite.jpg) 0 -375px; }
+
+/* line 164, ../scss/controller/_pt-home.scss */
+.bangalore-city { background: url(../images/city-sprite.jpg) 0 -500px; }
+
+/* line 165, ../scss/controller/_pt-home.scss */
+.chennai-city { background: url(../images/city-sprite.jpg) 0 -625px; }
+
+/* line 166, ../scss/controller/_pt-home.scss */
+.kolkata-city { background: url(../images/city-sprite.jpg) 0 -750px; }
+
+/* line 167, ../scss/controller/_pt-home.scss */
+.ahmedabad-city { background: url(../images/city-sprite.jpg) 0 -875px; }
+
+/* line 168, ../scss/controller/_pt-home.scss */
+.delhi-city { background: url(../images/city-sprite.jpg) 0 -1000px; }
+
+/* line 169, ../scss/controller/_pt-home.scss */
+.ghaziabad-city { background: url(../images/city-sprite.jpg) 0 -1125px; }
+
+/* line 170, ../scss/controller/_pt-home.scss */
+.hyderabad-city { background: url(../images/city-sprite.jpg) 0 -1250px; }
+
+/* line 171, ../scss/controller/_pt-home.scss */
+.faridabad-city { background: url(../images/city-sprite.jpg) 0 -1375px; }
+
+/* line 172, ../scss/controller/_pt-home.scss */
+.propSkyScraper { padding: 15px 0 0 0; background: white; }
+/* line 174, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperContentInfo { width: 100%; height: 480px; background: url(../images/pt-sky-scraper-view.gif) repeat-x bottom left; }
+/* line 178, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperMainView { height: 480px; background: url(../images/pt-sky-scraper-main.gif) no-repeat bottom left; }
+/* line 181, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propOfficeInfo { position: relative; width: 73px; height: 305px; margin: 175px 0 0 190px; }
+/* line 185, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propOfficeInfo .propOfficeTextInfo { height: 50px; }
+/* line 186, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propOfficeInfo .propOfficeImgInfo { display: none; }
+/* line 188, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperTextCont { position: absolute; top: 0; left: 0; white-space: nowrap; }
+/* line 193, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propOfficeHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 36px; color: #111111; line-height: 40px; }
+/* line 198, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propAgentText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 26px; color: #777777; line-height: 30px; }
+/* line 203, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propHappyCustomerInfo { position: relative; width: 124px; height: 410px; margin: 70px 0 0 116px; }
+/* line 207, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propHappyCustomerInfo .propHappyCustTextInfo { height: 50px; }
+/* line 208, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propHappyCustomerInfo .propHappyCustImgInfo { display: none; }
+/* line 210, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSkyHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 24px; color: #f39c13; line-height: 26px; }
+/* line 215, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSkyText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 18px; color: #777777; line-height: 22px; }
+/* line 220, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSearchLoanInfo { position: relative; width: 67px; height: 273px; margin: 207px 0 0 28px; }
+/* line 224, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSearchLoanInfo .propSearchLoanTextInfo { height: 50px; }
+/* line 225, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSearchLoanInfo .propSearchLoanImgInfo { display: none; }
+/* line 227, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSoldInfo { position: relative; width: 105px; height: 353px; margin: 127px 0 0 249px; }
+/* line 231, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSoldInfo .propSoldTextInfo { height: 50px; }
+/* line 232, ../scss/controller/_pt-home.scss */
+.propSkyScraper .propSoldInfo .propSoldImgInfo { display: none; }
+/* line 234, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperPopup { display: none; position: absolute; padding: 10px; bottom: 65px; width: 275px; left: 0; z-index: 2; background: white; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-box-shadow: #999999 0px 0px 10px; -moz-box-shadow: #999999 0px 0px 10px; box-shadow: #999999 0px 0px 10px; }
+/* line 244, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperPopup:before { content: ""; display: inline-block; width: 0; height: 0; position: absolute; left: 14px; bottom: -9px; vertical-align: top; border-top: 9px solid #999999; border-right: 9px solid transparent; border-left: 9px solid transparent; }
+/* line 256, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperPopup:after { content: ""; display: inline-block; width: 0; height: 0; position: absolute; left: 15px; bottom: -8px; vertical-align: top; border-top: 8px solid white; border-right: 8px solid transparent; border-left: 8px solid transparent; }
+/* line 268, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperPopup .skyScraperPopText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 16px; color: #555555; line-height: 20px; }
+/* line 273, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperPopup .row-two-column { padding: 0; font-size: 14px; font-weight: 500; color: #444; }
+/* line 282, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .propSkyHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 28px; color: #111111; line-height: 30px; }
+/* line 287, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .propSkyText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 22px; color: #777777; line-height: 24px; }
+/* line 292, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .skyScraperPopup { display: block; }
+/* line 293, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .propOfficeImgInfo { display: block; }
+/* line 294, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .propHappyCustImgInfo { display: block; }
+/* line 295, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .propSearchLoanImgInfo { display: block; }
+/* line 296, ../scss/controller/_pt-home.scss */
+.propSkyScraper .skyScraperOverlay:hover .propSoldImgInfo { display: block; }
+
+/* line 300, ../scss/controller/_pt-home.scss */
+.propRealEstate { padding: 3% 0; }
+/* line 301, ../scss/controller/_pt-home.scss */
+.propRealEstate .propRealEstatInfo { background: white; -webkit-box-shadow: #999999 0px 0px 10px; -moz-box-shadow: #999999 0px 0px 10px; box-shadow: #999999 0px 0px 10px; }
+/* line 305, ../scss/controller/_pt-home.scss */
+.propRealEstate .realEstatImageInfo { overflow: hidden; }
+/* line 307, ../scss/controller/_pt-home.scss */
+.propRealEstate .authDiscInfo { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 18px; line-height: 24px; color: #555555; padding: 10px 10px 0; min-height: 70px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* line 315, ../scss/controller/_pt-home.scss */
+.propRealEstate .authorText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 14px; line-height: 16px; color: #777777; padding: 5px 10px 10px 10px; overflow: hidden; }
+/* line 321, ../scss/controller/_pt-home.scss */
+.propRealEstate .authorText img { -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; }
+
+/* line 325, ../scss/controller/_pt-home.scss */
+.homeHeading { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 40px; line-height: 46px; color: #555555; }
+
+/* line 330, ../scss/controller/_pt-home.scss */
+.homeTextInfo { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 20px; line-height: 24px; color: #999999; }
+
+/* line 335, ../scss/controller/_pt-home.scss */
+.propReason { padding: 3% 0; background: url(../images/pt-things-different.jpg) no-repeat; background-size: 100%; }
+/* line 338, ../scss/controller/_pt-home.scss */
+.propReason:before { content: ''; background: black; opacity: 0.8; filter: alpha(opacity=80); position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: inline-block !important; }
+/* line 349, ../scss/controller/_pt-home.scss */
+.propReason .homeHeading { color: #eeeeee; }
+/* line 350, ../scss/controller/_pt-home.scss */
+.propReason .propReasInfo { position: relative; z-index: 1; }
+/* line 352, ../scss/controller/_pt-home.scss */
+.propReason .propReasInfo .propReasonContent { padding: 5% 3% 0 3%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* line 354, ../scss/controller/_pt-home.scss */
+.propReason .propReasInfo .propReasonContent .reasSubhead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 30px; line-height: 32px; color: white; opacity: 0.3; filter: alpha(opacity=30); }
+/* line 361, ../scss/controller/_pt-home.scss */
+.propReason .propReasInfo .propReasonContent ul.reasonList { padding: 3% 0 0 0; }
+/* line 362, ../scss/controller/_pt-home.scss */
+.propReason .propReasInfo .propReasonContent ul.reasonList li { background: url(../images/pt-right-list.png) no-repeat 0 50%; font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 25px; line-height: 28px; color: #eeeeee; padding: 3% 0 3% 10%; }
+/* line 371, ../scss/controller/_pt-home.scss */
+.propReason .propReasInfo .propReasonContent ul.rightList li { background: url(../images/pt-cross-list.png) no-repeat right 50% !important; padding: 3% 10% 3% 0; }
+
+/* line 378, ../scss/controller/_pt-home.scss */
+.propTechInfo { background: url(../images/prop-tech-01.jpg) no-repeat; background-size: 100%; }
+
+/* line 381, ../scss/controller/_pt-home.scss */
+.propImageSlider { height: 530px; margin: 0; overflow: hidden; }
+/* line 384, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab { height: 59px; border-bottom: 1px solid #cccccc; }
+/* line 386, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators { width: 100%; top: 0; }
+/* line 388, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators li { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 20px; color: #e5e5e5; -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; -o-border-radius: 0; border-radius: 0; background: none; width: 33%; height: 58px; text-indent: inherit; margin: 0; padding: 0 0 0 10%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* line 399, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators li span { display: inline-block; cursor: pointer; border-bottom: none; padding: 18px; }
+/* line 404, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators li:hover { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; color: white; }
+/* line 406, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators li:hover span { border-bottom: 4px solid #cccccc; }
+/* line 409, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators li.active { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; color: white; }
+/* line 411, ../scss/controller/_pt-home.scss */
+.propImageSlider .propSliderTab .carousel-indicators li.active span { border-bottom: 4px solid #cccccc; }
+/* line 417, ../scss/controller/_pt-home.scss */
+.propImageSlider .carousel-inner { height: 470px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* line 419, ../scss/controller/_pt-home.scss */
+.propImageSlider .carousel-inner .item { padding: 46px 0 0 0; }
+/* line 420, ../scss/controller/_pt-home.scss */
+.propImageSlider .carousel-inner .carou-head-text { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 300; font-style: normal; font-size: 54px; line-height: 56px; color: white; }
+/* line 425, ../scss/controller/_pt-home.scss */
+.propImageSlider .carousel-inner .carou-subhead-text { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 54px; line-height: 56px; color: white; }
+/* line 429, ../scss/controller/_pt-home.scss */
+.propImageSlider .carousel-inner .carou-text-info { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 300; font-style: normal; font-size: 26px; line-height: 28px; color: white; }
+/* line 434, ../scss/controller/_pt-home.scss */
+.propImageSlider .mapSpaceCarou { padding-top: 90px !important; }
+/* line 435, ../scss/controller/_pt-home.scss */
+.propImageSlider .appTextSpacInfo { padding-top: 150px; }
+/* line 436, ../scss/controller/_pt-home.scss */
+.propImageSlider .portSpaceCarou { padding-top: 95px !important; }
+/* line 437, ../scss/controller/_pt-home.scss */
+.propImageSlider .carousel-control { width: auto; height: auto; color: white; background: none; border: none; z-index: 3; }
+
+/* line 446, ../scss/controller/_pt-home.scss */
+.propSocialNetwork { padding: 5% 0; background: white; }
+/* line 448, ../scss/controller/_pt-home.scss */
+.propSocialNetwork a { height: 68px; }
+/* line 449, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialFaceInfo { background: white; width: 60%; text-align: center; color: #1a609c; padding: 15%; float: left; border: 1px solid #1a609c; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; }
+/* line 457, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialFaceInfo:hover { background: #1a609c; color: white; border: 1px solid #1a609c; }
+/* line 462, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialGoogleInfo { background: white; width: 60%; text-align: center; padding: 15%; color: #d65b2b; float: left; border: 1px solid #d65b2b; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; }
+/* line 470, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialGoogleInfo:hover { background: #d65b2b; color: white; border: 1px solid #d65b2b; }
+/* line 475, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialTwitterInfo { background: white; width: 60%; text-align: center; padding: 15%; color: #3391e2; float: left; border: 1px solid #3391e2; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; }
+/* line 483, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialTwitterInfo:hover { background: #3391e2; color: white; border: 1px solid #3391e2; }
+/* line 488, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialLinkInfo { background: white; width: 60%; text-align: center; color: #1a609c; padding: 15%; float: left; border: 1px solid #1a609c; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; }
+/* line 496, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialLinkInfo:hover { background: #1a609c; color: white; border: 1px solid #1a609c; }
+/* line 501, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialYoutubeInfo { background: white; width: 60%; text-align: center; padding: 15%; color: #d65b2b; float: left; border: 1px solid #d65b2b; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; }
+/* line 509, ../scss/controller/_pt-home.scss */
+.propSocialNetwork .socialYoutubeInfo:hover { background: #d65b2b; color: white; border: 1px solid #d65b2b; }
+/* line 514, ../scss/controller/_pt-home.scss */
+.propSocialNetwork i { font-size: 50px; line-height: 68px; }
+
+/* line 519, ../scss/controller/_pt-home.scss */
+.homeTabContainer .nav-tabs { border-bottom: 1px solid #cccccc; }
+/* line 520, ../scss/controller/_pt-home.scss */
+.homeTabContainer .nav-tabs li { border-bottom: 5px solid transparent !important; }
+/* line 521, ../scss/controller/_pt-home.scss */
+.homeTabContainer .nav-tabs li:hover { border-bottom: 5px solid #f39c13 !important; }
+/* line 522, ../scss/controller/_pt-home.scss */
+.homeTabContainer .nav-tabs li.active { border-bottom: 5px solid #f39c13 !important; }
+/* line 524, ../scss/controller/_pt-home.scss */
+.homeTabContainer .nav-tabs a { background: transparent !important; }
+
+/* line 527, ../scss/controller/_pt-home.scss */
+.propTestimonialSection { background: white; padding: 5% 0 3% 0; }
+/* line 529, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .carousel { position: relative; margin: 0 0 20px 0; height: 200px; }
+/* line 532, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .carousel .carousel-inner { margin: 0 auto; width: 90%; }
+/* line 537, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .testiContent { position: relative; padding: 30px; }
+/* line 540, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .testiDesContent { font-size: 18px; color: #888; line-height: 26px; position: relative; }
+/* line 545, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .testClientInfo { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 24px; color: #555555; padding: 15px 0 0 30px; }
+/* line 549, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .testClientInfo .testClientCompInfo { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 18px; color: #999999; display: block; padding: 7px 0 0 0; }
+/* line 556, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .testiQuoteTop { position: absolute; top: 0; left: -20px; font-size: 50px; color: #eeeeee; z-index: 0; }
+/* line 563, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .testiQuoteBottom { position: absolute; bottom: 0; right: 0; font-size: 50px; color: #eeeeee; z-index: 0; }
+/* line 570, ../scss/controller/_pt-home.scss */
+.propTestimonialSection .carousel-control { width: auto; height: auto; color: #a7a7a7; background: none; z-index: 3; }
+
+/* line 577, ../scss/controller/_pt-home.scss */
+.testlink { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 18px; }
+
+/* line 581, ../scss/controller/_pt-home.scss */
+.propAddressInfo { padding: 15px 0 3% 0; height: 460px; }
+/* line 583, ../scss/controller/_pt-home.scss */
+.propAddressInfo .propAddressDescInfo { width: auto; min-width: 100px; max-width: 350px; padding: 15px; background: white; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-box-shadow: #999999 0px 0px 10px; -moz-box-shadow: #999999 0px 0px 10px; box-shadow: #999999 0px 0px 10px; }
+/* line 592, ../scss/controller/_pt-home.scss */
+.propAddressInfo .propAggressHead { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 700; font-style: normal; font-size: 12px; color: #555555; text-transform: uppercase; }
+/* line 597, ../scss/controller/_pt-home.scss */
+.propAddressInfo .propAggressText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 17px; color: #555555; }
+/* line 601, ../scss/controller/_pt-home.scss */
+.propAddressInfo .propAggressSubText { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 13px; color: #555555; font-style: italic; }
+/* line 606, ../scss/controller/_pt-home.scss */
+.propAddressInfo .propAggressLink { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 18px; color: #2980b9; }
+/* line 609, ../scss/controller/_pt-home.scss */
+.propAddressInfo .propAggressLink a { color: #2980b9; font-size: 18px; }
+/* line 614, ../scss/controller/_pt-home.scss */
+.propAddressInfo button { width: 100%; }
+
+/* line 617, ../scss/controller/_pt-home.scss */
+.noidaMap { background: white url(../images/pt-noida-map-bg.jpg) no-repeat center 57px; }
+
+/* line 618, ../scss/controller/_pt-home.scss */
+.gurgaonMap { background: white url(../images/pt-gurgaon-map-bg.jpg) no-repeat center 57px; }
+
+/* line 619, ../scss/controller/_pt-home.scss */
+.mumbaiMap { background: white url(../images/pt-mumbai-map-bg.jpg) no-repeat center 57px; }
+
+/* line 620, ../scss/controller/_pt-home.scss */
+.bangaloreMap { background: white url(../images/pt-banglore-map-bg.jpg) no-repeat center 57px; }
+
+/* line 621, ../scss/controller/_pt-home.scss */
+.ahmedabadMap { background: white url(../images/pt-ahmedabad-map-bg.jpg) no-repeat center 57px; }
+
+/* line 622, ../scss/controller/_pt-home.scss */
+.puneMap { background: white url(../images/pt-pune-map-bg.jpg) no-repeat center 57px; }
+
+/* line 623, ../scss/controller/_pt-home.scss */
+.chennaiMap { background: white url(../images/pt-chennai-map-bg.jpg) no-repeat center 57px; }
+
+/* line 624, ../scss/controller/_pt-home.scss */
+.kolkataMap { background: white url(../images/pt-kolkata-map-bg.jpg) no-repeat center 57px; }
+
+/* line 626, ../scss/controller/_pt-home.scss */
+.tabContainer .nav-tabs.paddingL90 { padding-left: 90px; }
+
+/* line 627, ../scss/controller/_pt-home.scss */
+.propNewsSection { background: white; padding: 4% 0 0 0; }
+/* line 629, ../scss/controller/_pt-home.scss */
+.propNewsSection .newsInfo { height: 573px; background: url(../images/pt-news-section.jpg) no-repeat 0 0; padding: 25px 0 0 25px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* line 634, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerContainer { width: 640px; height: 384px; float: left; }
+/* line 637, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerContainer #player { height: 384px !important; }
+/* line 639, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl { width: 73px; height: 384px; float: left; margin: 0 0 0 50px; position: relative; }
+/* line 644, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .playerBtnUp { position: absolute; top: 0; left: 20px; z-index: 1; cursor: pointer; }
+/* line 649, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .playerBtnUp i { font-size: 34px; color: #cccccc; }
+/* line 653, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .playerBtnDown { position: absolute; left: 20px; bottom: 0; z-index: 1; cursor: pointer; }
+/* line 658, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .playerBtnDown i { font-size: 34px; color: #cccccc; }
+/* line 662, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .disable { opacity: 0.5; filter: alpha(opacity=50); cursor: default; }
+/* line 666, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .playerViewInfo { position: relative; overflow: hidden; height: 288px; margin: 40px 0 0 0; }
+/* line 671, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .scrollThumb { position: relative; }
+/* line 672, ../scss/controller/_pt-home.scss */
+.propNewsSection .playerControl .scrollThumb img { margin: 10px 0; cursor: pointer; }
+
+/* line 680, ../scss/controller/_pt-home.scss */
+.buttonFixedShow { position: fixed; right: 0; }
+
+/* line 685, ../scss/controller/_pt-home.scss */
+.center-page { text-align: center; }
+
+/* line 689, ../scss/controller/_pt-home.scss */
+.bktop { position: fixed; bottom: 0; margin-bottom: 15px; right: 25px; color: #fff; cursor: pointer; opacity: 0.6; filter: alpha(opacity=60); }
+/* line 698, ../scss/controller/_pt-home.scss */
+.bktop .backtotop { background: #f39c13; -webkit-border-radius: 0px; -moz-border-radius: 0px; -ms-border-radius: 0px; -o-border-radius: 0px; border-radius: 0px; padding: 8px 10px; }
+/* line 702, ../scss/controller/_pt-home.scss */
+.bktop .backtotop i { font-size: 20px; }
+/* line 706, ../scss/controller/_pt-home.scss */
+.bktop:hover { opacity: 1; filter: alpha(opacity=100); }
+/* line 710, ../scss/controller/_pt-home.scss */
+.bktop span { font-family: "open-sans", Arial, Helvetica, sans-serif; font-weight: 400; font-style: normal; font-size: 12px; display: block; color: #555555; text-align: center; text-transform: uppercase; }

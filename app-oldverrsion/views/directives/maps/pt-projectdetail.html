@@ -1,0 +1,159 @@
+<div class="proj-name-wrap" id="projectDetail_{{data.projectId}}">
+    <a class="proj-name" tooltip="{{data.builder.name}} {{data.name}}" tooltip-placement="bottom" ng-click="projectLinkTracking()" href="/{{data.URL}}" target="_blank">{{data.builder.name}} {{data.name}}</a>
+    <span ng-if="data.avgPriceRisePercentage < 0" class="rise-fall grey" tooltip="in past in past {{ data.avgPriceRiseMonths }} months" tooltip-placement="right">
+        ({{ -data.avgPriceRisePercentage}} % <i class="fa fa-arrow-down"></i>)
+    </span>
+    <span ng-if="data.avgPriceRisePercentage > 0" class="rise-fall green" tooltip="in past {{ data.avgPriceRiseMonths }} months" tooltip-placement="right">
+        ({{ data.avgPriceRisePercentage}} % <i class="fa fa-arrow-up"></i>)
+    </span> &nbsp; 
+    <a href="/{{data.URL}}" target="_blank" class="" ng-click="projectLinkTracking()" tooltip="Go to this project" tooltip-placement="right"> <i class="fa fa-external-link"></i> </a>
+    <a class="close" ng-click="close()">&#120;</a>
+    <div class="clearfix"></div>
+</div>
+<div class="loc-name-wrap">
+    <span class="loc-name" tooltip-placement="bottom" tooltip="{{ data.locality.label }}, {{ data.locality.suburb.city.label }}">{{ data.locality.label }}, {{ data.locality.suburb.city.label }}</span>
+    <div pt-rating ratings="data.locality.ratings" ng-if="data.locality.ratings" ></div>
+    <!--<span ng-if="data.locality.averageRating" class="loc-name">| Rated</span>
+    <span ng-if="data.locality.averageRating" class="rating" tooltip-placement="right" tooltip="{{data.projectRating}} based on {{ data.locality.ratingsCount }} ratings"><strong>{{ data.locality.averageRating | priceFormat }} </strong>/ <strong>5</strong></span>-->
+    <div class="clearfix" ></div>
+</div>
+
+<ul tabset class="projectDetailsTabs">
+    <li tab heading="Gallery" id="gallery" ng-click="tabSwitch('gallery')">
+        <div class="proj-img-gall">
+            <div pt-imagecarousel settings="gallerySettings" images="imageData" imagesfullview="imageDataFullView"></div>
+        </div>
+    </li>
+    <li tab heading="Price &amp; Plans" id="price" ng-click="tabSwitch('price')">
+        <label class="check-show-price">
+            <input type="checkbox" class="" name="" ng-click="togglePriceArea($event)"> Always show price / area
+        </label>
+        <table class="table table-striped table-condensed table-hover tbl-price" ng-class="{ifresale : !data.hasResaleProperty}">
+            <thead>
+                <tr>
+                    <th>TYPE</th>
+                    <th>SIZE</th>
+                    <th>NEW</th>
+                    <th ng-if="data.hasResaleProperty">RESALE</th>
+                    <th>PLANS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prop in data.properties">
+                    <td class="type-ellipse" ng-class="{ifresaletype: !data.hasResaleProperty}" tooltip="{{prop.unitName}}">{{prop.unitName}}</td>
+                    <td ng-if="prop.size && prop.size != 'NA'">{{prop.size}} {{prop.measure}}</td>
+                    <td ng-if="!prop.size || prop.size == 'NA'" ng-click="openLeadForm('size', prop, 'hidden-sizerequest-top')"><a class="on_rqst" href="javascript:void(0)" >On Request</a></td>
+                    <td ng-if="prop.budget">{{ prop.budget | priceFormat }}<br /> 
+                        <span class="sizes" ng-if="prop.size">
+                            <i class="fa fa-inr"></i>{{ prop.pricePerUnitArea }} /{{ prop.measure }}
+                        </span>
+                    </td>
+                    <td ng-if="!prop.budget" ng-click="openLeadForm('newPrice', prop, 'hidden-pricerequest-top')"><a class="on_rqst" href="javascript:void(0)">On Request</a></td>
+                    <td ng-if="data.hasResaleProperty && prop.resalePrice">{{ prop.resalePrice | priceFormat }}<br /> 
+                        <span class="sizes" ng-if="prop.resalePricePerUnitArea">
+                            <i class="fa fa-inr"></i>{{ prop.resalePricePerUnitArea }} /{{ prop.measure }}
+                        </span>
+                    </td>
+                    <td ng-if="data.hasResaleProperty && !prop.resalePrice" ng-click="openLeadForm('resalePrice', prop, 'hidden-pricerequest-top')"><a class="on_rqst" href="javascript:void(0)">On Request</a></td>
+                    <td class="plans">
+                        <a ng-if="prop.images.length > 0" class="view-plan" href="javascript:void(0);" ng-click="openGallery(prop)">View Plan</a>
+                        <span ng-if="!prop.images.length" ng-click="openLeadForm('floorPlan', prop, 'hidden-floorrequest-top')"><a class="on_rqst" href="javascript:void(0)">On Request</a></span>
+                        <div class="similar-wrap">
+                            <a href="javascript:void(0);" target="_blank" class="">Show Similar Properties</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </li>
+    <li tab heading="Project Details" id="project-details" ng-click="tabSwitch('project-details')">
+        <div class="key-val-wrap">
+            <div class="key-col">Launch Date: </div>
+            <div class="val-col">{{ data.launchDate }} </div>
+        </div>
+        <div class="key-val-wrap">
+            <div class="key-col">Project Status: </div>
+            <div class="val-col">{{data.projectStatus}}</div>
+        </div>
+        <div class="key-val-wrap">
+            <div class="key-col">Possession Date: </div>
+            <div class="val-col">{{ data.possessionDate }} </div>
+        </div>
+        <div class="key-val-wrap">
+            <div class="key-col">Total Units: </div>
+            <div class="val-col">{{ data.supply }} </div>
+        </div>
+        <div class="key-val-wrap">
+            <div class="key-col">Total Area: </div>
+            <div class="val-col">{{ data.projectSize }}</div>
+        </div>
+        <div class="key-val-wrap">
+            <div class="key-col">Property Type: </div>
+            <div class="val-col">{{ data.bhkInfo }}</div>
+        </div>
+        <div class="key-val-wrap" ng-show="data.amenities && data.amenities.length">
+            <div class="key-col">Amenities: </div>
+            <div class="val-col amenities-wrap" ng-if="data.amenities && data.amenities.length">
+                <ul>
+                    <li ng-repeat="item in data.amenities">
+                        <i ng-if="item.amenityMaster.abbreviation != 'Oth'" class="fs0 icon-{{item.amenityMaster.abbreviation}}" tooltip="{{ item.amenityDisplayName }}" tooltip-placement="top"></i>
+                        <span ng-if="item.amenityMaster.abbreviation == 'Oth'" tooltip="{{ item.amenityDisplayName | limitTo : 200}}" tooltip-placement="right" >Others</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div class="clearfix"></div>
+        <div ng-if="data.amenities && data.amenities.length" class="amenities-wrap">
+            <h3>Amenities</h3>
+            <ul>
+                <li ng-repeat="item in data.amenities">
+                	<i ng-if="item.amenityMaster.abbreviation != 'Oth'" class="fs0 icon-{{item.amenityMaster.abbreviation}}" tooltip="{{ item.amenityDisplayName }}" tooltip-placement="right"></i>
+                    <span ng-if="item.amenityMaster.abbreviation == 'Oth'" tooltip="{{ item.amenityDisplayName }}" tooltip-placement="right" >Others</span>
+                </li>
+            </ul>
+        </div>-->
+    </li>
+    <li tab ng-show="!showUnMapped" heading="Neighbourhood" id="neighbourhood" ng-click="tabSwitch('neighbourhood')">
+		<div id="neighbourhoodLoaderProject" class="neighbr_load">
+		<div pt-loading-block  class="mapSpin"></div>    
+		</div>
+        <div class="neighbour-col">
+            <ul>
+                <li class="heading">Neighbourhood</li>
+
+				<li><a class="school first" ng-click="itemClicked($event, 'school')" data-type="school"  name="school"><i class="fs0 icon-school"></i> Schools<span ng-if="neighbourhoodValue.school !== ''">({{neighbourhoodValue.school}})</span></a></li>
+                <li><a class="restaurants" ng-click="itemClicked($event, 'restaurant')" data-type="restaurant" name="restaurant"><i class="fs0 icon-restaurant"></i> Restaurants<span ng-if="neighbourhoodValue.restaurant !== ''">({{neighbourhoodValue.restaurant}})</span></a></li>
+                <li><a class="hospitals" ng-click="itemClicked($event, 'hospital')" data-type="hospital" name="hospital"><i class="fs0 icon-hospital"></i> Hospitals<span ng-if="neighbourhoodValue.hospital !== ''">({{neighbourhoodValue.hospital}})</span></a></li>
+                <li><a class="gas_station" ng-click="itemClicked($event, 'gas_station')" data-type="gas_station" name="gas_station"><i class="fs0 icon-petrol-station"></i> Petrol Pumps<span ng-if="neighbourhoodValue.gas_station !== ''">({{neighbourhoodValue.gas_station}})</span></a></li>
+                <li><a class="atm" ng-click="itemClicked($event, 'bank')" data-type="atm" name="bank"><i class="fs0 icon-bank"></i> ATM/Banks<span ng-if="neighbourhoodValue.bank !== ''">({{neighbourhoodValue.bank}})</span></a></li>
+			</ul>
+
+        </div>
+        <div class="connectivity-col">
+            <ul>
+                <li class="heading">Connectivity</li>
+				<li><a ng-click="itemClicked($event, 'bus_station')" class="" data-type="bus_station" name="bus_station"><i class="fs0 icon-bus-stop"></i> Bus Stop<span ng-if="neighbourhoodValue.bus_station !== ''">({{neighbourhoodValue.bus_station}})</span></a></li>
+                <li><a ng-click="itemClicked($event, 'train_station')" class="" data-type="train_station" name="train_station"><i class="fs0 icon-train-station"></i> Train Station<span ng-if="neighbourhoodValue.train_station !== ''">({{neighbourhoodValue.train_station}})</span></a></li>
+                <li><a ng-click="itemClicked($event, 'airport')" class="" data-type="airport" name="airport"><i class="fs0 icon-airport"></i> Airport<span ng-if="neighbourhoodValue.airport !== ''">({{neighbourhoodValue.airport}})</span></a></li>
+			</ul>
+
+        </div>
+        <div class="clearfix"></div>
+    </li>
+</ul>
+<!-- Card Footer Buttons -->
+<div class="card-footer">
+    <div class="pull-left">
+        <div class="deal-bar" ng-if="data.offerDesc && data.offerDesc !== 'none' && data.offerDesc != ''">
+            <i class="fa fa-bell-o"></i> <strong class="">DEAL</strong> 
+            <div class="deal-info">
+                <p>{{ data.offerDesc }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right">
+        <span class="wrap fav projFav_{{data.projectId}}" pt-favorite project-id='data.projectId' caller='callerLocation'></span>
+        <span class="wrap" pt-compare-button project='data' caller='callerLocation'></span>
+        <a class="btn btn-small btn-action" ng-click="openLeadForm(undefined, undefined, 'hidden-enquiry-top')">Enquire Now</a>
+    </div>
+</div>

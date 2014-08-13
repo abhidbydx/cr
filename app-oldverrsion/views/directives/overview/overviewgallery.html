@@ -1,0 +1,5 @@
+<div>
+    <img ng-if="image.length == 1 || image.length == 2" ng-repeat="img in image" ng-src="{{img.smallPath}}" title="{{img.title}}" alt="{{img.description}}">
+</div>
+
+<a><div class="more-img-info" ng-if="moretext" ng-click="openGallery(gallery, {})">{{moretext}}</div></a>

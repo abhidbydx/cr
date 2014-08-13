@@ -1,0 +1,593 @@
+/* 
+Desc: Projects Detail Card Scss Document 
+Author: Nimit Mangal
+Date: 27 Nov 2013
+*/
+
+/********************************************************
+**************  Projects CARDS ******
+********************************************************/		
+.proj-card-wrap {
+	position:absolute;
+	left:8px;
+	top:5px;
+	width:350px; 
+	margin:0px auto;
+	border:solid 1px #999; 
+	box-shadow:1px 2px 5px #333;
+	background:#fff;
+	padding:5px;
+	z-index:9;
+	height:365px !important;
+	
+	.expand-btn {
+		z-index: 4;
+		bottom:4px !important;
+	}
+	
+	.proj-name-wrap { 
+		padding: 0px 0px; 
+		
+		.proj-name {
+			cursor: pointer;
+			display: block;
+			float: left;
+			font-size: 14px;
+			max-width: 70%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			color:#2691EC;
+		}
+		
+		.rise-fall { margin-left: 10px; }
+		
+		.close {
+			background:#999;
+			color:#f5f5f5;
+			opacity:1;
+			font-size:$body-font-size;
+			line-height:normal;
+			font-weight:normal;
+			padding:0px 6px 4px;
+			
+			&:hover {
+				background:#333;
+				color:#fff;
+				opacity:1;
+				
+			}
+		}
+	}
+	
+	.loc-name-wrap { 
+		padding: 0px 0px 5px; 
+		
+		.loc-name {
+			display: block;
+			float: left;
+			color: #9c9c9c;
+			font-weight: normal;
+			margin: 0 10px 0 0;
+			max-width: 60%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		
+		.rating { 
+			display: block;
+			float: left;
+			font-size: 12px;
+			padding: 0 4px;
+			background: #efefef;
+		}
+	}
+	
+	ul.nav.nav-tabs {
+		padding: 0px;
+		margin: 0px 4px;
+		border-bottom: solid 1px #666;
+		
+		> li {
+			padding: 1px 7px;
+			
+			> a {
+				border: none;
+				border-radius: 0px;
+				padding: 0px 0px 5px;
+				margin: 0px;
+				font-size: 12px;
+				line-height: normal;
+				color: #999;
+				cursor: pointer;
+			}
+			
+			&:hover {
+				a, a:hover, a:focus {
+					background: none;
+					color: #333;
+				}
+			}
+			
+			&.active {
+				a, a:hover, a:focus {
+					color:#333;
+					border-bottom:solid 5px #666;
+				}
+			}
+			
+			&:last-child {
+				
+			}
+		}
+	}
+	
+	.tab-pane {
+		font-size:12px;
+		font-weight:normal;
+		min-height:240px;
+		/*height:225px;
+		overflow-x:hidden;
+		overflow-y:auto;*/
+		padding:5px 0px;
+	}
+	
+	.proj-img-gall  {
+		.carousel {
+			margin-bottom:0px;
+			
+			> ol, > ul {
+				display:none;
+			}
+			
+			.carousel-inner {
+				min-height:200px;
+				
+				.item {
+					
+					img {
+						height:420px;
+						width:350px;
+					}
+					
+					.carousel-caption {
+						clear:both;
+						padding:6px 5px;
+						
+						h4 {
+							font-size:11px;
+							display:block;
+							float:right;
+							padding:0px;
+							margin:0px;
+							line-height:normal;
+						}
+						
+						p {
+							display:block;
+							float:left;
+							line-height:normal;
+						}
+					}
+				}
+			}
+			
+			a.carousel-control {
+				background: none repeat scroll 0 0 #222222;
+				position: absolute;
+				left: 0px;
+				top: 40%;
+				margin-top: -20px;
+				opacity: 0.6;
+				border: none;
+				border-radius: 0px;
+				text-align: center;
+				color: #FFFFFF;
+				font-size: 45px;
+				font-weight: normal;
+				line-height: 30px;
+				height: 40px;
+				width: 30px;
+				cursor:pointer;
+				
+				&.left {
+					right:auto;
+					left:0px;
+					border-top-right-radius: 5px;
+					border-bottom-right-radius: 5px;
+				}
+				
+				&.right {
+					left:auto;
+					right:0px;
+					border-top-left-radius: 5px;
+					border-bottom-left-radius: 5px;
+				}
+			}
+			
+		}
+	}
+	
+	.check-show-price {
+		float:right;
+		font-size:10px;
+		line-height:18px;
+		margin:5px 0px 8px;
+		
+		input[type=checkbox] {
+			margin:0px 4px 0 0;
+		}
+	}
+	
+	.tbl-price {
+		margin-bottom:0px;
+		thead {
+			float:left;
+			width:100%;
+		}
+		tbody {
+			width:100%;
+			float:left;
+			height:188px;
+			overflow:auto;
+		}
+		
+		tr {
+			width:100%;
+			float:left;
+			display:inline-table;
+			border-bottom: solid 1px #ccc;
+			th, td { 
+				border: none;
+				text-align:center; 
+				vertical-align:middle;
+				font-size:11px;
+				width:20%;
+				
+				.sizes {font-size:9px; line-height:9px;}
+			}
+			
+			th {
+				background:#ccc;
+				font-weight:normal;
+				padding:1px 4px;
+				line-height:normal;
+			}
+			
+			td {
+				height:35px;
+				padding: 0px 4px;
+					&.type-ellipse {
+						display: inline-block;
+						float: left;
+						line-height: 35px;
+						margin: 0;
+						overflow: hidden;
+						padding: 0 7px;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						width: 56px;
+					}
+					&.ifresaletype {
+						@extend .type-ellipse;
+						width:75px !important;
+					}
+					
+				a.on_rqst {
+					display: block;
+					line-height: 12px;
+				}
+				.sizes {
+					font-size:9px; 
+					line-height:9px;
+					display:none;
+				}
+				&.plans {
+					
+					.view-plan {
+						display:inline-block;
+					}
+					
+					.similar-wrap {
+						display:none;
+						position:absolute;
+						right:-122px;
+						margin-top:-20px;
+						z-index:9999;
+						box-shadow:0px 1px 2px #333;
+						
+						a {
+							display:none;
+							padding:0px 5px;
+							background:#2492ef;
+							color:#fff;							
+						}
+					}
+				}
+			}
+			
+			&:hover {
+				border-bottom: solid 1px #ccc;
+				th {
+					
+				}
+				td {
+					background:#efefef;
+					
+					a.on_rqst {
+						/* text-decoration: underline; */
+					}
+					.sizes {
+						display:block;
+					}
+					
+					&.plans {
+						.similar-wrap {
+							a {
+								display:block;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		tr:nth-child(2n+1) {
+			border-bottom: solid 1px #ccc;
+		}
+		&.ifresale {
+			tr {
+				th, td {
+					width:25%;
+					
+				}
+			}
+		}
+		&.show-sizes {
+			tr {
+				td {
+					.sizes {
+						display:block;
+					}
+				}
+			}
+		}
+	}
+	
+	.key-val-wrap {
+		padding:5px 0px;
+		clear:both;
+		
+		.key-col { width:135px; float:left; }
+		.val-col { width:185px; float:right; }
+	}
+	
+	
+	.amenities-wrap {
+		margin:0px;
+		
+		h3 {
+			font-size:14px;
+			font-weight:bold;
+			line-height:normal;
+			padding:0px 0px 5px 0px;
+			margin:0px;
+			border-bottom:solid 1px #666;
+		}
+		
+		ul {
+			padding:0px;
+			margin:0px;
+			list-style:none;
+			width:170px;
+			overflow:hidden;
+			
+			li {
+				padding:0 12px 8px 0;
+				margin:0px;
+				cursor:default;
+				display: inline-block;
+				&:hover{
+					color:#333333;
+				}
+				.fs0 {
+					font-size:20px;
+				}
+				&[class^="icon-ameni-"], &[class*=" icon-ameni-"] {
+					width:48px;
+					height:30px;
+				}
+			}
+		}
+	}
+	
+	.neighbour-col, .connectivity-col {
+		width:48%; 
+		float:left; 
+		
+		ul {
+			list-style:none;
+			padding:0px;
+			margin:0px;
+			
+			li {
+				margin:5px 0px;
+				
+				&.heading {
+					background:#dcdcdc;
+					padding:3px 5px;
+				}
+				
+				a {
+					color:#666;
+					text-decoration:none;
+					cursor:pointer;
+					
+					[class^="icon-"], [class*=" icon-"] {
+						background:#fff;
+						border:solid 1px #acacac;
+						padding:4px 4px 3px;
+						border:none;
+						border-radius:14px;
+						vertical-align:bottom;
+					}
+					.icon-school { color: #3a95c4; }
+					.icon-restaurant { color: #8059a5; }
+					.icon-hospital { color: #ce4f2d; }
+					.icon-petrol-station { color: #333333; }
+					.icon-bank { color: #c74560; }
+					.icon-bus-stop { color:#CC7700;}
+					.icon-train-station { color:#501100;}
+					.icon-airport { color:#006633;}
+					
+					&:hover {
+						color:#2691ec;
+						[class^="icon-"], [class*=" icon-"] {
+							/*background:#2691ec;
+							color:#2691ec;*/
+						}
+					}
+					&.active-neighbour {
+						color:#2691ec;
+						[class^="icon-"], [class*=" icon-"] {
+							/*background:#2691ec;
+							color:#2691ec;*/
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.connectivity-col {
+		float:right;
+	}
+	
+	.card-footer {
+		border-top:solid 1px #999;
+		margin:0px 0px 0px;
+		padding:5px;
+		
+		.deal-bar {
+			background-color: #FF9414;
+			border-top: 2px solid #D77500;
+			color: #FFFFFF;
+			cursor: pointer;
+			padding: 4px 7px;
+			position: relative;
+			
+			strong {
+				font-size: 11px;
+				letter-spacing: 1px;
+				line-height: 12px;
+			}
+			
+			.deal-info {
+				display: none;
+				opacity: 0.9;
+				position: absolute;
+				left: -5px;
+				bottom: 30px;
+				height: 60px;
+				overflow:hidden;
+				width: 340px;
+				padding: 3px 5px;
+				background-color: #fff9ae;
+				color: #333;
+				text-align: left;
+				font-size: 11px;
+				line-height: 11px;
+			}
+			
+			&:hover {
+				.deal-info {
+					display:block;
+				}
+			}
+		}
+		
+		.wrap {
+			display: block;
+			float: left;
+			margin:0px 4px;
+			
+			&.fav {
+				padding:8px 0 0 0;
+				
+				span.ng-scope {
+					display: inline-block;
+				}
+			}
+		}
+		
+		.gray-icon-btn-primary, .gray-icon-btn-action {
+			padding: 2px 10px;
+			
+			&:focus { 
+				background: $gray-btn-bgcolor;
+				border-top:4px solid $gray-btn-bgcolor;
+				border-bottom:4px solid $gray-btn-bgcolor;
+				color: $gray-btn-color;
+				
+				&.active {
+					background: $btn-primary-bgcolor;
+					color: $btn-primarycolor;
+					border-top: 4px solid $btn-primary-hov-bordercolor;
+					border-bottom: 4px solid $btn-primary-bgcolor;
+				}
+			}
+			
+			/*&:hover { 
+				background: $btn-primary-bgcolor;
+				color: $btn-primarycolor;
+				border-top:4px solid $btn-primary-bgcolor;
+				border-bottom:4px solid $btn-primary-hov-bordercolor;
+			}	
+
+			&:active {
+				background: $btn-primary-act-bgcolor;
+				color:$btn-primarycolor;
+				border-top:4px solid $btn-primary-act-bordercolor;
+				border-bottom:4px solid $btn-primary-hov-bordercolor;
+			}
+			
+			&.active { 
+				background: $btn-primary-bgcolor;
+				color: $btn-primarycolor;
+				border-top: 4px solid $btn-primary-hov-bordercolor;
+				border-bottom: 4px solid $btn-primary-bgcolor;
+			}*/
+			
+			i {
+				font-size:14px;
+				line-height: 14px;
+			}
+		}
+
+		a.btn-small.btn-action {
+			border:none;
+			color:$btn-actioncolor;
+			padding:1px 10px 2px;
+			border-bottom:4px solid $btn-action-bgcolor;
+			border-top:4px solid $btn-action-bgcolor;
+			margin-left:0px;
+			
+			&:hover, &.disabled {
+				background: none repeat scroll 0 0 $btn-action-bgcolor;
+				border-top: 4px solid $btn-action-bgcolor;
+				border-bottom: 4px solid $btn-action-hov-bordercolor;
+				color: #fff;
+			}
+			
+			&:active, &.active {
+				background: none repeat scroll 0 0 $btn-action-act-bordercolor;
+				border-top: 4px solid $btn-action-hov-bordercolor;
+				border-bottom: 4px solid $btn-action-act-bordercolor;
+			}
+		}
+	}
+}
+	
+	
+/* END of ALV - for Projects cards results */

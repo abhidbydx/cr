@@ -1,0 +1,355 @@
+/* 
+Desc: Search and Filter Scss Document 
+Author: Sanjeev Verma
+Date: 24 Dec 2013
+*/
+.searchBar{ 
+		width:$body-width;
+		background:$lighter-mid-gray-color;
+		padding:5px 0;
+		border-bottom:1px solid $light-gray-color;
+		@include box-shadow($gray-color 0px 1px 6px);				
+		.searchFilter{ 
+			margin:0 auto;			
+			padding:0 15px;
+			@include box-sizing(border-box);
+			ul.nav { 
+				margin:0;
+
+				li {
+					ul.typeahead{
+						li{	margin:0 !important;
+							float:none !important;
+							clear:both;							
+							a{ border-radius: 0px;
+								-webkit-border-radius: 0px; 
+								-moz-border-radius: 0px; 
+								-ms-border-radius: 0px; 
+								-o-border-radius: 0px;
+							}
+							&.active{
+								a{color:$dropdown-active-color;
+									background:$dropdown-active-bgcolor !important;
+									background-image:none \9;
+									filter:none \9;
+									&:hover{
+									color:$dropdown-active-color;
+									background:$dropdown-active-bgcolor;
+									background-image:none \9;
+									filter:none \9;
+									}
+								}
+							}	
+							
+						}
+					}
+
+					display:inline-block;
+					font-size:12px;
+					color:$body-color;
+					float:left;
+					margin-right:5px;
+					position:relative;
+					&.sec-btn{
+						margin-left:10px;
+					}
+					&:hover {
+						.dropdown-content {
+							display:block;
+						}
+					}
+					
+					> .searchBox {
+						margin-bottom:0px;
+					
+						input[type=text] {
+							border:solid 1px #a7a7a7;
+							font-size:13px;
+							height:18px;
+							line-height:19px;
+							margin-bottom:0 !important;
+                            border-top-right-radius:0px;
+                            border-bottom-right-radius:0px;
+							
+							&:hover, &:focus {
+								border:solid 1px #f39c13;
+							}
+							&.redBorder {
+								border:solid 1px red;
+							}
+						}
+					}
+					
+					> a { 
+						font-size:12px;
+						color:$body-color;
+						background-color:#fff;
+						border:solid 1px #a7a7a7;
+						@include rounded($radius:5px);
+						
+						&.dropdown-btn { 
+							padding:3px 7px;
+							
+							&:hover, &:focus { 
+								border:solid 1px #f39c13;
+								.caret {
+									border-top: 4px solid $body-color;
+								}
+							}
+							
+							.caret {
+								border-top: 4px solid $body-color;
+								vertical-align:text-top;
+							}
+						}
+					}
+					
+					.dropdown-content {
+						background-clip: padding-box;
+						background-color: #FFFFFF;
+						border: 1px solid rgba(0, 0, 0, 0.2);
+						@include rounded($radius:0px);
+						box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+						display: none;
+						float: left;
+						left: 0;
+						list-style: none outside none;
+						margin: 0px 0 0;
+						min-width: 160px;
+						padding: 5px 0;
+						position: absolute;
+						top: 100%;
+						z-index: 1000;
+						
+						> li {
+							padding:10px;
+							
+							&.bed-filter {
+								
+							}
+							
+							&.proptype-filter {
+								
+							}
+							.clearFilter {
+								display:inline-block;
+								float:right;
+								letter-spacing:1px;
+								margin-top:10px;
+																
+								&:before, &:after {clear:both;}
+							}
+						}
+					}
+					
+					&.open .caret, &.open.active .caret, &.open a:hover .caret, &.open a:focus .caret {
+						border-top: 4px solid $body-color;
+					}
+					.filter-budget {
+						min-width:480px;
+						> li {
+							padding:10px 8px 20px;
+							margin-right:0;
+						}
+						.ui-slider-horizontal{
+							width:300px;
+							float:left;
+							height: 7px;
+						}
+						.budget-min-size {
+							display: block;
+							float: left;
+							line-height: 12px;
+							min-width: 70px;
+							padding: 0 0 0 1px;
+							text-align: left;
+							font-weight:bold;
+						}
+						.budget-max-size {
+							@extend .budget-min-size;
+						}
+						.fa-inr {
+							@extend .budget-min-size;
+							min-width:0;
+							padding-left:4px;
+						}
+					}
+					.filter-more label {
+						color:#a7a7a7;
+						text-transform:uppercase;
+						font-size:11px;
+						font-weight:bold;
+						letter-spacing:0.7px;
+						cursor:default;
+					}
+					.filter-more {
+						min-width:585px;
+						> li {
+							.more-filter-blk {
+								display:inline-block;
+								padding:5px 15px 10px;
+								min-width:100px;
+								&.size-filter{
+									padding:5px 0 0;
+								}
+							}
+							
+							.float-label {
+								float:left;
+								padding-right:20px;
+							}
+							.bigger{
+								width:205px;
+							}
+							.ui-slider-horizontal{
+								width:160px;
+								float:left;
+								height:7px;
+								.ui-slider-handle {
+									border-radius: 0;
+									margin-left: -0.35em;
+									top: 0.5em; 
+								}
+							}
+							.sqft_wrap {
+								display: block;
+								float: left;
+								line-height: 12px;
+								padding: 0 0 0 0px;
+								text-align: center;
+								height: 30px;
+								
+								.area-min-size {
+									display: block;
+									float: left;
+									line-height: 12px;
+									min-width: 55px;
+									padding: 0;
+									text-align: center;
+									font-weight:bold;
+								}
+								.area-max-size {
+									@extend .area-min-size;
+								}
+							}
+							.size-data{
+								color: #666666;
+								display: inline-block;
+								float: left;
+								font-weight: bold;
+								line-height: 0;
+								margin-bottom: 0;
+								padding: 5px 0 0 10px;
+							}
+							.column {
+								display:inline-block;
+								padding:3px 0px 3px 15px;
+								vertical-align:top;
+								overflow:visible;
+								width:540px;
+								&.brdr-top {
+									border-top:dashed 1px #999;
+								}
+								&.brdr-right {
+									border-right:dashed 1px #999;
+								}
+								.builder-filter {
+									float:left;
+									border-right:dashed 1px #999;
+									padding: 0 10px 0 0;
+									width: 230px;
+								}
+								.filter-selected{ float:left;
+									border-left:dashed 1px #999;
+									margin-left:-1px;
+									width: 290px;
+									padding:5px 0;
+								}
+								
+							}
+						}
+					}
+					.filter-recommended{
+						a{
+							color:#999999;
+							cursor:pointer;
+							margin: 0 0 5px;
+    						padding: 0 10px 0 0px;
+                            min-width:15px;
+                            display:inline-block;
+							text-decoration:underline;
+							&:hover{
+								color:#3498DB;
+								cursor:pointer;
+								text-decoration:none;
+							}
+						}
+					}
+				}
+				.help-tips {
+					width: 100px;
+					
+					.fa.fa-lightbulb-o {
+						color: #666666;
+						cursor: pointer;
+						font-size: 20px;
+						line-height: 30px;
+						padding: 0 10px;
+						margin: 0 0 0 10px;
+						box-shadow: 0px 0px 0px #fff;
+						transition: box-shadow 500ms ease-out 0s;
+						border-radius: 0px;
+						transition: border-radius 500ms ease-out 0s;
+						
+						&:hover, &:active, &.active {
+							color: #fe8f17;
+						}
+						
+						&.glow-bulb {
+							color: #fe8f17;
+							border-radius: 30px;
+							box-shadow: 0px 0px 30px #fe8f17;
+							transition: box-shadow 500ms ease-out 10ms;
+						}
+					}
+				}
+			}
+			.mapOrList {
+				a{
+					.btn { @include fontStyle($openSansBold:true);
+						font-size:$body-font-size;
+						background: $btn-maplist-bgcolor;
+						color:$btn-maplist-color;
+						padding:5px 10px;
+						border:1px solid $light-gray-color;
+						text-transform:capitalize !important;
+						@include box-shadow($gray-color 0px 0px 5px inset);
+						&.mapView{@include rounded($left:true, $radius:5px); 
+							border-left:none !important;	
+							border-top-left-radius: 0px;
+							border-bottom-left-radius: 0px;
+						}
+						&.listView{@include rounded($right:true, $radius:5px);							
+							border-right:none !important; 
+							border-top-right-radius: 0px;
+							border-bottom-right-radius: 0px;
+						}
+						i{ margin-right:4px;}						
+						&:hover, &:hover:focus {background: $btn-maplist-hov-bgcolor;	
+							color:$btn-maplist-hov-color;							
+							}
+						&:active, &.active, &.active:focus {
+							background: $btn-maplist-act-bgcolor;
+							color:$btn-maplist-act-color;	
+						}
+					}					
+				}
+			}	
+		}
+	}
+	
+	
+			
+	
+	
+

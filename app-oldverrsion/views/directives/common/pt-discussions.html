@@ -1,0 +1,10 @@
+<div class="posts-container">
+	<div class="posts-icon-cont">
+        <div ng-if="discussions" tooltip="See {{discussions}} discussions"><i class="fa fa-comments"></i>{{discussions}}</div>
+        <div ng-if="!discussions" class="discussLink"><i class="fa fa-comments"></i><span ng-if="!checkPageName()"> Discuss </span><a ng-click="goToEl('discuss')" ng-if="checkPageName()">Discuss</a></div>
+    </div>	
+    <div class="posts-label"> 
+        <span ng-if="discussions">Posts about it</span>
+        <span ng-if="!discussions">Be the first</span>
+    </div>
+</div>
