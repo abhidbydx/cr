@@ -2,52 +2,43 @@
 	include('Config.php');
 	include('DataModel.php');
 	include('Utilities.php');
-	$data         = file_get_contents("php://input");
-	$arrayObject  = new stdClass();  
-	$arrayObject  = json_decode($data);
-	$page = $arrayObject->page;
-	$accessKey      = $arrayObject->key;
-	if($accessKey==ACCESS_KEY){
-		try {
-			if(!empty($page)){
-				switch ($page)
-				{
-					case "checkUsername":
-							checkUsername($arrayObject,$data);
-							break;
-					case "checkEmail":
-							checkEmail($arrayObject,$data);
-							break;
-					case "signUp":
-							signUp($arrayObject,$data);
-							break;			
-					case "signIn":
-							signIn($arrayObject,$data);
-							break;
-					case "checkPassword":
-							checkPassword($arrayObject,$data);
-							break;
-					case "resetPincode":
-							resetPincode($arrayObject,$data);
-							break;
-					case "validateSignedIn":
-							validateSignedIn($arrayObject,$data);
-							break;
-					case "forgotPassword":
-							forgotPassword($arrayObject,$data);
-							break;
-					default:
-							echo '{"status":"Error","message":"No such webservice available!"}';
-				}
+
+	$arrayObject  = $_POST;
+	$page         = $arrayObject['page'];
+	try {
+		if(!empty($page)){
+			switch ($page)
+			{
+				case "checkLogin":
+						checkLogin($arrayObject);
+						break;
+				case "checkEmail":
+						checkEmail($arrayObject);
+						break;
+				case "signUp":
+						signUp($arrayObject,$data);
+						break;			
+				case "signIn":
+						signIn($arrayObject,$data);
+						break;
+				case "checkPassword":
+						checkPassword($arrayObject,$data);
+						break;
+				case "resetPincode":
+						resetPincode($arrayObject,$data);
+						break;
+				case "validateSignedIn":
+						validateSignedIn($arrayObject,$data);
+						break;
+				case "forgotPassword":
+						forgotPassword($arrayObject,$data);
+						break;
+				default:
+						echo '{"status":"Error","message":"No such webservice available!"}';
 			}
-		} catch (Exception $e) {
-			$response_arr = array('status' => 'Error', 'message' => $e->getMessage());
-			writeLog($page,$data,json_encode($response_arr));
-			echo json_encode($response_arr);
 		}
-	}else{
-		$response_arr = array('status' => 'Error', 'message' => "Unauthorized User.");
-		writeLog($page,$data,json_encode($response_arr));
+	} catch (Exception $e) {
+		$response_arr = array('status' => 'Error', 'message' => $e->getMessage());
 		echo json_encode($response_arr);
 	}
 	
@@ -56,8 +47,8 @@
  * 	Created On : 2014-27-03
  * 	Purpose    : Check email 
 */   
-	function checkEmail($arrayObject,$data){
-        $email      = $arrayObject->email;
+	function checkEmail($arrayObject){
+        $email      = $arrayObject['email'];
 		if($email!='' && $email!=null){
 			$exists = checkEmailDb($email);
 			if($exists) {
@@ -68,7 +59,6 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address.");
 		}
-		writeLog("checkEmail",$data,json_encode($response_arr));
 		echo json_encode($response_arr);
 	}
 	
@@ -77,20 +67,25 @@
  * 	Created On : 2014-27-03
  * 	Purpose    : Check username 
 */   
-	function checkUsername($arrayObject,$data){
-        $userName      = $arrayObject->username;
-		if($userName!='' && $userName!=null){			
-			$exists = checkUsernameDb($userName);
-			if($exists) {
-				$response_arr = array('status' => 'Error', 'message' => "Username already exists.");
-			}else{
-				$response_arr = array('status' => 'Success', 'message' => 'Correct username.');
-			}
-		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter username.");
-		}
-		writeLog("checkUsername",$data,json_encode($response_arr));
-		echo json_encode($response_arr);
+	function checkLogin($arrayObject){
+        $userName      = $arrayObject['username'];
+        $pwd      = $arrayObject['password'];
+		$password = 'qgxKJ32HCKqEdPvZi4nx5ungMcPG003f106vg9nz' . $pwd;
+        $password = sha1($password);
+        $QueryUser = "SELECT * FROM 22959_users WHERE email='".$userName."' AND password='".$password."'";
+        $QueryUserExecute 	= mysql_query($QueryUser) or die(mysql_error());
+        $row = mysql_fetch_array($QueryUserExecute);
+        $num_of_row = mysql_num_rows($QueryUserExecute);       
+        if($num_of_row>0) {         	
+            $_SESSION['USER_ID']=$row['id'];
+            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
+            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id']);
+            echo json_encode($userRegisterArr);
+           
+        }  else  {
+               
+                echo "error";
+        }
 	}
 	
 /*

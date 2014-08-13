@@ -3,14 +3,14 @@
 /**
  * @ngdoc function
  * @name intranetApp.controller:AboutCtrl
- * @description
+ * @descriptionfdsdf dfdrf
  * # AboutCtrl
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
   .controller('AboutCtrl', function ($scope) {
     $scope.awesomeThings = [
-      'HTML5 Boilerplate',
+      'HTML5 Boilerplate asss',
       'AngularJS',
       'Karma'
     ];
