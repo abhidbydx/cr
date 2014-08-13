@@ -1,7 +1,0 @@
-<div class="propSearchBox">
-    <div class="propSearchBoxInfo">
-        <input ng-class="validateInputClass" class="pull-left" type="search" ng-model="selValue" ng-keypress="formFill()" typeahead="result.displayText for result in searchSuggestions($viewValue, mode) | limitTo:8" typeahead-template-url="views/static/searchTypeAhead.html" typeahead-on-select="searchOptionSelected($item, $model, $label, mode)" typeahead-input-formatter="$model = ''" pt-placeholder="{{placeholder}}" ng-class="validateInputClass" />
-        <button class="searchHomeBtn pull-left" ng-click="setDefaultSort()"><i class="fa fa-search"></i> Search</button>
-        <div class="clearfix"></div>
-    </div>
-</div>    

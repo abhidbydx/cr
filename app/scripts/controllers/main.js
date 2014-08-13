@@ -14,6 +14,7 @@ angular.module('intranetApp')
     $scope.valErrMsg=null;
     loginData.username=$scope.username;
     loginData.password=$scope.password;
+    loginData.page= 'checkLogin';
     if(typeof(loginData.username)==='undefined'){
     	$scope.valErrMsg = 'Please enter username';
     	return false;
@@ -24,7 +25,7 @@ angular.module('intranetApp')
     }
     $http({
         method : 'POST',
-        url :  'functions/checklogin.php',
+        url :  'functions/webservices.php',
         data : $.param( loginData ),    //  url encode ( kind of )
         headers: {
           'Content-Type' : 'application/x-www-form-urlencoded'

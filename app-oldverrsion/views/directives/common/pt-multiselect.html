@@ -1,6 +1,0 @@
-
-<div class="btn-group filter-checkbox">
-    <button type="button" ng-if="any" class="btn" ng-model="selected['Any']" ng-click="updateAll($event)">Any</button>
-    <button ng-repeat="(key, value) in keys" type="button" class="btn" ng-model="selected[value]" btn-checkbox once-text="value"></button> 
-</div>
-<div ng-transclude></div>

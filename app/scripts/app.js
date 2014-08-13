@@ -24,6 +24,10 @@ angular
         templateUrl: 'views/listing.html',
         controller: 'ListingCtrl'
       })
+      .when('/sendInvitation', {
+        templateUrl: 'views/sendInvitation.html',
+        controller: 'sendInvitation'
+      })
       .otherwise({
         redirectTo: '/'
       });
