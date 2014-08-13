@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>CR Application Systems</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">    
+    <meta name="viewport" content="width=device-width"> 
+    <base href='/'>   
     <link rel="stylesheet" href="styles/main.scss">
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
