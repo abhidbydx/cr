@@ -29,5 +29,5 @@ angular.module('intranetApp')
            // $scope.valErrMsg = 'Invalid credentials!!';
             //return false;
         }
-      });       
+      });    
   });

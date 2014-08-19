@@ -22,7 +22,7 @@
 /*
  *	Created By : Soumya Pandey
  * 	Created On : 2014-27-03
- * 	Purpose    : Db operations for Sign Up 
+ * 	Purpose    : Db operations to get all active projects
 */  
 	function getAllActiveProject($userId){
 		$query = sprintf("SELECT p.id, p.name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
@@ -41,36 +41,17 @@
 /*
  *	Created By : Soumya Pandey
  * 	Created On : 2014-27-03
- * 	Purpose    : Db operations for Sign Up Insertion 
-*/  
-	function signUpInsertDb($arrayObject){
-		$query_insert_new_user = "INSERT INTO patient (firstname ,lastname , email ,password ,username,pincode,city,state,zip,street1,street2,phone,phone_is,country) VALUES (
-						'".$arrayObject->FirstName."', '".$arrayObject->LastName."' ,  '".$arrayObject->email."',  '".$arrayObject->password."','".$arrayObject->username."','".$arrayObject->pincode."','".$arrayObject->city."','".$arrayObject->state."','".$arrayObject->zip."','".$arrayObject->address1."','".$arrayObject->address2."','".$arrayObject->phone."','".$arrayObject->typephone."','".$arrayObject->country."' )"; 
-		$result = executeQuery($query_insert_new_user);
-		$query = sprintf("SELECT patient_id,email,username FROM patient where username='%s'", mysql_real_escape_string(stripslashes($arrayObject->username)));
-		$userDetail = executeQuery($query);
-		if(mysql_num_rows($userDetail)) {
-			while($detail = mysql_fetch_assoc($userDetail)) {
-				$userDetails[] = $detail;
-			}
-			return $userDetails[0]['patient_id'];
-		}
-	}
-	
-/*
- *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
  * 	Purpose    : Db operations for Sign In 
 */  
-	function signInDb($password,$userName){
-		$query = sprintf("SELECT patient_id,email,username FROM patient where password='%s' and username='%s'", mysql_real_escape_string(stripslashes($password)), mysql_real_escape_string(stripslashes($userName)));
+	function getAllProjectCrs($projectId){
+		$query = sprintf("SELECT * FROM cr_projects where project_id='%s'", mysql_real_escape_string(stripslashes($projectId)));
 		$result = executeQuery($query);
 		$posts = array();
 		if(mysql_num_rows($result)) {
 			while($post = mysql_fetch_assoc($result)) {
 				$posts[] = $post;
 			}
-			return $posts[0]['patient_id'];
+			return $posts;
 		}
 		return false;
 	}
