@@ -1,8 +1,27 @@
-<div style="float:left;width:200px;padding-left:20px;">
-   <div ng-if="userInfo.name">welcome {{userInfo.name}} (logout)</div>
-	<div><a href='/sendInvitation' class='about'>Send invitation</a></div>
-	<div>&nbsp;</div>
-	<div><a href='' class='about'>View CR</a></div>
-	<div>&nbsp;</div>
-	<div><a href='' class='about'>About</a></div>
-</div>
+<div id="content_left">
+    <dl class="curved">
+      <dt><div ng-if="userInfo.name">welcome {{userInfo.name}} (logout)</div></dt>
+      <dd> <br />
+        <ul id="navlist">
+        	<li><a href='/crlisting' >My Projects</a></li>
+          	<li><a href='/sendInvitation' >Send invitation</a></li>
+        </ul>
+        <p class="last">&nbsp;</p>
+      </dd>
+    </dl>
+   <!-- <dl class="curved">
+      <dt>CURVED CORNERS<span class="small"> by Stu Nicholls</span></dt>
+      <dd>
+        <p>Ok, finally a four corner box with no extra markup.</p>
+        <p>No javascript and absolutely no hacks.</p>
+        <p class="last">Examples at <a href="http://www.cssplay.co.uk">&#0187; CSS Play</a></p>
+      </dd>
+    </dl>
+    <dl class="curved">
+      <dt>MORE INFORMATION</dt>
+      <dd>
+        <p> Nulla in urna eu tellus auctor convallis.</p>
+        <p class="last">Morbi sodales vehicula nisi. Donec id tortor. </p>
+      </dd>
+    </dl> -->
+  </div>
