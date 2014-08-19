@@ -22,34 +22,18 @@
 /*
  *	Created By : Soumya Pandey
  * 	Created On : 2014-27-03
- * 	Purpose    : Db operations to check username 
-*/  
-	function checkUsernameDb($userName){
-		$query  = sprintf("SELECT email,username FROM patient where username='%s'", mysql_real_escape_string(stripslashes($userName)));
-		$result = executeQuery($query);
-		if(mysql_num_rows($result)){
-			return true;
-		}
-		return false;
-	}
-
-/*
- *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
  * 	Purpose    : Db operations for Sign Up 
 */  
-	function signUpDb($email,$userName){
-		$query = sprintf("SELECT email,username FROM patient where email='%s'or username='%s'", mysql_real_escape_string(stripslashes($email)), mysql_real_escape_string(stripslashes($userName)));
+	function getAllActiveProject($userId){
+		$query = sprintf("SELECT p.id, p.name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
+    where pu.user_id='%s' and p.status='active' group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
 		$result = executeQuery($query);
-		$posts = array();
 		if(mysql_num_rows($result)) {
+			$posts = array();
 			while($post = mysql_fetch_assoc($result)) {
 				$posts[] = $post;
 			}
-			if($email==$posts[0]['email'])
-				return 'Email';
-			else
-				return 'Username';
+			return $posts;
 		}
 		return false;
 	}
