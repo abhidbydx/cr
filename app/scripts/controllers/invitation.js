@@ -9,5 +9,34 @@
  */
 angular.module('intranetApp')
   .controller('sendInvitation', function ($scope,$http,$rootScope) {
-      
+    $scope.invite = function(){
+        var loginData={};
+        loginData.page = 'checkEmail';
+        loginData.email = $scope.email;
+        if(typeof(loginData.email)==='undefined'){
+            $scope.valErrMsg = 'Please enter email';
+            return false;
+        }
+        $scope.valErrMsg = '';
+        $http({
+            method : 'POST',
+            url :  'functions/webservices.php',
+            data : $.param( loginData ),    
+            headers: {
+              'Content-Type' : 'application/x-www-form-urlencoded'
+            }
+        })
+        .then( function( data ) {
+            var res=data.data;
+            console.log(res.message);
+            if(res.status!=='Error'){
+                $scope.valSucsMsg = res.message;
+                $scope.valErrMsg = false;
+            }else{
+                $scope.valErrMsg = res.message;
+                $scope.valSucsMsg = false;
+                return false;
+            }
+        });   
+    };  
   });

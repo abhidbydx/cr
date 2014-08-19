@@ -35,6 +35,7 @@ angular.module('intranetApp')
         var res=data.data;
         if(res!=='error'){
             $rootScope.name=res.name;
+            $rootScope.user_id=res.id;
             $location.path('/crlisting'); 
         }else{
             $scope.valErrMsg = 'Invalid credentials!!';

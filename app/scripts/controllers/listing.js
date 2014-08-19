@@ -10,8 +10,8 @@
 angular.module('intranetApp')
   .controller('ListingCtrl', function ($scope,$http,$rootScope) {
   	var loginData={};
-  	loginData.page = 'checkEmail';
-  	loginData.email = 'soumya.pandey@kelltontech.com';
+  	loginData.page = 'getAllProjects';
+  	loginData.user_id = $rootScope.user_id;
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -23,10 +23,10 @@ angular.module('intranetApp')
       .then( function( data ) {
         var res=data.data;
         if(res!=='error'){
-            //$rootScope.name=res.name;
+            $scope.projects = res.projects;
         }else{
-            $scope.valErrMsg = 'Invalid credentials!!';
-            return false;
+           // $scope.valErrMsg = 'Invalid credentials!!';
+            //return false;
         }
       });       
   });

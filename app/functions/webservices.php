@@ -15,8 +15,8 @@
 				case "checkEmail":
 						checkEmail($arrayObject);
 						break;
-				case "signUp":
-						signUp($arrayObject,$data);
+				case "getAllProjects":
+						getAllProjects($arrayObject);
 						break;			
 				case "signIn":
 						signIn($arrayObject,$data);
@@ -44,7 +44,7 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
+ * 	Created On : 2014-08-12
  * 	Purpose    : Check email 
 */   
 	function checkEmail($arrayObject){
@@ -54,7 +54,18 @@
 			if($exists) {
 				$response_arr = array('status' => 'Error', 'message' => "Email already exists.");
 			}else{
-				$response_arr = array('status' => 'Success', 'message' => 'Correct email.');
+			    $to = $email;
+			   	$subject = "Kellton CR Management";
+			   	$message = "This is simple text message.";
+			   	$header = "From:intranet@kelltontech.com \r\n";
+			   	$retval = mail ($to,$subject,$message,$header);
+			   	if( $retval == true )  {
+			       $response_arr = array('status' => 'Success', 'message' => 'Invitation sent successfully.');
+			    }
+			    else
+			    { 
+			       $response_arr = array('status' => 'Error', 'message' => 'Mail could not be sent.');
+			    }
 			}
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address.");
@@ -64,7 +75,7 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
+ * 	Created On : 2014-08-13
  * 	Purpose    : Check username 
 */   
 	function checkLogin($arrayObject){
@@ -90,28 +101,21 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : SignUp Validation 
+ * 	Created On : 2014-08-14
+ * 	Purpose    : get all active projects of an user
 */   
-	function signUp($arrayObject,$data){
-		$email      = $arrayObject->email;
-		$userName   = $arrayObject->username;
-		if($email!='' && $email!=null && $userName!='' && $userName!=null){
-			$exists = signUpDb($email,$userName);
-			if($exists) {
-				$response_arr = array('status' => 'Error', 'message' => $exists." already exists.");
+	function getAllProjects($arrayObject){
+		$user_id      = $arrayObject['user_id'];
+		if($user_id!='' && $user_id!=null){
+			$result = getAllActiveProject($user_id);
+			if($result) {
+				$response_arr = array('status' => 'Success', 'projects' => $result);
 			}else{
-				$pateintId = signUpInsertDb($arrayObject);
-				$tokenResult = updateAccessToken($pateintId);
-				if($tokenResult!='error')
-					$response_arr = array('status' => 'Success', 'username' => $userName,'accesstoken'=>$tokenResult);
-				else
-					$response_arr = array('status' => 'Error', 'message' => "Please try again.");
+				$response_arr = array('status' => 'Success', 'message' => "There are no any project allocated.");
 			}
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter username and an email address.");
+			$response_arr = array('status' => 'Error', 'message' => "Please enter user_id.");
 		}
-		writeLog("signUp",$data,json_encode($response_arr));
 		echo json_encode($response_arr);
 	}
 	
