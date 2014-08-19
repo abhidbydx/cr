@@ -8,7 +8,7 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-  .controller('MainCtrl', function ($scope,$location,$http,$rootScope) {
+  .controller('MainCtrl', function ($scope,$location,$http,$rootScope,UserService) {
     $scope.check_login = function(){
     var loginData={};
     $scope.valErrMsg=null;
@@ -34,9 +34,9 @@ angular.module('intranetApp')
       .then( function( data ) {
         var res=data.data;
         if(res!=='error'){
-            $rootScope.name=res.name;
+            UserService.setCookie( 'USER_INFO', UserService.makeUserCookie( res ) );            
             $rootScope.user_id=res.id;
-            $location.path('/crlisting'); 
+            $location.path('/crlisting/'); 
         }else{
             $scope.valErrMsg = 'Invalid credentials!!';
             return false;

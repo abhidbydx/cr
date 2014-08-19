@@ -63,9 +63,12 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/directives/left-panel.js"></script>
         <script src="scripts/controllers/listing.js"></script>
         <script src="scripts/controllers/invitation.js"></script>
-        <script src="scripts/directives/left-panel.js"></script>
+        
+        <!-- services-->
+        <script src="scripts/services/userService.js"></script>
         <!-- endbuild -->
 </body>
 </html>

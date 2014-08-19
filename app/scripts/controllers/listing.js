@@ -8,10 +8,11 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-  .controller('ListingCtrl', function ($scope,$http,$rootScope) {
+  .controller('ListingCtrl', function ($scope,$http,$rootScope,UserService,$cookies) {
   	var loginData={};
-  	loginData.page = 'getAllProjects';
-  	loginData.user_id = $rootScope.user_id;
+  	loginData.page = 'getAllProjects'; 
+    var userData=UserService.getUserCookie($cookies.USER_INFO)  ;    
+  	loginData.user_id = userData.id;
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
