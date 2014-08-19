@@ -69,7 +69,7 @@
         <!-- services-->
         <script src="scripts/services/userService.js"></script>
         <script src="scripts/controllers/changeRequest.js"></script>
-        <script src="scripts/directives/left-panel.js"></script>
+        
         <!-- endbuild -->
 </body>
 </html>
