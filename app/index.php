@@ -65,10 +65,11 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/directives/left-panel.js"></script>
         <script src="scripts/controllers/listing.js"></script>
-        <script src="scripts/controllers/invitation.js"></script>
-        
+        <script src="scripts/controllers/invitation.js"></script>        
         <!-- services-->
         <script src="scripts/services/userService.js"></script>
+        <script src="scripts/controllers/changeRequest.js"></script>
+        <script src="scripts/directives/left-panel.js"></script>
         <!-- endbuild -->
 </body>
 </html>

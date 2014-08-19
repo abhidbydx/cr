@@ -28,6 +28,10 @@ angular
         templateUrl: 'views/sendInvitation.html',
         controller: 'sendInvitation'
       })
+      .when('/showChangeRequests/:projectID', {
+        templateUrl: 'views/showChangeRequest.html',
+        controller: 'changeRequest'
+      })
       .otherwise({
         redirectTo: '/'
       });

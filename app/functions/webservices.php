@@ -18,8 +18,8 @@
 				case "getAllProjects":
 						getAllProjects($arrayObject);
 						break;			
-				case "signIn":
-						signIn($arrayObject,$data);
+				case "getAllCr":
+						getAllCr($arrayObject);
 						break;
 				case "checkPassword":
 						checkPassword($arrayObject,$data);
@@ -121,27 +121,21 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
+ * 	Created On : 2014-08-19
  * 	Purpose    : SignIn Validation 
 */
-	function signIn($arrayObject,$data){
-        $password      = $arrayObject->password;
-        $userName      = $arrayObject->username;
-		if($password!='' && $password!=null && $userName!='' && $userName!=null){
-			$pateintId = signInDb($password,$userName);
-			if($pateintId) {
-				$tokenResult = updateAccessToken($pateintId);
-				if($tokenResult=='error')
-					$response_arr = array('status' => 'Error', 'message' => "Please try again.");
-				else
-					$response_arr = array('status' => 'Success', 'username' => $userName,'accesstoken'=>$tokenResult);
+	function getAllCr($arrayObject){
+        $projectId      = $arrayObject['projectId'];
+		if($projectId!='' && $projectId!=null){
+			$result = getAllProjectCrs($projectId);
+			if($result) {
+				$response_arr = array('status' => 'Success', 'cr' => $result);
 			}else{
-				$response_arr = array('status' => 'Error', 'message' => "The username or password are incorrect. Please try again.");
+				$response_arr = array('status' => 'Error', 'message' => "There are no any CR for this project.");
 			}
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter username and password.");
+			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
 		}
-		writeLog("signIn",$data,json_encode($response_arr));
 		echo json_encode($response_arr);
 	}
 	
