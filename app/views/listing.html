@@ -1,8 +1,12 @@
 <div left-panel></div>
-<div style="float:left"> <h2>CR LIsting</h2></div>
-<div id='project_list'>
-	<div ng-repeat="project in projects">
-		<p><span>{{project.id}}</span> -<a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.id}}'> {{project.name}}</a></p>
-	</div>
-</div>
+<div id='content_center'>
+	<dl class="curved">
+		<dt>CR Listing</dt>
+      	<dd> <br />
+    		<div ng-repeat="project in projects">
+        		<p><span>{{project.id}}</span> -<a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.id}}'> {{project.name}}</a></p>
+          	</div>
+        <p class="last">&nbsp;</p>
+      	</dd>
+	</dl>
 </div>
