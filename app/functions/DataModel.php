@@ -2,7 +2,7 @@
 	include('DataAccess.php');
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
+ * 	Created On : 2014-08-12
  * 	Purpose    : Db operations to check email 
 */  
 	function checkEmailDb($email){
@@ -17,6 +17,39 @@
 			return true;
 		}
 		return false;
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-08-14
+ * 	Purpose    : Db operations to check login 
+*/  
+	function checkLoginDb($userName,$pwd){ 
+		$password = 'qgxKJ32HCKqEdPvZi4nx5ungMcPG003f106vg9nz' . $pwd;
+        $password = sha1($password);
+        $QueryUser = sprintf("SELECT * FROM 22959_users WHERE email='%s' AND password='%s' and role_id!=21", mysql_real_escape_string(stripslashes($userName)), mysql_real_escape_string(stripslashes($password)));
+        $result = executeQuery($QueryUser);
+        $row = mysql_fetch_array($result);
+        $num_of_row = mysql_num_rows($result);       
+        if($num_of_row>0) {         	
+            $_SESSION['USER_ID']=$row['id'];
+            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
+            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'pms');
+            return $userRegisterArr;
+        } else {
+        	$QueryUser = sprintf("SELECT * FROM cr_users WHERE email='%s' AND password='%s' and is_active=1", mysql_real_escape_string(stripslashes($userName)), mysql_real_escape_string(stripslashes($password)));
+	        $result = executeQuery($QueryUser);
+	        $row = mysql_fetch_array($result);
+	        $num_of_row = mysql_num_rows($result);  
+	        if($num_of_row>0) {         	
+	            $_SESSION['USER_ID']=$row['id'];
+	            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
+	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'cr');
+	            return $userRegisterArr;
+	        } else {
+	        	return false;
+	        }   
+        }
 	}
 
 /*

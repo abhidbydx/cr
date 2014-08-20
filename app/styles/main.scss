@@ -119,8 +119,8 @@ body {
 .login {
   position: relative;
   margin: 0 auto;
-  padding: 20px 20px 20px;
-  width: 310px;
+  padding: 10px 20px;
+  width: 332px;
   background: white;
   border-radius: 3px;
   -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -180,7 +180,7 @@ body {
   vertical-align: middle;
 }
 .login p.submit {
-  text-align: right;
+  text-align: center;
 }
 
 .login-help {
@@ -265,4 +265,7 @@ input[type=submit]:active {
 
 .lt-ie9 input[type=text], .lt-ie9 input[type=password] {
   line-height: 34px;
+}
+.padTop50 {
+    padding-top:50px;
 }
