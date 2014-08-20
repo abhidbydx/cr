@@ -80,22 +80,12 @@
 */   
 	function checkLogin($arrayObject){
         $userName      = $arrayObject['username'];
-        $pwd      = $arrayObject['password'];
-		$password = 'qgxKJ32HCKqEdPvZi4nx5ungMcPG003f106vg9nz' . $pwd;
-        $password = sha1($password);
-        $QueryUser = "SELECT * FROM 22959_users WHERE email='".$userName."' AND password='".$password."'";
-        $QueryUserExecute 	= mysql_query($QueryUser) or die(mysql_error());
-        $row = mysql_fetch_array($QueryUserExecute);
-        $num_of_row = mysql_num_rows($QueryUserExecute);       
-        if($num_of_row>0) {         	
-            $_SESSION['USER_ID']=$row['id'];
-            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
-            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id']);
-            echo json_encode($userRegisterArr);
-           
+        $pwd      = $arrayObject['password']; 
+        $data = checkLoginDb($userName,$pwd);
+        if($data) {    
+            echo json_encode($data);
         }  else  {
-               
-                echo "error";
+            echo "error";
         }
 	}
 	
