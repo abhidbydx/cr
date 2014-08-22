@@ -1,0 +1,25 @@
+<div ng-hide="confrmErrorMsg" class='padTop2'>
+	<div class="login">
+		<dl class="curved">
+			<dt><span  class='heading'>Register</span></dt>
+	      	<dd> <br />
+			    <form name="loginForm"  id="login-form">
+			        <p><input type="text" name="first_name" value="" ng-model='first_name' placeholder="First Name"></p>
+			        <p><input type="text" name="last_name" value="" ng-model='last_name' placeholder="Last Name"></p>
+			        <p><input type="password" name="password" value="" ng-model='password' placeholder="Password"></p>
+			        <p><input type="password" name="confirm_password" value="" ng-model='confirm_password' placeholder="Confirm Password"></p>
+			        <div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
+			        <p class="submit"><input type="submit" name="Register" value="Submit" ng-click='register_user();'></p>
+		        </form>
+	      	</dd>
+	  	</dl>
+	</div>
+</div>
+<div ng-show="confrmErrorMsg" class='padTop50'>
+	<div class="login">
+		<dl>
+	  		<dt><span  class='heading'>Your account is already activated. Please <a href="/">
+	  		login</a>.</span></dt>
+		</dl>
+	</div>
+</div>

@@ -27,10 +27,12 @@
   <p align='center'>&copy; 2014 Kellton Tech Solutions Ltd.</p>
 </div>
     <script src="scripts/app.js"></script>
+    <script src="scripts/utility.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/directives/left-panel.js"></script>
         <script src="scripts/controllers/listing.js"></script>
-        <script src="scripts/controllers/invitation.js"></script>        
+        <script src="scripts/controllers/invitation.js"></script>  
+        <script src="scripts/controllers/registers.js"></script>      
         <!-- services-->
         <script src="scripts/services/userService.js"></script>
         <script src="scripts/controllers/changeRequest.js"></script>
