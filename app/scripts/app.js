@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('intranetApp', ['ngRoute',
+  .module('intranetApp', ['ngRoute','ngGrid',
     'ngCookies',
     'ngResource'    
   ])
@@ -30,6 +30,10 @@ angular
       })
       .when('/showChangeRequests/:projectID', {
         templateUrl: 'views/showChangeRequest.html',
+        controller: 'changeRequest'
+      })
+      .when('/addCr/:projectID', {
+        templateUrl: 'views/addChangeRequest.html',
         controller: 'changeRequest'
       })
       .otherwise({

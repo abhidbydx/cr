@@ -33,12 +33,12 @@ angular.module('intranetApp')
       })
       .then( function( data ) {
         var res=data.data;
-        if(res!=='error'){
+        if(res.status!=='Error'){
             UserService.setCookie( 'USER_INFO', UserService.makeUserCookie( res ) );            
             $rootScope.user_id=res.id;
             $location.path('/crlisting/'); 
         }else{
-            $scope.valErrMsg = 'Invalid credentials!!';
+            $scope.valErrMsg = res.message;
             return false;
         }
       });       

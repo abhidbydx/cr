@@ -178,4 +178,21 @@
 		}
 		return $result;
 	}
+	/*
+ *	Created By : Abhishek kumar
+ * 	Created On : 2014-20-08
+ * 	Purpose    : Db operations for insetion of cr 
+*/  
+	function insertCR($data){
+		    $project_id   =$data['project_id'];
+		    $crTitle      =$data['crtitle'];
+		    $crDesc       =$data['crdesc'];
+		    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
+		    $crCreated    =$data['created_by'];
+			echo $query = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
+			$result = executeQuery($query);
+		
+		return $result;
+	}
+
 ?>

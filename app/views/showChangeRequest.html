@@ -3,9 +3,27 @@
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>
 		<dd> <br />
-			<div ng-repeat="cr in allCRs">
-				<p><span>{{cr.project_id}}</span> -<a style="cursor:pointer;"> {{cr.title}}</a></p>
-			</div>
+		    <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
+		    <div class='leftlink'><a ng-href='/addCr/{{projectId}}'> Create New CR.(+)</a></div>
+		    <table style='width:900px;' ng-if='allCRs'>
+		    	<tr class='about'>
+		    		<th class='frmhead' style='width:40px;'>ID</th>
+		    		<th class='frmhead' style='width:120px;'>Tilte</th>
+		    		<th class='frmhead' style='width:250px;'>Description</th>
+		    		<th class='frmhead'>Date</th>
+		    		<th class='frmhead'>Created By</th>
+		    		<th class='frmhead'>Action</th>
+		    	</tr>
+		    
+			<tr ng-repeat="cr in allCRs" class='about'>
+				<td class='frmleft' style='width:40px;'>{{$index+1}}</td>
+				<td class='frmleft' style='width:120px;'> {{cr.title}}</td>
+				<td class='frmleft' style='width:250px;'>{{cr.description}}</td>
+				<td class='frmleft'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
+				<td class='frmleft'>{{cr.created_by}}</td>
+				<th class='frmleft'><a style="cursor:pointer;">Edit</a> | <a style="cursor:pointer;">Delete</a></th>				
+			</tr>
+			</table>
 			<p class="last">&nbsp;</p>
       	</dd>
 	</dl>

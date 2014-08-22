@@ -25,6 +25,46 @@ letter-spacing: 3px;
 font-size: 2em;
 color: #fff;
 }
+.msg{
+	color: #000;
+	text-align: center;
+	font-weight: bold;
+}
+.frmleft{
+	color: #000;
+	text-align: left;
+	padding-top: 10px;
+	font-weight: bold;
+	float:left;
+	padding-left: 10px;
+	height: 34px;
+	width: 130px;
+}
+.frmhead{
+	color: #ff9933;
+	text-align: left;
+	padding-top: 10px;
+	font-weight: bold;
+	font-size: 14px;
+	float:left;
+	padding-left: 10px;
+	height: 34px;
+	width: 130px;
+}
+.frmright{
+	color: #000;
+	text-align: center;
+	font-weight: bold;
+	float:left;
+}
+
+.leftlink{
+	color: #FF9933;
+	padding-left: 20px;
+	font-weight: bold;
+	
+	
+}
 #banner p {
 float:right;
 margin: 10px 10px 0 0;
@@ -143,6 +183,11 @@ color: #ff9933;
 float: left;
 margin: 10px;
 padding: 10px;
+}
+.gridStyle1 {
+    border: 1px solid rgb(212,212,212);
+    width: 900px; 
+    height: 300px;
 }
 			/*CURVED CORNERS*/
 dl.curved {background:#bbd9ee url(/images/c_tl.gif) top left no-repeat; margin:15px 0; padding:0; width:100%;}

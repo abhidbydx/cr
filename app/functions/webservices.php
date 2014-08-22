@@ -24,8 +24,8 @@
 				case "checkPassword":
 						checkPassword($arrayObject,$data);
 						break;
-				case "resetPincode":
-						resetPincode($arrayObject,$data);
+				case "addCR":
+						addCR($arrayObject);
 						break;
 				case "validateSignedIn":
 						validateSignedIn($arrayObject,$data);
@@ -85,7 +85,7 @@
         if($data) {    
             echo json_encode($data);
         }  else  {
-            echo "error";
+            echo json_encode(array('status' => 'Error', 'message' => "Invalid Credentials!!."));
         }
 	}
 	
@@ -154,18 +154,20 @@
 /*
  *	Created By : Soumya Pandey
  * 	Created On : 2014-27-03
- * 	Purpose    : reset pincode
+ * 	Purpose    : add cr
 */
-	function resetPincode($arrayObject,$data){
-        $pincode       = $arrayObject->pincode;
-        $userName      = $arrayObject->username;
-		if($pincode!='' && $pincode!=null && $userName!='' && $userName!=null){
-			$result = resetPincodeDb($pincode,$userName);
-			$response_arr = array('status' => 'Success', 'message' => 'Pincode has been updated successfully.');
+	function addCR($arrayObject){
+        $projectId      = $arrayObject['project_id'];
+		if($projectId!='' && $projectId!=null){
+			$result = insertCR($arrayObject);
+			if($result) {
+				$response_arr = array('status' => 'Success');
+			}else{
+				$response_arr = array('status' => 'Error', 'message' => ".");
+			}
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter username and passcode.");
+			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
 		}
-		writeLog("resetPincode",$data,json_encode($response_arr));
 		echo json_encode($response_arr);
 	}
 	

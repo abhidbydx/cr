@@ -8,18 +8,23 @@ angular.module('intranetApp').directive('leftPanel', [
 		restrict: 'A',
 		scope: {},
 		templateUrl: 'views/directives/left-panel.html',
-		controller: function ($scope,$rootScope,UserService,$cookies) {
+		controller: function ($scope,$rootScope,UserService,$cookies,$location) {
             //$rootScope.name1=$rootScope.name;
             $scope.$watch( function() {                
             	return $cookies.USER_INFO;                
             },  function( nUser ) {
             	var userInfo = UserService.getUserCookie( nUser );                    
-                    $scope.userInfo = userInfo;
-                    
-                    
+                    $scope.userInfo = userInfo;                    
+                    if(angular.equals({}, $scope.userInfo)){
+                        $location.path('/');
+                    } 
                 }
-            );
-            //console.log($scope);
+            );  
+
+            $scope.logout =function(){                
+                $location.path('logout.php');
+             };         
+            
             
 		}
     };

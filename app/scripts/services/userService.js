@@ -50,7 +50,7 @@ angular.module('intranetApp') .config(function ( $httpProvider) {
 
     var getUserCookie = function( str ) {
       if ( !str ) {
-        str = GlobalService.getCookie( 'PT_USER_INFO' );
+        str = getCookie( 'USER_INFO' );
       }
       var cook = {};
       if ( str && typeof str === 'string' ) {
@@ -67,38 +67,9 @@ angular.module('intranetApp') .config(function ( $httpProvider) {
       return cook;
     };
 
-    var userInfo = function() {
-      //return $http.get( '/who-am-i.php' )
-      return $http.get( 'who-am-i.php')
-      .then( function( data ) {
-        var resp = null;
-        if ( data.status === 200 ) {
-          var userInfo = data.data;
-          if ( userInfo && userInfo !== 'User not logged in!' && userInfo.USERNAME ) {
-            var msg = 'Hi ' + userInfo.USERNAME + '! You have logged in successfully.';
-            $rootScope.$broadcast('userLoggedIn');
-            NotificationService.setNotification({
-              msg : msg,
-              type: 'info'
-            });
-            if ( userInfo ) {
-               setCookie( 'PT_USER_INFO', makeUserCookie( userInfo ) );
-            }
-            resp = returnUserResp( userInfo );
-          }
-        }
-        if ( $rootScope.redirectUrl ) {
-          var __tUrl = $rootScope.redirectUrl;
-          $rootScope.redirectUrl = '';
-          $location.path( __tUrl );
-        }
-        return resp;
-      });
-    };
     
     
-    return {      
-      userInfo            : userInfo,      
+    return {         
       getUserCookie       : getUserCookie, 
       makeUserCookie      : makeUserCookie,
       setCookie           : setCookie,
