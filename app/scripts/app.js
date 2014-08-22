@@ -36,6 +36,10 @@ angular
         templateUrl: 'views/addChangeRequest.html',
         controller: 'changeRequest'
       })
+      .when('/registers/:param', {
+        templateUrl: 'views/registration.html',
+        controller: 'registration'
+      })
       .otherwise({
         redirectTo: '/'
       });

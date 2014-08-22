@@ -36,8 +36,13 @@ angular.module('intranetApp')
         var loginData={};
         loginData.page = 'checkEmail';
         loginData.email = $scope.email;
+        loginData.projectIds = $scope.project_id;
         if(typeof(loginData.email)==='undefined'){
             $scope.valErrMsg = 'Please enter email';
+            return false;
+        }
+        if(typeof(loginData.projectIds)==='undefined' || loginData.projectIds.length < 1){
+            $scope.valErrMsg = 'Please select project';
             return false;
         }
         $scope.valErrMsg = '';
@@ -51,7 +56,6 @@ angular.module('intranetApp')
         })
         .then( function( data ) {
             var res=data.data;
-            console.log(res.message);
             if(res.status!=='Error'){
                 $scope.valSucsMsg = res.message;
                 $scope.valErrMsg = false;

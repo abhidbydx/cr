@@ -21,11 +21,14 @@
 				case "getAllCr":
 						getAllCr($arrayObject);
 						break;
-				case "checkPassword":
-						checkPassword($arrayObject,$data);
+				case "register":
+						signup($arrayObject);
 						break;
 				case "addCR":
 						addCR($arrayObject);
+						break;
+				case "checkRegistration":
+						checkRegistration($arrayObject);
 						break;
 				case "validateSignedIn":
 						validateSignedIn($arrayObject,$data);
@@ -49,23 +52,35 @@
 */   
 	function checkEmail($arrayObject){
         $email      = $arrayObject['email'];
+        $projectIds = $arrayObject['projectIds'];		
 		if($email!='' && $email!=null){
 			$exists = checkEmailDb($email);
 			if($exists) {
 				$response_arr = array('status' => 'Error', 'message' => "Email already exists.");
 			}else{
-			    $to = $email;
-			   	$subject = "Kellton CR Management";
-			   	$message = "This is simple text message.";
-			   	$header = "From:intranet@kelltontech.com \r\n";
-			   	$retval = mail ($to,$subject,$message,$header);
-			   	if( $retval == true )  {
-			       $response_arr = array('status' => 'Success', 'message' => 'Invitation sent successfully.');
-			    }
-			    else
-			    { 
-			       $response_arr = array('status' => 'Error', 'message' => 'Mail could not be sent.');
-			    }
+				if(!empty($projectIds)) {
+					$finalAry = $projectAry = array();
+					$projectAry = getProjects($projectIds);
+					foreach($projectAry as $ary) {
+						$finalAry['projectIds'][] = $ary['id'];
+					}
+					$finalAry['email'] = $email;
+					$serial_arr = urlencode(base64_encode(serialize($finalAry)));
+					$to = $email;
+				   	$subject = "Kellton CR Management";
+				   	$message = "This is simple text message.";
+				   	$header = "From:intranet@kelltontech.com \r\n";
+				   	$retval = mail ($to,$subject,$message,$header);
+				   	if( $retval == true )  {
+				       $response_arr = array('status' => 'Success', 'message' => 'Invitation sent successfully.');
+				    }
+				    else
+				    { 
+				       $response_arr = array('status' => 'Error', 'message' => 'http://cr.localhost.com/registers/'.$serial_arr);
+				    }
+				} else {
+					$response_arr = array('status' => 'Error', 'message' => 'Projects list cannot be empty.');
+				}			    
 			}
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address.");
@@ -131,29 +146,28 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : validate password
+ * 	Created On : 2014-08-22
+ * 	Purpose    : Registeration
 */
-	function checkPassword($arrayObject,$data){
-        $password      = $arrayObject->password;
-        $userName      = $arrayObject->username;
-		if($password!='' && $password!=null && $userName!='' && $userName!=null){
-			$exists = checkPasswordDb($password,$userName);
+	function signup($arrayObject){
+        $password      = $arrayObject['password'];
+        $email         = $arrayObject['email'];
+		if($password!='' && $password!=null && $email!='' && $email!=null){
+			$exists = signupDb($arrayObject);
 			if($exists) {
-				$response_arr = array('status' => 'Success', 'message' => 'Password is Correct.');
+				$response_arr = $exists;
 			}else{
-				$response_arr = array('status' => 'Error', 'message' => "Your password could not be validated. Please try again.");
+				$response_arr = array('status' => 'Error', 'message' => "Something went wrong.");
 			}
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter username and password.");
+			$response_arr = array('status' => 'Error', 'message' => "Please enter email and password.");
 		}
-		writeLog("checkPassword",$data,json_encode($response_arr));
 		echo json_encode($response_arr);
 	}
-	
+
 /*
- *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
+ *	Created By : Abhishek Kumar
+ * 	Created On : 2014-8-21
  * 	Purpose    : add cr
 */
 	function addCR($arrayObject){
@@ -167,6 +181,26 @@
 			}
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
+		}
+		echo json_encode($response_arr);
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-8-22
+ * 	Purpose    : confirm registration
+*/
+	function checkRegistration($arrayObject){
+        $email      = $arrayObject['email'];	
+		if($email!='' && $email!=null){
+			$exists = checkEmailDb($email);
+			if($exists) {
+				$response_arr = array('status' => 'Error', 'message' => "You are already a registered user.");
+			} else {
+				$response_arr = array('status' => 'Success');
+			}
+		}else{
+			$response_arr = array('status' => 'Error', 'message' => "Email not found.");
 		}
 		echo json_encode($response_arr);
 	}

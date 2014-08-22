@@ -70,6 +70,25 @@
 		}
 		return false;
 	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-08-20
+ * 	Purpose    : Db operations for getting projects
+*/  
+	function getProjects($projectId){
+		$projectId = implode(",",$projectId);
+		$query = sprintf("SELECT name,id FROM 22959_projects where id in (%s)", mysql_real_escape_string(stripslashes($projectId)));
+		$result = executeQuery($query);
+		$posts = array();
+		if(mysql_num_rows($result)) {
+			while($post = mysql_fetch_assoc($result)) {
+				$posts[] = $post;
+			}
+			return $posts;
+		}
+		return false;
+	}
 	
 /*
  *	Created By : Soumya Pandey
@@ -91,16 +110,32 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : Db operations to check password
+ * 	Created On : 2014-08-22
+ * 	Purpose    : Db operations for registration
 */  
-	function checkPasswordDb($password,$userName){
-		$query = sprintf("SELECT email,username FROM patient where password='%s'and username='%s'", mysql_real_escape_string(stripslashes($password)), mysql_real_escape_string(stripslashes($userName)));
-		$result = executeQuery($query);
-		if(mysql_num_rows($result)) {
-			return true;
-		}
-		return false;
+	function signupDb($data){
+		$email = $data['email'];
+		$password = $data['password'];
+		$password = 'qgxKJ32HCKqEdPvZi4nx5ungMcPG003f106vg9nz' . $password;
+        $password = sha1($password);
+		$first_name = $data['first_name'];
+		$last_name = $data['last_name'];
+		$projectIds = implode(",",$data['projectIds']);
+		$query_insert_new_user = "INSERT INTO cr_users (first_name ,last_name , email ,password ,project_id,created) VALUES (
+						'".$first_name."', '".$last_name."' ,  '".$email."',  '".$password."','".$projectIds."',NOW() )"; 
+		$result = executeQuery($query_insert_new_user);
+		$QueryUser = sprintf("SELECT * FROM cr_users WHERE email='%s' AND password='%s' and is_active=1", mysql_real_escape_string(stripslashes($email)), mysql_real_escape_string(stripslashes($password)));
+        $result = executeQuery($QueryUser);
+        $row = mysql_fetch_array($result);
+        $num_of_row = mysql_num_rows($result);  
+        if($num_of_row>0) {         	
+            $_SESSION['USER_ID']=$row['id'];
+            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
+            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'cr');
+            return $userRegisterArr;
+        } else {
+        	return false;
+        }   
 	}
 	
 /*
