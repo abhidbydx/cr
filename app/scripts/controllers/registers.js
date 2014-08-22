@@ -12,8 +12,7 @@ angular.module('intranetApp')
     var paramData = unserialize(base64_decode(urldecode($routeParams.param)));
     var postData = {};
     postData.email = paramData.email;
-    postData.page = 'checkRegistration';
-    $scope.confrmErrorMsg = false;
+    postData.page = 'checkRegistration';  
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -23,10 +22,8 @@ angular.module('intranetApp')
         }
     })
     .then( function( data ) {
-        var res=data.data;
-        if(res.status==='Error'){
-            $scope.confrmErrorMsg = true;
-        }
+        var res=data.data;        
+            $scope.status = res.status;        
     });   
     $scope.register_user = function(){
         var loginData={};

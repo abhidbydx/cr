@@ -13,6 +13,7 @@ angular.module('intranetApp')
   	loginData.page = 'getAllProjects'; 
     var userData=UserService.getUserCookie($cookies.USER_INFO)  ;    
   	loginData.user_id = userData.id;
+    loginData.user = userData.user;
     $http({
         method : 'POST',
         url :  'functions/webservices.php',

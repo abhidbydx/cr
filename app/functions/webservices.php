@@ -56,7 +56,11 @@
 		if($email!='' && $email!=null){
 			$exists = checkEmailDb($email);
 			if($exists) {
-				$response_arr = array('status' => 'Error', 'message' => "Email already exists.");
+				if($exists['status']=='active') {
+					$response_arr = array('status' => 'Error', 'message' => "The user is already active.");
+				} else {
+					$response_arr = array('status' => 'Error', 'message' => "User is inactive.");
+				}
 			}else{
 				if(!empty($projectIds)) {
 					$finalAry = $projectAry = array();
@@ -111,15 +115,16 @@
 */   
 	function getAllProjects($arrayObject){
 		$user_id      = $arrayObject['user_id'];
-		if($user_id!='' && $user_id!=null){
-			$result = getAllActiveProject($user_id);
+		$userType     = $arrayObject['user'];
+		if($user_id!='' && $user_id!=null && $userType!='' && $userType!=null){
+			$result = getAllActiveProject($user_id,$userType);
 			if($result) {
 				$response_arr = array('status' => 'Success', 'projects' => $result);
 			}else{
-				$response_arr = array('status' => 'Success', 'message' => "There are no any project allocated.");
+				$response_arr = array('status' => 'Success', 'message' => "There are no project allocated to you.");
 			}
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter user_id.");
+			$response_arr = array('status' => 'Error', 'message' => "User Id and User Type cannot be null.");
 		}
 		echo json_encode($response_arr);
 	}
@@ -195,9 +200,13 @@
 		if($email!='' && $email!=null){
 			$exists = checkEmailDb($email);
 			if($exists) {
-				$response_arr = array('status' => 'Error', 'message' => "You are already a registered user.");
+				if($exists['status']=='active') {
+					$response_arr = array('status' => 'Active');
+				} else {
+					$response_arr = array('status' => 'Inactive');
+				}
 			} else {
-				$response_arr = array('status' => 'Success');
+				$response_arr = array('status' => '');
 			}
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Email not found.");
