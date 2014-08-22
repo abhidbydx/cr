@@ -6,15 +6,33 @@
  * 	Purpose    : Db operations to check email 
 */  
 	function checkEmailDb($email){
-		$query  = sprintf("SELECT email FROM cr_users where email='%s'", mysql_real_escape_string(stripslashes($email)));
+		$query  = sprintf("SELECT email,is_active FROM cr_users where email='%s'", mysql_real_escape_string(stripslashes($email)));
 		$result = executeQuery($query);
 		if(mysql_num_rows($result)) {
-			return true;
+			$posts = array();
+			while($post = mysql_fetch_assoc($result)) {
+				$posts[] = $post;
+			}
+			if($posts[0]['is_active']==0) {
+				$posts['status'] = 'inactive';
+			} else {
+				$posts['status'] = 'active';
+			}
+			return $posts;
 		}
-		$query  = sprintf("SELECT email FROM 22959_users where email='%s'", mysql_real_escape_string(stripslashes($email)));
+		$query  = sprintf("SELECT email,role_id FROM 22959_users where email='%s'", mysql_real_escape_string(stripslashes($email)));
 		$result = executeQuery($query);
 		if(mysql_num_rows($result)) {
-			return true;
+			$posts = array();
+			while($post = mysql_fetch_assoc($result)) {
+				$posts[] = $post;
+			}
+			if($posts[0]['role_id']==21) {
+				$posts['status'] = 'inactive';
+			} else {
+				$posts['status'] = 'active';
+			}
+			return $posts;
 		}
 		return false;
 	}
@@ -57,9 +75,22 @@
  * 	Created On : 2014-27-03
  * 	Purpose    : Db operations to get all active projects
 */  
-	function getAllActiveProject($userId){
-		$query = sprintf("SELECT p.id, p.name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
+	function getAllActiveProject($userId,$userType){
+		if($userType=='pms') {
+			$query = sprintf("SELECT p.id, p.name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
     where pu.user_id='%s' and p.status='active' group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
+		} else {
+			$query = sprintf("SELECT cu.project_id from cr_users cu where cu.id='%s'", mysql_real_escape_string(stripslashes($userId)));
+			$result = executeQuery($query);
+			if(mysql_num_rows($result)) {
+				$posts = array();
+				while($post = mysql_fetch_assoc($result)) {
+					$posts[] = $post;
+				}
+				$projectIds = $posts[0]['project_id'];
+			}
+			$query = sprintf("SELECT p.id,p.name from 22959_projects p where p.id in (%s)", mysql_real_escape_string(stripslashes($projectIds)));
+		}		
 		$result = executeQuery($query);
 		if(mysql_num_rows($result)) {
 			$posts = array();

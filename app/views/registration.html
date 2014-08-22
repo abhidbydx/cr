@@ -1,4 +1,4 @@
-<div ng-hide="confrmErrorMsg" class='padTop2'>
+<div ng-show="!status" class='padTop2'>
 	<div class="login">
 		<dl class="curved">
 			<dt><span  class='heading'>Register</span></dt>
@@ -15,10 +15,18 @@
 	  	</dl>
 	</div>
 </div>
-<div ng-show="confrmErrorMsg" class='padTop50'>
+<div ng-if="status == 'Active'" class='padTop50'>
 	<div class="login">
 		<dl>
 	  		<dt><span  class='heading'>Your account is already activated. Please <a href="/">
+	  		login</a>.</span></dt>
+		</dl>
+	</div>
+</div>
+<div ng-if="status == 'Inactive'" class='padTop50'>
+	<div class="login">
+		<dl>
+	  		<dt><span  class='heading'>Your account is Inactive <a href="/">
 	  		login</a>.</span></dt>
 		</dl>
 	</div>
