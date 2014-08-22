@@ -1,10 +1,52 @@
 <div left-panel></div>
+<div id='content_center' ng-show='addCR'>
+		<dl class="curved">
+			<dt><span  class='heading'>Add CR</span></dt>
+	      	<div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
+	      	<dd> 
+			    <form name="loginForm"  id="login-form" style='width:600px' >
+			      
+			        <p class='frmleft'>Title:</p>
+			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
+			      
+			        <p class='frmleft'>Description</p>
+			        <p class="frmright"><input type="text" name="description" value="" ng-model='cr_description' ></p>
+
+			        
+
+			        <p class='frmleft'>&nbsp;</p>
+			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='add_cr(projectId);'></p>
+		        </form>		        
+	      	</dd>
+	  	</dl>	
+</div>
+<div id='content_center' ng-show='editCR'>
+		<dl class="curved">
+			<dt><span  class='heading'>Edit CR</span></dt>
+	      	<div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
+	      	<dd> 
+			    <form name="loginForm"  id="login-form" style='width:600px' >
+			      
+			        <p class='frmleft'>Title:</p>
+			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
+			      
+			        <p class='frmleft'>Description</p>
+			        <p class="frmright"><input type="text" name="description" value="" ng-model='cr_description' ></p>
+
+			        
+
+			        <p class='frmleft'>&nbsp;</p>
+			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='add_cr(projectId);'></p>
+		        </form>		        
+	      	</dd>
+	  	</dl>	
+</div>
 <div id='content_center'>
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>
 		<dd> <br />
 		    <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
-		    <div class='leftlink'><a ng-href='/addCr/{{projectId}}'> Create New CR.(+)</a></div>
+		    <div class='leftlink'><a  ng-click='showadd();'> Create New CR.(+)</a></div>
 		    <table style='width:900px;' ng-if='allCRs'>
 		    	<tr class='about'>
 		    		<th class='frmhead' style='width:40px;'>ID</th>
@@ -21,7 +63,7 @@
 				<td class='frmleft' style='width:250px;'>{{cr.description}}</td>
 				<td class='frmleft'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
 				<td class='frmleft'>{{cr.created_by}}</td>
-				<th class='frmleft'><a style="cursor:pointer;">Edit</a> | <a style="cursor:pointer;">Delete</a></th>				
+				<th class='frmleft'><a style="cursor:pointer;" ng-click="showEdit(cr.id)">Edit</a> | <a style="cursor:pointer;" ng-click="cr_delete(cr.id)">Delete</a></th>				
 			</tr>
 			</table>
 			<p class="last">&nbsp;</p>

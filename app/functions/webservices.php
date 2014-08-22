@@ -36,6 +36,9 @@
 				case "forgotPassword":
 						forgotPassword($arrayObject,$data);
 						break;
+				case "deleteCR":
+						deleteCR($arrayObject);
+				break;
 				default:
 						echo '{"status":"Error","message":"No such webservice available!"}';
 			}
@@ -264,6 +267,26 @@
 			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address and $field.");
 		}
 		writeLog("forgotPassword",$data,json_encode($response_arr));
+		echo json_encode($response_arr);
+	}
+
+	/*
+ *	Created By : Abhishek Kumar
+ * 	Created On : 2014-8-21
+ * 	Purpose    : add cr
+*/
+	function deleteCR($arrayObject){
+        $crId      = $arrayObject['id'];
+		if($crId!='' && $crId!=null){
+			$result = deleteCRData($arrayObject);
+			if($result) {
+				$response_arr = array('status' => 'Success');
+			}else{
+				$response_arr = array('status' => 'Error', 'message' => ".");
+			}
+		}else{
+			$response_arr = array('status' => 'Error', 'message' => "Id cannot be null.");
+		}
 		echo json_encode($response_arr);
 	}
 ?>
