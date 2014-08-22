@@ -255,7 +255,21 @@
 		    $crDesc       =$data['crdesc'];
 		    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
 		    $crCreated    =$data['created_by'];
-			echo $query = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
+			$query = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
+			$result = executeQuery($query);
+		
+		return $result;
+	}
+
+	/*
+ *	Created By : Abhishek kumar
+ * 	Created On : 2014-20-08
+ * 	Purpose    : Db operations for deletion of cr 
+*/  
+	function deleteCRData($data){
+		    $cr_id   =$data['id'];
+		    
+			$query = "DELETE from cr_projects where id=".$cr_id; 
 			$result = executeQuery($query);
 		
 		return $result;
