@@ -38,6 +38,10 @@
 						break;
 				case "deleteCR":
 						deleteCR($arrayObject);
+				case "editCR":
+						editCR($arrayObject);
+				case "getCRById":
+						getCRById($arrayObject);
 				break;
 				default:
 						echo '{"status":"Error","message":"No such webservice available!"}';
@@ -83,7 +87,7 @@
 				    }
 				    else
 				    { 
-				       $response_arr = array('status' => 'Error', 'message' => 'http://cr.localhost.com/registers/'.$serial_arr);
+				       $response_arr = array('status' => 'Error', 'message' => 'http://'.$_SERVER["HTTP_HOST"].'/registers/'.$serial_arr);
 				    }
 				} else {
 					$response_arr = array('status' => 'Error', 'message' => 'Projects list cannot be empty.');
@@ -105,9 +109,9 @@
         $pwd      = $arrayObject['password']; 
         $data = checkLoginDb($userName,$pwd);
         if($data) {    
-            echo json_encode($data);
+            echo json_encode($data);exit();
         }  else  {
-            echo json_encode(array('status' => 'Error', 'message' => "Invalid Credentials!!."));
+            echo json_encode(array('status' => 'Error', 'message' => "Invalid Credentials!!."));exit();
         }
 	}
 	
@@ -129,7 +133,7 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "User Id and User Type cannot be null.");
 		}
-		echo json_encode($response_arr);
+		echo json_encode($response_arr);exit();
 	}
 	
 /*
@@ -149,7 +153,7 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
 		}
-		echo json_encode($response_arr);
+		echo json_encode($response_arr);exit();
 	}
 	
 /*
@@ -170,7 +174,7 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Please enter email and password.");
 		}
-		echo json_encode($response_arr);
+		echo json_encode($response_arr);exit();
 	}
 
 /*
@@ -190,7 +194,7 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
 		}
-		echo json_encode($response_arr);
+		echo json_encode($response_arr);exit();
 	}
 
 /*
@@ -267,7 +271,7 @@
 			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address and $field.");
 		}
 		writeLog("forgotPassword",$data,json_encode($response_arr));
-		echo json_encode($response_arr);
+		echo json_encode($response_arr);exit();
 	}
 
 	/*
@@ -287,6 +291,47 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Id cannot be null.");
 		}
-		echo json_encode($response_arr);
+		echo json_encode($response_arr);exit();
 	}
+
+	/*
+ *	Created By : Abhishek Kumar
+ * 	Created On : 2014-8-22
+ * 	Purpose    : update cr
+*/
+	function editCR($arrayObject){
+         $crId      = $arrayObject['id'];
+		if($crId!='' && $crId!=null){
+			$result = updateCRData($arrayObject);
+			if($result) {
+				$response_arr = array('status' => 'Success');
+			}else{
+				$response_arr = array('status' => 'Error', 'message' => "errr.");
+			}
+		}else{
+			$response_arr = array('status' => 'Error', 'message' => "Id cannot be null.");
+		}
+		//print_r($response_arr);
+		echo json_encode($response_arr);exit();
+	} 
+
+	/*
+ *	Created By : Abhishek Kumar
+ * 	Created On : 2014-8-22
+ * 	Purpose    : get detsil of cr
+*/
+	function getCRById($arrayObject){
+        $crId      = $arrayObject['id'];
+		if($crId!='' && $crId!=null){
+			$result = getCRDataByID($arrayObject);
+			if($result) {
+				$response_arr = array('status' => 'Success','cr' => $result[0]);
+			}else{
+				$response_arr = array('status' => 'Error', 'message' => ".");
+			}
+		}else{
+			$response_arr = array('status' => 'Error', 'message' => "Id cannot be null.");
+		}
+		echo json_encode($response_arr);
+	} 
 ?>

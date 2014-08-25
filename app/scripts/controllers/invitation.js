@@ -59,10 +59,10 @@ angular.module('intranetApp')
             var res=data.data;
             if(res.status!=='Error'){
                 $scope.valSucsMsg = res.message;
-                $scope.valErrMsg = false;
+                $scope.valErrMsg = null;
             }else{
                 $scope.valErrMsg = res.message;
-                $scope.valSucsMsg = false;
+                $scope.valSucsMsg = null;
                 return false;
             }
         });   

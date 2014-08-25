@@ -267,12 +267,50 @@
  * 	Purpose    : Db operations for deletion of cr 
 */  
 	function deleteCRData($data){
-		    $cr_id   =$data['id'];
-		    
+		    $cr_id   =$data['id'];		    
 			$query = "DELETE from cr_projects where id=".$cr_id; 
 			$result = executeQuery($query);
 		
 		return $result;
+	}
+
+	/*
+ *	Created By : Abhishek kumar
+ * 	Created On : 2014-20-08
+ * 	Purpose    : Db operations for updation of cr 
+*/  
+	function updateCRData($data){
+		    $cr_id        =$data['id'];
+		    $crTitle      =$data['crtitle'];
+		    $crDesc       =$data['crdesc'];
+		    $crStatus     =$data['crstatus'];
+		    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
+		    $crCreated    =$data['created_by'];
+			$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated' where id=".$cr_id; 
+			$result = executeQuery($query);
+		
+		return $result;
+	}
+
+	/*
+ *	Created By : Abhishek kumar
+ * 	Created On : 2014-20-08
+ * 	Purpose    : Db operations for get of cr by id
+*/  
+	function getCRDataByID($data){
+		    $cr_id   =$data['id'];		    
+			$query = "select * from cr_projects where id=".$cr_id; 
+			$result = executeQuery($query);
+			$posts = array();
+			if(mysql_num_rows($result)) {
+				while($post = mysql_fetch_assoc($result)) {
+					$posts[] = $post;
+				}
+				return $posts;
+			}
+			return false;
+		
+		
 	}
 
 ?>
