@@ -14,7 +14,8 @@
     <script src="bower_components/ng-grid/build/ng-grid.min.js"></script>
     <script src="bower_components/ng-grid/plugins/ng-grid-layout.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>    
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>  
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>    
 </head>
 <body ng-app="intranetApp">
 <div id="banner">

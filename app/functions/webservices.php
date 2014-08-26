@@ -60,38 +60,39 @@
 	function checkEmail($arrayObject){
         $email      = $arrayObject['email'];
         $projectIds = $arrayObject['projectIds'];		
-		if($email!='' && $email!=null){
-			$exists = checkEmailDb($email);
-			if($exists) {
-				if($exists['status']=='active') {
-					$response_arr = array('status' => 'Error', 'message' => "The user is already active.");
-				} else {
-					$response_arr = array('status' => 'Error', 'message' => "User is inactive.");
-				}
-			}else{
-				if(!empty($projectIds)) {
-					$finalAry = $projectAry = array();
-					$projectAry = getProjects($projectIds);
-					foreach($projectAry as $ary) {
-						$finalAry['projectIds'][] = $ary['id'];
+        $emailAry = explode(",",$email);
+		if(!empty($emailAry)){
+			$finalAry = $projectAry = array();
+			$projectAry = getProjects($projectIds);
+			foreach($projectAry as $ary) {
+				$finalAry['projectIds'][] = $ary['id'];
+			}
+			foreach($emailAry as $val) {
+				$exists = checkEmailDb($val);
+				if($exists) {
+					if($exists['status']=='active') {
+						$response_arr[$val] = array('status' => 'Error', 'message' => "The user is already active.");
+					} else {
+						$response_arr[$val] = array('status' => 'Error', 'message' => "User is inactive.");
 					}
-					$finalAry['email'] = $email;
-					$serial_arr = urlencode(base64_encode(serialize($finalAry)));
-					$to = $email;
-				   	$subject = "Kellton CR Management";
-				   	$message = "This is simple text message.";
-				   	$header = "From:intranet@kelltontech.com \r\n";
-				   	$retval = mail ($to,$subject,$message,$header);
-				   	if( $retval == true )  {
-				       $response_arr = array('status' => 'Success', 'message' => 'Invitation sent successfully.');
-				    }
-				    else
-				    { 
-				       $response_arr = array('status' => 'Error', 'message' => 'http://'.$_SERVER["HTTP_HOST"].'/registers/'.$serial_arr);
-				    }
-				} else {
-					$response_arr = array('status' => 'Error', 'message' => 'Projects list cannot be empty.');
-				}			    
+				}else{
+					if(!empty($finalAry['projectIds'])) {
+						$finalAry['email'] = $val;
+						$serial_arr = urlencode(base64_encode(serialize($finalAry)));
+						$to = $val;
+					   	$subject = "Kellton CR Management";
+					   	$message = "This is simple text message.";
+					   	$header = "From:intranet@kelltontech.com \r\n";
+					   	$retval = mail ($to,$subject,$message,$header);
+					   	if( $retval == true )  {
+					       $response_arr[$val] = array('status' => 'Success', 'message' => 'Invitation sent successfully.');
+					    } else { 
+					       $response_arr[$val] = array('status' => 'Error', 'message' => 'http://'.$_SERVER["HTTP_HOST"].'/registers/'.$serial_arr);
+					    }
+					} else {
+						$response_arr = array('status' => 'Error', 'message' => 'Projects list cannot be empty.');
+					}			    
+				}
 			}
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address.");

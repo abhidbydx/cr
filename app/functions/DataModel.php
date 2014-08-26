@@ -108,7 +108,6 @@
  * 	Purpose    : Db operations for getting projects
 */  
 	function getProjects($projectId){
-		$projectId = implode(",",$projectId);
 		$query = sprintf("SELECT name,id FROM 22959_projects where id in (%s)", mysql_real_escape_string(stripslashes($projectId)));
 		$result = executeQuery($query);
 		$posts = array();
