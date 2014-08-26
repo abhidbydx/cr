@@ -6,15 +6,16 @@
       <form name="invitationForm"  id="invite-form">
         <p>
         	<input type="text" name="invite" value="" ng-model='email' placeholder="Email">
-        	<select multiple="multiple" ng-model='project_id'>
+        	<select ng-model='project_id'>
+                <option value=''>Please Select</option>
         		<option ng-repeat="project in projects" value='{{project.id}}'>
         			{{project.name}}
 	          	</option>
         	</select>
         </p>
 
-        <div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
-        <div ng-if="valSucsMsg!==''" style='color:green'>{{valSucsMsg}} </div>
+        <div ng-if="valErrMsg!==''" style='color:red' ng-bind-html="valErrMsg"></div>
+        <div ng-if="valSucsMsg!==''" style='color:green' ng-bind-html="valSucsMsg"></div>
         <p class="submit"><input type="submit" name="invite" value="Submit" ng-click='invite();'></p>
       </form>
     </dd>

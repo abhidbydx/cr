@@ -57,14 +57,17 @@ angular.module('intranetApp')
         })
         .then( function( data ) {
             var res=data.data;
-            if(res.status!=='Error'){
-                $scope.valSucsMsg = res.message;
-                $scope.valErrMsg = null;
-            }else{
-                $scope.valErrMsg = res.message;
-                $scope.valSucsMsg = null;
-                return false;
-            }
+            var errorRes = '';
+            var successRes = '';
+            $.each( res, function( key, value ) {
+                if(value.status!=='Error') {
+                    successRes = successRes+"<span class='heading'>"+key+"</span>" + ": " + value.message+"<br />";
+                } else {
+                    errorRes = errorRes+"<span class='heading'>"+key+"</span>" + ": " + value.message+"<br />";
+                }
+            });
+            $scope.valSucsMsg = successRes;
+            $scope.valErrMsg = errorRes;
         });   
     };  
   });
