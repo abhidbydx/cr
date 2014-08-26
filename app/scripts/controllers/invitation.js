@@ -61,9 +61,9 @@ angular.module('intranetApp')
             var successRes = '';
             $.each( res, function( key, value ) {
                 if(value.status!=='Error') {
-                    successRes = successRes+"<span class='heading'>"+key+"</span>" + ": " + value.message+"<br />";
+                    successRes = successRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
                 } else {
-                    errorRes = errorRes+"<span class='heading'>"+key+"</span>" + ": " + value.message+"<br />";
+                    errorRes = errorRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
                 }
             });
             $scope.valSucsMsg = successRes;

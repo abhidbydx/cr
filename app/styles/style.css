@@ -18,6 +18,10 @@ border-bottom: 3px solid #FF9933;
 .heading {
  color: #000;
 }
+.heading1 {
+ color: #000;
+ margin-left: 20px;
+}
 #banner h1 {
 margin: 0 0 0 250px;
 line-height:1.8em;
