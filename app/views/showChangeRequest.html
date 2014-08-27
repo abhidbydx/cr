@@ -45,15 +45,19 @@
 			        	<option value='2'>Approved</option>
 			        	<option value='3'>Reject</option>
 			        </select></p>
-
-			        
-
+			         <p class='frmleft'>Upload Files</p>
+			         <p><input type="file" ng-file-select="onFileSelect($files)" multiple></p> 
+			         <p class='frmleft'>Attached Files</p>
+			         <li ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <a> Delete </a></li>
+			          <div class='clear'>&nbsp;</div>
 			        <p class='frmleft'>&nbsp;</p>
 			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
+			        <div class='clear'>&nbsp;</div>
 		        </form>		        
 	      	</dd>
 	  	</dl>	
 </div>
+ 
 <div id='content_center'>
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>

@@ -79,31 +79,30 @@ angular.module('intranetApp')
                 file: file,
               }).progress(function(evt) {       
               }).success(function(data, status, headers, config) {
-                   
+                  $http({
+                    method : 'POST',
+                    url :  'functions/webservices.php',
+                    data : $.param( loginData ),    //  url encode ( kind of )
+                    headers: {
+                      'Content-Type' : 'application/x-www-form-urlencoded'
+                  }
+                  })
+                        .then( function( data ) {
+                              var res=data.data;
+                              if(res!=='error'){                                
+                                  $scope.allCRs = res.cr;
+                                  $scope.cr_title=null;
+                                  $scope.cr_description=null;
+                                  delete $rootScope.selectedFile;
+                              }else{
+                                  $scope.valErrMsg = 'error in addition!!';
+                                  return false;
+                              }
+                      });  
               });
       
             } }
-
-            $http({
-          method : 'POST',
-          url :  'functions/webservices.php',
-          data : $.param( loginData ),    //  url encode ( kind of )
-          headers: {
-            'Content-Type' : 'application/x-www-form-urlencoded'
-          }
-        })
-        .then( function( data ) {
-          var res=data.data;
-          if(res!=='error'){
-              $scope.allCRs = res.cr;
-              $scope.cr_title=null;
-              $scope.cr_description=null;
-              delete $rootScope.selectedFile;
-          }else{
-              $scope.valErrMsg = 'error in deletion!!';
-              return false;
-          }
-        }); 
+          
         }else{
             $scope.valErrMsg = res.message;
             return false;
@@ -184,27 +183,39 @@ angular.module('intranetApp')
       .then( function( data ) {       
         var res=data.data;      
         if(res.status!=='Error'){            
-           $http({
-              method : 'POST',
-              url :  'functions/webservices.php',
-              data : $.param( loginData ),    //  url encode ( kind of )
-              headers: {
-             'Content-Type' : 'application/x-www-form-urlencoded'
-        }
-        })
-        .then( function( data ) {
-          var res=data.data;
-          if(res!=='Error'){
-              $scope.allCRs = res.cr;
-              $scope.cr_title=null;
-              $scope.cr_description=null;
-              $scope.cr_status=null;
-              $scope.editCR  =false;
-          }else{
-              $scope.valErrMsg = 'error in deletion!!';
-              return false;
-          }
-        });  
+         if(typeof($rootScope.selectedFile)!=='undefined') {         
+            for (var i = 0; i < $rootScope.selectedFile.length; i++) {
+              var file = $rootScope.selectedFile[i];
+              $scope.upload = $upload.upload({
+                url: 'functions/fileupload.php', 
+                data: {cr_id:cr_id},
+                file: file,
+              }).progress(function(evt) {       
+              }).success(function(data, status, headers, config) {
+                  $http({
+                    method : 'POST',
+                    url :  'functions/webservices.php',
+                    data : $.param( loginData ),    //  url encode ( kind of )
+                    headers: {
+                      'Content-Type' : 'application/x-www-form-urlencoded'
+                  }
+                  })
+                        .then( function( data ) {
+                              var res=data.data;
+                              if(res!=='error'){                                
+                                  $scope.allCRs = res.cr;
+                                  $scope.cr_title=null;
+                                  $scope.cr_description=null;
+                                   $scope.editCR=false;
+                                  delete $rootScope.selectedFile;
+                              }else{
+                                  $scope.valErrMsg = 'error in addition!!';
+                                  return false;
+                              }
+                      });  
+              });
+      
+            } }
         }else{
             $scope.valErrMsg = res.message;
             return false;
@@ -240,10 +251,11 @@ angular.module('intranetApp')
         })
         .then( function( data ) {
           var res=data.data;         
-          if(res!=='error'){
+          if(res!=='error'){ console.log(res)        
               $scope.cr_title = res.cr.title;
               $scope.cr_description = res.cr.description;
               $scope.cr_status = res.cr.status;
+              $scope.file_name=  res.cr.file_name;
           }else{
               $scope.valErrMsg = 'error in updation!!';
               return false;

@@ -294,12 +294,14 @@
 */  
 	function getCRDataByID($data){
 		    $cr_id   =$data['id'];		    
-			$query = "select * from cr_projects where id=".$cr_id; 
+			$query = "SELECT *,cp.id as crid, cf.is_deleted as file_deleted from cr_projects as cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.id=".$cr_id; 
 			$result = executeQuery($query);
-			$posts = array();
+			//$posts = array();
 			if(mysql_num_rows($result)) {
 				while($post = mysql_fetch_assoc($result)) {
-					$posts[] = $post;
+					if(!empty($post['real_name']) && $post['file_deleted']==0)
+						$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
+						$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>$post['cr_date'],'created_by'=>$post['created_by']);
 				}
 				return $posts;
 			}

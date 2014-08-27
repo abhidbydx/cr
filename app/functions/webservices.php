@@ -326,7 +326,7 @@
 		if($crId!='' && $crId!=null){
 			$result = getCRDataByID($arrayObject);
 			if($result) {
-				$response_arr = array('status' => 'Success','cr' => $result[0]);
+				$response_arr = array('status' => 'Success','cr' => $result);
 			}else{
 				$response_arr = array('status' => 'Error', 'message' => ".");
 			}
