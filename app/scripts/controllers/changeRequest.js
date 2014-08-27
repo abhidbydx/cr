@@ -8,13 +8,14 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-  .controller('changeRequest', function ($scope,$http,$rootScope,$routeParams,$location,UserService,$cookies) {
+  .controller('changeRequest', function ($scope,$http,$rootScope,$routeParams,$location,UserService,$cookies,$upload) {
       var loginData={};
       var userData=UserService.getUserCookie($cookies.USER_INFO); 
       $scope.valErrMsg=null;
       loginData.page= 'getAllCr';      
       loginData.projectId= $routeParams.projectID;      
       loginData.user_id = userData.id;
+      $scope.userType = userData.user;
       $scope.projectId=loginData.projectId;
       $http({
           method : 'POST',
@@ -26,21 +27,27 @@ angular.module('intranetApp')
         })
         .then( function( data ) {
           var res=data.data;
-          if(res!=='error'){
+          if(res!=='error'){          
               $scope.allCRs = res.cr;
           }else{
               $scope.valErrMsg = 'Invalid credentials!!';
               return false;
           }
         }); 
+
+    $scope.onFileSelect = function($files) {
+         var selectedFile=[];
+         $rootScope.selectedFile = $files ;
+         
+    };    
        //add cr
     $scope.add_cr = function(project_id){
-    var cr={};
+    var cr={};    
     $scope.valErrMsg=null;
     cr.crtitle      = $scope.cr_title;
     cr.crdesc       = $scope.cr_description;
     cr.cr_date      = new Date();
-    cr.created_by   = userData.id;
+    cr.created_by   = userData.id;   
     
     cr.project_id=project_id;
     cr.page= 'addCR';    
@@ -62,7 +69,21 @@ angular.module('intranetApp')
       })
       .then( function( data ) {       
         var res=data.data;
-        if(res.status!=='Error'){            
+        if(res.status!=='Error'){ 
+          if(typeof($rootScope.selectedFile)!=='undefined') {         
+            for (var i = 0; i < $rootScope.selectedFile.length; i++) {
+              var file = $rootScope.selectedFile[i];
+              $scope.upload = $upload.upload({
+                url: 'functions/fileupload.php', 
+                data: {cr_id:res.last_id},
+                file: file,
+              }).progress(function(evt) {       
+              }).success(function(data, status, headers, config) {
+                   
+              });
+      
+            } }
+
             $http({
           method : 'POST',
           url :  'functions/webservices.php',
@@ -77,6 +98,7 @@ angular.module('intranetApp')
               $scope.allCRs = res.cr;
               $scope.cr_title=null;
               $scope.cr_description=null;
+              delete $rootScope.selectedFile;
           }else{
               $scope.valErrMsg = 'error in deletion!!';
               return false;
@@ -105,8 +127,7 @@ angular.module('intranetApp')
         }
         })
         .then( function( data ) {
-        var res=data.data;
-        console.log(res);
+        var res=data.data;        
         if(res.status!=='Error'){
         $http({
         method : 'POST',
@@ -117,8 +138,7 @@ angular.module('intranetApp')
         }
         })
         .then( function( data ) {
-          res=data.data;
-          console.log(res);
+          res=data.data;       
         if(res!=='Error'){
         $scope.allCRs = res.cr;
         }else{
@@ -152,8 +172,7 @@ angular.module('intranetApp')
     if(typeof(cr.crdesc)==='undefined'){
       $scope.valErrMsg = 'Please enter description';
       return false;
-    } 
-   
+    }    
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -163,8 +182,7 @@ angular.module('intranetApp')
         }
       })
       .then( function( data ) {       
-        var res=data.data;
-        console.log(res);
+        var res=data.data;      
         if(res.status!=='Error'){            
            $http({
               method : 'POST',
@@ -232,7 +250,10 @@ angular.module('intranetApp')
           }
         });  
 
-  };     
+  };
+
+     
+
 
 
   });

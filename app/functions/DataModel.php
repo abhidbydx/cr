@@ -126,12 +126,14 @@
  * 	Purpose    : Db operations for Sign In 
 */  
 	function getAllProjectCrs($projectId){
-		$query = sprintf("SELECT * FROM cr_projects where project_id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+		$query = sprintf("SELECT *,cp.id as crid, cf.is_deleted as file_deleted FROM cr_projects cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.is_deleted=0  and project_id='%s'", mysql_real_escape_string(stripslashes($projectId)));
 		$result = executeQuery($query);
 		$posts = array();
 		if(mysql_num_rows($result)) {
 			while($post = mysql_fetch_assoc($result)) {
-				$posts[] = $post;
+				if(!empty($post['real_name']) && $post['file_deleted']==0)
+				$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
+				$posts[$post['crid']] = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>$post['cr_date'],'created_by'=>$post['created_by']);
 			}
 			return $posts;
 		}
@@ -254,10 +256,11 @@
 		    $crDesc       =$data['crdesc'];
 		    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
 		    $crCreated    =$data['created_by'];
-			$query = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
+			$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
 			$result = executeQuery($query);
+			$last_id= mysql_insert_id();
 		
-		return $result;
+		return $last_id;
 	}
 
 	/*
@@ -267,7 +270,7 @@
 */  
 	function deleteCRData($data){
 		    $cr_id   =$data['id'];		    
-			$query = "DELETE from cr_projects where id=".$cr_id; 
+			$query = "UPDATE cr_projects set is_deleted=1 where id=".$cr_id; 
 			$result = executeQuery($query);
 		
 		return $result;

@@ -188,7 +188,7 @@
 		if($projectId!='' && $projectId!=null){
 			$result = insertCR($arrayObject);
 			if($result) {
-				$response_arr = array('status' => 'Success');
+				$response_arr = array('status' => 'Success','last_id'=>$result);
 			}else{
 				$response_arr = array('status' => 'Error', 'message' => ".");
 			}
