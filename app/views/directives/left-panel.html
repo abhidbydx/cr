@@ -4,7 +4,7 @@
       <dd> <br />
         <ul id="navlist">
         	<li><a href='/crlisting' >My Projects</a></li>
-          	<li><a href='/sendInvitation' >Send invitation</a></li>
+          	<li ng-if="userInfo.user==='pms'"><a href='/sendInvitation' >Send invitation</a></li>
           	<li><a href='javascript:void(0);' ng-click='logout()' >Log out</a></li>
         </ul>
         <p class="last">&nbsp;</p>
