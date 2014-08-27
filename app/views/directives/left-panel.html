@@ -1,13 +1,14 @@
 <div id="content_left">
-    <dl class="curved">
-      <dt><div ng-if="userInfo.name"><span class='heading'>Welcome {{userInfo.name}}</span></div></dt>
-      <dd> <br />
-        <ul id="navlist">
-        	<li><a href='/crlisting' >My Projects</a></li>
-          	<li ng-if="userInfo.user==='pms'"><a href='/sendInvitation' >Send invitation</a></li>
-          	<li><a href='javascript:void(0);' ng-click='logout()' >Log out</a></li>
-        </ul>
-        <p class="last">&nbsp;</p>
-      </dd>
-    </dl>
-  </div>
+  <dl class="curved">
+    <dt><div ng-if="userInfo.name"><span class='heading'>Welcome {{userInfo.name}}</span></div></dt>
+    <dd> <br />
+      <ul id="navlist">
+      	<li><a href='/crlisting' >My Projects</a></li>
+      	<li ng-if="userInfo.user==='pms'"><a href='/sendInvitation' >Send invitation</a></li>
+        <li ng-if="userInfo.user==='cr'" ><a href='/profile' >Profile</a></li>
+      	<li><a href='javascript:void(0);' ng-click='logout()' >Log out</a></li>
+      </ul>
+      <p class="last">&nbsp;</p>
+    </dd>
+  </dl>
+</div>

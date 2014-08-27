@@ -172,25 +172,18 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : Db operations to reset pincode
+ * 	Created On : 2014-08-27
+ * 	Purpose    : Db operations to get user details
 */  
-	function resetPincodeDb($pincode,$userName){
-		$query = sprintf("update patient set pincode='%s' where username='%s'", mysql_real_escape_string(stripslashes($pincode)), mysql_real_escape_string(stripslashes($userName)));
+	function getUserInfoDb($userId){
+		$query = sprintf("SELECT email, first_name, last_name, mobile_no FROM cr_users where id='%s'", mysql_real_escape_string(stripslashes($userId)));
 		$result = executeQuery($query);
-		return $result;
-	}
-	
-/*
- *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : Db operations to validate signin process
-*/  
-	function validateSignedInDb($pincode,$userName){
-		$query = sprintf("SELECT email,username FROM patient where pincode='%s' and username='%s'", mysql_real_escape_string(stripslashes($pincode)), mysql_real_escape_string(stripslashes($userName)));
-		$result = executeQuery($query);
-		if(mysql_num_rows($result)){
-			return true;
+		$posts = array();
+		if(mysql_num_rows($result)){ 
+			while($post = mysql_fetch_assoc($result)) {
+				$posts[] = $post;
+			}
+			return $posts;
 		}
 		return false;
 	}

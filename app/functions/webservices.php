@@ -30,8 +30,8 @@
 				case "checkRegistration":
 						checkRegistration($arrayObject);
 						break;
-				case "validateSignedIn":
-						validateSignedIn($arrayObject,$data);
+				case "getUserInfo":
+						getUserInfo($arrayObject);
 						break;
 				case "forgotPassword":
 						forgotPassword($arrayObject,$data);
@@ -224,23 +224,23 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : validate already signed in user
+ * 	Created On : 2014-08-27
+ * 	Purpose    : get profile details
 */
-	function validateSignedIn($arrayObject,$data){
-        $pincode      = $arrayObject->pincode;
-		$userName      = $arrayObject->username;
-		if($pincode!='' && $pincode!=null && $userName!='' && $userName!=null){
-			$exists = validateSignedInDb($pincode,$userName);
-			if($exists)
-				$response_arr = array('status' => 'Success', 'message' => 'Successfully signed in.');
+	function getUserInfo($arrayObject){
+        $user_id = $arrayObject['user_id'];
+		$user    = $arrayObject['user'];
+		if($user_id!='' && $user_id!=null && $user=='cr'){
+			$data = getUserInfoDb($user_id);
+			if(!empty($data))
+				$response_arr = array('status' => 'Success', 'details' => $data[0]);
 			else
-				$response_arr = array('status' => 'Error', 'message' => "Incorrect passcode. Please try again.");
+				$response_arr = array('status' => 'Error', 'message' => "There are no user having this id.");
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter username and passcode.");
+			$response_arr = array('status' => 'Error', 'message' => "User id cannot be null and User should be a CR user.");
 		}
-		writeLog("validateSignedIn",$data,json_encode($response_arr));
 		echo json_encode($response_arr);
+		exit();
 	}
 	
 /*
