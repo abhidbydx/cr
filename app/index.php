@@ -34,6 +34,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/directives/left-panel.js"></script>
         <script src="scripts/controllers/listing.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/controllers/invitation.js"></script>  
         <script src="scripts/controllers/registers.js"></script>      
         <!-- services-->

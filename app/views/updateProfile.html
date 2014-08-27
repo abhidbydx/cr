@@ -1,0 +1,51 @@
+<div left-panel></div>
+<div id='content_center' ng-show='viewProfile'>
+	<dl class="curved">
+		<dt><span  class='heading'>View Profile</span></dt>
+      	<div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
+      	<dd>
+      		<p><a class='link padright30' title="Edit Profile" ng-click='edit_profile();'>Edit Profile</a></p>
+	        <p class='frmleft padLeft30'>First Name:</p>
+	        <p class="frmright blue">{{userDetails.first_name}}</p>
+	        <div class="clear"></div>
+	        <p class='frmleft padLeft30'>Last Name:</p>
+	        <p class="frmright blue">{{userDetails.last_name}}</p>
+	        <div class="clear"></div>
+	        <p class='frmleft padLeft30'>Email:</p>
+	        <p class="frmright blue">{{userDetails.email}}</p>
+	        <div class="clear"></div>
+	        <p class='frmleft padLeft30'>Mobile No.:</p>
+	        <p class="frmright blue">{{userDetails.mobile_no}}</p>
+	        <div class="clear"></div>
+      	</dd>
+	</dl>
+</div>
+<div id='content_center' ng-show='updateProfile'>
+		<dl class="curved">
+			<dt><span  class='heading'>Edit Profile</span></dt>
+	      	<div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
+	      	<dd> 
+			    <form name="loginForm"  id="login-form" style='width:600px' >
+			      
+			        <p class='frmleft'>Title:</p>
+			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
+			      
+			        <p class='frmleft'>Description</p>
+			        <p class="frmright">
+			        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea></p>
+
+			        <p class='frmleft'>Status</p>
+			        <p class="frmright"><select ng-model='cr_status' >			        	
+			        	<option value='1'>Pending</option>
+			        	<option value='2'>Approved</option>
+			        	<option value='3'>Reject</option>
+			        </select></p>
+
+			        
+
+			        <p class='frmleft'>&nbsp;</p>
+			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
+		        </form>		        
+	      	</dd>
+	  	</dl>	
+</div>

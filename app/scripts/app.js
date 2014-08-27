@@ -40,6 +40,10 @@ angular
         templateUrl: 'views/registration.html',
         controller: 'registration'
       })
+      .when('/profile', {
+        templateUrl: 'views/updateProfile.html',
+        controller: 'updateProfile'
+      })
       .otherwise({
         redirectTo: '/'
       });
