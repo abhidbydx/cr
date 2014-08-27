@@ -8,19 +8,21 @@
 			      
 			        <p class='frmleft'>Title:</p>
 			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
-			      
+			      	<div class="clear"></div>
 			        <p class='frmleft'>Description</p>
 			        <p class="frmright">
 			        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea>
 			        </p>
+			        <div class="clear"></div>
 			       <p class='frmleft'>Upload Files</p>
 			       <p><input type="file" ng-file-select="onFileSelect($files)" multiple></p>
 
-			       
+			       <div class="clear"></div>
 
 
 			        <p class='frmleft'>&nbsp;</p>
 			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='add_cr(projectId);'></p>
+			        <div class="clear"></div>
 		        </form>		        
 	      	</dd>
 	  	</dl>	
@@ -34,22 +36,24 @@
 			      
 			        <p class='frmleft'>Title:</p>
 			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
-			      
+			      	<div class="clear"></div>
 			        <p class='frmleft'>Description</p>
 			        <p class="frmright">
 			        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea></p>
-
+			        <div class="clear"></div>
 			        <p class='frmleft' ng-if="userType==='cr'">Status</p>
+			        <div class="clear"></div>
 			        <p class="frmright" ng-if="userType==='cr'"><select ng-model='$parent.cr_status' >			        	
 			        	<option value='1'>Pending</option>
 			        	<option value='2'>Approved</option>
 			        	<option value='3'>Reject</option>
 			        </select></p>
-
+			        <div class="clear"></div>
 			        
 
 			        <p class='frmleft'>&nbsp;</p>
 			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
+			        <div class="clear"></div>
 		        </form>		        
 	      	</dd>
 	  	</dl>	
