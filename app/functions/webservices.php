@@ -33,8 +33,8 @@
 				case "getUserInfo":
 						getUserInfo($arrayObject);
 						break;
-				case "forgotPassword":
-						forgotPassword($arrayObject,$data);
+				case "updateUserInfo":
+						updateUserInfo($arrayObject);
 						break;
 				case "deleteCR":
 						deleteCR($arrayObject);
@@ -245,34 +245,24 @@
 	
 /*
  *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : forgot password
+ * 	Created On : 2014-08-27
+ * 	Purpose    : update user profile
 */
-	function forgotPassword($arrayObject,$data){
-		$email        = $arrayObject->email;
-		$password     = $arrayObject->password;
-		$username     = $arrayObject->username;
-		if($password!='' && $password!=null){
-			$value = $password;
-			$field = 'password';
-			$responseField = 'username';
-		}
-		if($username!='' && $username!=null){
-			$value = $username;
-			$field = 'username';
-			$responseField = 'password';
-		}		
-		if($email!='' && $email!=null && $value!='' && $value!=null){
-			$response = forgotPasswordDb($field,$value,$email,$responseField);
-			if($response){
-				$response_arr = array('status' => 'Success', $responseField => $response);
-			}else
-				$response_arr = array('status' => 'Error', 'message' => "Unable to match your email address and $field.");
+	function updateUserInfo($arrayObject){
+		$user_id = $arrayObject['user_id'];
+		$user = $arrayObject['user'];
+		if($user_id!='' && $user_id!=null && $user=='cr') {
+			$response = updateUserInfoDb($arrayObject);
+			if($response) {
+				$response_arr = array('status' => 'Success', 'details' => $response[0]);
+			} else {
+				$response_arr = array('status' => 'Error', 'message' => "Error in update.");
+			}
 		}else{
-			$response_arr = array('status' => 'Error', 'message' => "Please enter an email address and $field.");
+			$response_arr = array('status' => 'Error', 'message' => "User id cannot be null and User should be a CR user.");
 		}
-		writeLog("forgotPassword",$data,json_encode($response_arr));
-		echo json_encode($response_arr);exit();
+		echo json_encode($response_arr);
+		exit();
 	}
 
 	/*

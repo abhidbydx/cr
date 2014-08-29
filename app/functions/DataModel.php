@@ -191,54 +191,33 @@
 /*
  *	Created By : Soumya Pandey
  * 	Created On : 2014-27-03
- * 	Purpose    : Db operations to reset pincode
+ * 	Purpose    : Db operations to update user profile
 */  
-	function forgotPasswordDb($field,$value,$email,$responseField){
-		$query = sprintf("SELECT password,username FROM patient where %s='%s' and email='%s'", $field, mysql_real_escape_string(stripslashes($value)), mysql_real_escape_string(stripslashes($email)));
-		$result = executeQuery($query);
-		$posts = array();
-		if(mysql_num_rows($result)){
-			while($post = mysql_fetch_assoc($result)) {
-				$posts[] = $post;
+	function updateUserInfoDb($arrayObject){
+		$user_id = $arrayObject['user_id'];
+		$first_name = $arrayObject['first_name'];
+		$last_name = $arrayObject['last_name'];
+		$mobile_no = $arrayObject['mobile_no'];
+		$updateQuery = sprintf("update cr_users set first_name='%s',last_name='%s',mobile_no='%s' where id='%s'", mysql_real_escape_string(stripslashes($first_name)), mysql_real_escape_string(stripslashes($last_name)), mysql_real_escape_string(stripslashes($mobile_no)), mysql_real_escape_string(stripslashes($user_id)));
+		$result = executeQuery($updateQuery);
+		if($result) {
+			$query = sprintf("SELECT email, first_name, last_name, mobile_no FROM cr_users where id='%s'", mysql_real_escape_string(stripslashes($user_id)));
+			$result = executeQuery($query);
+			$posts = array();
+			if(mysql_num_rows($result)){ 
+				while($post = mysql_fetch_assoc($result)) {
+					$posts[] = $post;
+				}
+				return $posts;
+			} else {
+				return false;
 			}
-			return $posts[0][$responseField];
+		} else {
+			return false;
 		}
-		return false;
 	}
-	
+
 /*
- *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : Db operations to update access token
-*/  
-	function updateAccessTokenDb($userId){
-		$query = sprintf("SELECT id FROM user_token where userid='%s'", mysql_real_escape_string(stripslashes($userId)));
-		$accessDetails = executeQuery($query);
-		if(mysql_num_rows($accessDetails)) { 
-			while($detail = mysql_fetch_assoc($accessDetails)) {
-				$details[] = $detail;
-			}
-			return $details[0]['id'];
-		}
-		return false;
-	}
-	
-/*
- *	Created By : Soumya Pandey
- * 	Created On : 2014-27-03
- * 	Purpose    : Db operations for Sign Up Insertion 
-*/  
-	function updateInsertTokenDb($userId,$token,$formatDate,$action){
-		if($action=='update'){
-			$updateQuery = sprintf("update user_token set accesstoken='%s',validtill='%s' where id='%s'", mysql_real_escape_string(stripslashes($token)), mysql_real_escape_string(stripslashes($formatDate)), mysql_real_escape_string(stripslashes($userId)));
-			$result = executeQuery($updateQuery);
-		}else if($action=='insert'){
-			$query_insert_new_user = "INSERT INTO user_token (userid ,accesstoken , validtill) VALUES ('".$userId."', '".$token."' ,  '".$formatDate."' )"; 
-			$result = executeQuery($query_insert_new_user);
-		}
-		return $result;
-	}
-	/*
  *	Created By : Abhishek kumar
  * 	Created On : 2014-20-08
  * 	Purpose    : Db operations for insetion of cr 
@@ -256,7 +235,7 @@
 		return $last_id;
 	}
 
-	/*
+/*
  *	Created By : Abhishek kumar
  * 	Created On : 2014-20-08
  * 	Purpose    : Db operations for deletion of cr 
@@ -269,7 +248,7 @@
 		return $result;
 	}
 
-	/*
+/*
  *	Created By : Abhishek kumar
  * 	Created On : 2014-20-08
  * 	Purpose    : Db operations for updation of cr 
@@ -287,7 +266,7 @@
 		return $result;
 	}
 
-	/*
+/*
  *	Created By : Abhishek kumar
  * 	Created On : 2014-20-08
  * 	Purpose    : Db operations for get of cr by id

@@ -12,7 +12,6 @@ angular.module('intranetApp')
         var userData   = UserService.getUserCookie($cookies.USER_INFO)  ;
         var loginData={};
         $scope.viewProfile = true;
-        $scope.updateProfile = false;
         loginData.page = 'getUserInfo'; 
         loginData.user_id = userData.id;
         loginData.user    = userData.user;
@@ -31,8 +30,9 @@ angular.module('intranetApp')
             }
         });    
         $scope.edit_profile = function(){
-            $scope.viewProfile = false;
+            $scope.viewProfile = '';
             $scope.updateProfile = true;
+            var loginData={};
             loginData.page = 'getUserInfo'; 
             loginData.user_id = userData.id;
             loginData.user    = userData.user;
@@ -47,40 +47,36 @@ angular.module('intranetApp')
             .then( function( data ) {
                 var res=data.data;
                 if(res!=='Error'){
-                    console.log(res.details);
-                    $scope.userDetails = res.details;
+                    $scope.first_name = res.details.first_name;
+                    $scope.last_name = res.details.last_name;
+                    $scope.email = res.details.email;
+                    $scope.mobile_no = res.details.mobile_no;
                 }
-            });    
-
-
-
-
-
+            }); 
+        };  
+        $scope.profile_submit = function(){
             var loginData={};
-            loginData.page = 'updateUserProfile';
-            loginData.email = $scope.email;
-            loginData.projectIds = $scope.project_id;
+            loginData.page = 'updateUserInfo'; 
+            loginData.user_id = userData.id;
+            loginData.user    = userData.user;
+            loginData.first_name = $scope.first_name;
+            loginData.last_name  = $scope.last_name;
+            loginData.mobile_no    = $scope.mobile_no;
             $http({
                 method : 'POST',
                 url :  'functions/webservices.php',
-                data : $.param( loginData ),    
+                data : $.param( loginData ),
                 headers: {
                   'Content-Type' : 'application/x-www-form-urlencoded'
                 }
             })
             .then( function( data ) {
                 var res=data.data;
-                var errorRes = '';
-                var successRes = '';
-                $.each( res, function( key, value ) {
-                    if(value.status!=='Error') {
-                        successRes = successRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
-                    } else {
-                        errorRes = errorRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
-                    }
-                });
-                $scope.valSucsMsg = successRes;
-                $scope.valErrMsg = errorRes;
-            });   
+                if(res!=='Error'){
+                    $scope.userDetails = res.details;
+                    $scope.viewProfile = true;
+                    $scope.updateProfile = false;
+                }
+            }); 
         };  
   });
