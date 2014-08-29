@@ -96,6 +96,8 @@
 <div id='content_center'>
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>
+	<div align='center' ng-show='showNoti' style='background:#34567;color: red;background-color: #F68310;color:#fff;'>{{msg}}</div>
+		
 		<dd> <br />
 		    <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
 		    <div class='leftlink' style='color:#286e87' ng-show='!addCR'><a  ng-click='showadd();'> Create New CR(+)</a></div>

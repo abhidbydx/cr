@@ -89,7 +89,9 @@ angular.module('intranetApp')
                   })
                         .then( function( data ) {
                               var res=data.data;
-                              if(res!=='error'){                                
+                              if(res!=='error'){ 
+                                  $scope.showNoti=true;
+                                  $scope.msg='Added Succsfully';                                 
                                   $scope.allCRs = res.cr;
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
@@ -112,7 +114,9 @@ angular.module('intranetApp')
                   })
                         .then( function( data ) {
                               var res=data.data;
-                              if(res!=='error'){                                
+                              if(res!=='error'){  
+                                  $scope.showNoti=true;
+                                  $scope.msg='Added Successfully';                               
                                   $scope.allCRs = res.cr;
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
@@ -162,10 +166,12 @@ angular.module('intranetApp')
         .then( function( data ) {
           res=data.data;       
         if(res!=='Error'){
+         $scope.showNoti=true;
+         $scope.msg='Deleted Successfully';
         $scope.allCRs = res.cr;
         $scope.addCR   =false;
         $scope.editCR  =false;
-        $scope.viewCR  =false;
+        $scope.viewCR  =false;        
         }else{
         $scope.valErrMsg = 'error in deletion!!';
         return false;
@@ -228,7 +234,9 @@ angular.module('intranetApp')
                   })
                         .then( function( data ) {
                               var res=data.data;
-                              if(res!=='error'){                                
+                              if(res!=='error'){ 
+                                  $scope.showNoti=true;
+                                  $scope.msg='Updated Successfully';                               
                                   $scope.allCRs = res.cr;
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
@@ -252,7 +260,9 @@ angular.module('intranetApp')
                   })
                         .then( function( data ) {
                               var res=data.data;
-                              if(res!=='error'){                                
+                              if(res!=='error'){
+                                  $scope.showNoti=true;
+                                  $scope.msg='Updated Successfully';                                
                                   $scope.allCRs = res.cr;
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
@@ -277,6 +287,7 @@ angular.module('intranetApp')
     $scope.addCR   =true;
     $scope.editCR  =false;
     $scope.viewCR  =false;
+    $scope.showNoti=false;
     $scope.cr_title = null;
     $scope.cr_description = null;
    }; 
@@ -286,6 +297,7 @@ angular.module('intranetApp')
     $scope.addCR   =false;
     $scope.editCR  =true;
     $scope.viewCR  =false;
+    $scope.showNoti=false;
     var cr={};
     cr.page = 'getCRById'; 
     cr.id   =  cr_id;
@@ -320,6 +332,7 @@ angular.module('intranetApp')
     $scope.addCR   =false;
     $scope.editCR  =false;
     $scope.viewCR  =true;
+    $scope.showNoti=false;
     var cr={};
     cr.page = 'getCRById'; 
     cr.id   =  cr_id;
