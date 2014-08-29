@@ -1,5 +1,24 @@
 <div left-panel></div>
-<div id='content_center'>
+<div id='content_center' ng-show='showClientProfile'>
+	<dl class="curved">
+		<dt><span  class='heading'>View Profile</span><span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close()'> X </span></dt>
+      	<dd>
+	        <p class='frmleft padLeft30'>First Name :</p>
+	        <p class="frmright blue">{{first_name}}</p>
+	        <div class="clear"></div>
+	        <p class='frmleft padLeft30'>Last Name :</p>
+	        <p class="frmright blue">{{last_name}}</p>
+	        <div class="clear"></div>
+	        <p class='frmleft padLeft30'>Email :</p>
+	        <p class="frmright blue">{{email}}</p>
+	        <div class="clear"></div>
+	        <p class='frmleft padLeft30'>Mobile No. :</p>
+	        <p class="frmright blue">{{mobile_no}}</p>
+	        <div class="clear"></div>
+      	</dd>
+	</dl>
+</div>
+<div id='content_center' ng-show='hideClientProfile'>
 	<dl class="curved">
 		<dt><span  class='heading'>My Projects</span></dt>
       	<dd> <br />
@@ -15,7 +34,7 @@
     					<td align="center">{{$index+1}}</td>
     					<td align="center"><a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.id}}'> {{project.name}}</a></td>
     					<td align="center">{{project.leader_name}}</td>
-    					<td ng-if="loginUser==='pms'" align="center">{{project.client}}</td>
+    					<td ng-if="loginUser==='pms'" align="center"><a style="cursor:pointer;color:#286e87" ng-repeat="(client_id,client) in project.client" ng-click="view_client_profile(client_id)">{{client}}  </a></td>
 					</tr>
     			</table>
           	</div>

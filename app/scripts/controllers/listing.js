@@ -15,6 +15,8 @@ angular.module('intranetApp')
   	loginData.user_id = userData.id;
     loginData.user = userData.user;
     $scope.loginUser = userData.user;
+    $scope.hideClientProfile = true;
+    $scope.showClientProfile = false;
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -27,9 +29,35 @@ angular.module('intranetApp')
         var res=data.data;
         if(res!=='error'){
             $scope.projects = res.projects;
-        }else{
-           // $scope.valErrMsg = 'Invalid credentials!!';
-            //return false;
         }
-      });    
+      });  
+
+      $scope.view_client_profile = function(client_id){
+          $scope.showClientProfile = true;
+          var loginData={};
+          loginData.page = 'getUserInfo'; 
+          loginData.user_id = client_id;
+          loginData.user    = 'cr';
+          $http({
+              method : 'POST',
+              url :  'functions/webservices.php',
+              data : $.param( loginData ),
+              headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded'
+              }
+          })
+          .then( function( data ) {
+              var res=data.data;
+              if(res!=='Error'){
+                  $scope.first_name = res.details.first_name;
+                  $scope.last_name = res.details.last_name;
+                  $scope.email = res.details.email;
+                  $scope.mobile_no = res.details.mobile_no;
+              }
+          }); 
+      };  
+
+      $scope.close = function(){
+          $scope.showClientProfile = false;
+      }; 
   });
