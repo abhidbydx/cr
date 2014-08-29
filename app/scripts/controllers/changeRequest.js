@@ -117,6 +117,7 @@ angular.module('intranetApp')
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
                                   $scope.addCR=false;
+                                  $scope.viewCR  =false;
                                   delete $rootScope.selectedFile;
                               }else{
                                   $scope.valErrMsg = 'error in addition!!';
@@ -162,6 +163,9 @@ angular.module('intranetApp')
           res=data.data;       
         if(res!=='Error'){
         $scope.allCRs = res.cr;
+        $scope.addCR   =false;
+        $scope.editCR  =false;
+        $scope.viewCR  =false;
         }else{
         $scope.valErrMsg = 'error in deletion!!';
         return false;
@@ -253,6 +257,7 @@ angular.module('intranetApp')
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
                                   $scope.editCR=false;
+                                  $scope.viewCR  =false;
                                   delete $rootScope.selectedFile;
                               }else{
                                   $scope.valErrMsg = 'error in addition!!';
@@ -271,6 +276,7 @@ angular.module('intranetApp')
     $scope.showadd = function(){
     $scope.addCR   =true;
     $scope.editCR  =false;
+    $scope.viewCR  =false;
     $scope.cr_title = null;
     $scope.cr_description = null;
    }; 
@@ -279,6 +285,7 @@ angular.module('intranetApp')
     $scope.showEdit = function(cr_id){
     $scope.addCR   =false;
     $scope.editCR  =true;
+    $scope.viewCR  =false;
     var cr={};
     cr.page = 'getCRById'; 
     cr.id   =  cr_id;
@@ -294,11 +301,12 @@ angular.module('intranetApp')
         })
         .then( function( data ) {
           var res=data.data;         
-          if(res!=='error'){ console.log(res)        
-              $scope.cr_title = res.cr.title;
-              $scope.cr_description = res.cr.description;
-              $scope.cr_status = res.cr.status;
-              $scope.file_name=  res.cr.file_name;
+          if(res!=='error'){ 
+              $scope.cr_title        = res.cr.title;
+              $scope.cr_description  = res.cr.description;
+              $scope.cr_status       = res.cr.status;
+              $scope.file_name       =  res.cr.file_name;
+              $scope.cr_date         =  res.cr.cr_date;
           }else{
               $scope.valErrMsg = 'error in updation!!';
               return false;
@@ -306,6 +314,53 @@ angular.module('intranetApp')
         });  
 
   };
+
+   //show cr edit form
+    $scope.showCR = function(cr_id){
+    $scope.addCR   =false;
+    $scope.editCR  =false;
+    $scope.viewCR  =true;
+    var cr={};
+    cr.page = 'getCRById'; 
+    cr.id   =  cr_id;
+    $scope.valErrMsg=null;
+    $scope.cr_id=cr_id;
+    $http({
+              method : 'POST',
+              url :  'functions/webservices.php',
+              data : $.param( cr ),    //  url encode ( kind of )
+              headers: {
+             'Content-Type' : 'application/x-www-form-urlencoded'
+        }
+        })
+        .then( function( data ) {
+          var res=data.data;         
+          if(res!=='error'){ 
+              $scope.cr_id           = res.cr.id;
+              $scope.cr_title        = res.cr.title;
+              $scope.cr_description  = res.cr.description;
+              $scope.cr_status       = res.cr.status;
+              $scope.file_name       =  res.cr.file_name;
+              $scope.cr_date         =  res.cr.cr_date;
+          }else{
+              return false;
+          }
+        });  
+
+  };
+
+   //show cr edit form
+    $scope.close = function(div_id){
+     if(div_id==='addCR') {
+        $scope.addCR   = false;
+      }
+     else if(div_id==='editCR') {
+        $scope.editCR   = false;
+      }
+     else if(div_id==='viewCR') {
+        $scope.viewCR   = false;
+      }
+    };
 
      
 

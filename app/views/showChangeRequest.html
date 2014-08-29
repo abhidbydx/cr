@@ -1,12 +1,12 @@
 <div left-panel></div>
 <div id='content_center' ng-show='addCR'>
 		<dl class="curved">
-			<dt><span  class='heading'>Add CR</span></dt>
+			<dt><span  class='heading'>Add CR</span><span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close("addCR")'> X </span></dt>
 	      	<div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
 	      	<dd> 
 			    <form name="loginForm"  id="login-form" style='width:600px' >
 			      
-			        <p class='frmleft'>Title:</p>
+			        <p class='frmleft'>Title</p>
 			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
 			      	<div class="clear"></div>
 			        <p class='frmleft'>Description</p>
@@ -29,12 +29,12 @@
 </div>
 <div id='content_center' ng-show='editCR'>
 		<dl class="curved">
-			<dt><span  class='heading'>Edit CR</span></dt>
+			<dt><span  class='heading'>Edit CR</span><span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close("editCR")'> X </span></dt>
 	      	<div ng-if="valErrMsg!==''" style='color:red'>{{valErrMsg}} </div>
 	      	<dd> 
 			    <form name="loginForm"  id="login-form" style='width:600px' >
 			      
-			        <p class='frmleft'>Title:</p>
+			        <p class='frmleft'>Title</p>
 			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
 			      	<div class="clear"></div>
 			        <p class='frmleft'>Description</p>
@@ -61,36 +61,69 @@
 	  	</dl>	
 </div>
 
+<div id='content_center' ng-show='viewCR'>
+		<dl class="curved">
+			<dt><span  class='heading'>View CR</span><span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close("viewCR")'> X </span></dt>	      	
+	      	<dd> 
+			  
+			        <p class='tdleft'>ID</p>
+			        <p class="tdright">{{10000+cr_id}}</p>
+			      	<div class="clear"></div>
+			        <p class='tdleft'>Title</p>
+			        <p class="tdright">{{cr_title}}</p>
+			      	<div class="clear"></div>
+			        <p class='tdleft'>Description</p>
+			        <p class="tdright">{{cr_description}}
+			        </p>
+			        <div class="clear"></div>
+			        <p class='tdleft'>Date</p>
+			        <p class="tdright">{{cr_date}}
+			        </p>
+			        <div class="clear"></div>
+			        <p class='tdleft'>Status</p>
+			       
+			        <p class="tdright" ng-if="cr_status==='1'">Pending</p>
+			        <p class="tdright" ng-if="cr_status==='2'">Approved</p>
+			        <p class="tdright" ng-if="cr_status==='3'">Rejected</p>
+			         <div class="clear"></div>
+			         <p class='tdleft' ng-if='file_name.length'>Attached Files</p>
+			         <li ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> </li>
+			         <div class='clear'>&nbsp;</div>
+	      	</dd>
+	  	</dl>	
+</div>
+
 <div id='content_center'>
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>
 		<dd> <br />
 		    <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
-		    <div class='leftlink' ng-show='!addCR'><a  ng-click='showadd();'> Create New CR.(+)</a></div>
+		    <div class='leftlink' style='color:#286e87' ng-show='!addCR'><a  ng-click='showadd();'> Create New CR(+)</a></div>
+		     <div class='clear'>&nbsp;</div>
 		    <table style='width:900px;' ng-if='allCRs'>
 		    	<tr class='about'>
 		    		<th class='frmhead' style='width:90px;'>ID</th>
-		    		<th class='frmhead' style='width:120px;'>Title</th>
-		    		<th class='frmhead' style='width:200px;'>Description</th>
-		    		<th class='frmhead' style='width:50px;'>Status</th>
+		    		<th class='frmhead' style='width:150px;'>Title</th>
+		    		<th class='frmhead' style='width:280px;'>Description</th>
+		    		<th class='frmhead' style='width:60px;'>Status</th>
 		    		<th class='frmhead' style='width:60px;'>Date</th>
-		    		<td class='frmhead' style='width:177px;'>Files</td>
+		    		<td class='frmhead' style='width:60px;'>Files</td>
 		    		
 		    		<th class='frmhead'>Action</th>
 		    	</tr>
 		    
 			<tr ng-repeat="cr in allCRs" class='about'>
 				<td class='frmleft' style='width:90px;'>{{10000+cr.id}}</td>
-				<td class='frmleft' style='width:120px;'> {{cr.title}}</td>
-				<td class='frmleft' style='width:200px;'>{{cr.description}}</td>
-				<td class='frmleft' style='width:50px;' ng-if='cr.status==1'>Pending</td>
+				<td class='frmleft' style='width:150px;'> {{cr.title | limitTo:30}}</td>
+				<td class='frmleft' style='width:280px;'>{{cr.description | limitTo:70}} </td>
+				<td class='frmleft' style='width:60px;' ng-if='cr.status==1'>Pending</td>
 				<td class='frmleft' style='width:50px;color:green' ng-if='cr.status==2'>Approved</td>
 				<td class='frmleft' style='width:50px;color:red' ng-if='cr.status==3' >Rejected</td>
 				<td class='frmleft' style='width:60px;'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
-				<td class='frmleft' style='width:177px;' ng-if='cr.file_name.length'><li ng-repeat="file1 in cr.file_name"><a target='_blank' href='/cr_files/{{file1.file_name}}'>File{{$index+1}}</a>  </li></td>
-				<td class='frmleft' style='width:177px;' ng-if='!cr.file_name.length'> - </td>
+				<td class='frmleft' style='width:60px;' ng-if='cr.file_name.length'><li><a target='_blank' >Files <span style='color:red'>( {{cr.file_name.length}} )</span></a></td>
+				<td class='frmleft' style='width:60px;' ng-if='!cr.file_name.length'><li>Files <span style='color:red'>( 0 )</span> </li></td>
 							
-				<th class='frmleft'><a style="cursor:pointer;" ng-click="showEdit(cr.id)">Edit</a>  <a style="cursor:pointer;" ng-click="cr_delete(cr.id)" ng-if="userType==='pms'"> | Delete</a></th>				
+				<th class='frmleft'><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View | </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)">Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms'"> | Delete</a></th>				
 			</tr>
 			</table>
 			<p class="last">&nbsp;</p>

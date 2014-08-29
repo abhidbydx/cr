@@ -37,13 +37,29 @@ color: #fff;
 .frmleft{
 	color: #000;
 	text-align: left;
-	padding-top: 10px;
-	padding-left: 30px !important;
+	padding-top: 10px;	
 	font-weight: bold;
 	float:left;
 	padding-left: 10px;
 	height: 34px;
 	width: 130px;
+}
+.tdleft{
+	color: #000;
+	text-align: left;
+	padding-top: 10px;
+	font-weight: bold;	
+	float:left;
+	padding-left: 30px;
+	width: 130px;
+}
+.tdright{
+	color: #000;
+	text-align: left;
+	padding-top: 10px;	
+	float:left;
+	padding-left: 30px;
+	width: 760px;
 }
 .frmhead{
 	color: #113f65;
