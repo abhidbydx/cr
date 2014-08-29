@@ -238,3 +238,37 @@ color : #ff9933;
 margin : 5px 0 0 40px;
 padding-left : 10px;
 }
+table{
+    border:solid 1px #adaaad;             
+    border-collapse:collapse;
+    background:#fff;
+    width:98%;
+    margin:0 10px 0 10px;
+}
+table th {
+    border:solid 0px #adaaad;             
+    border-collapse:collapse;
+    background:#103A5D;
+    color:#fff;
+    white-space:nowrap;
+    padding:0px 2px;
+    font:bold 10px/25px Verdana, Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+table tr {
+    border:solid 1px #adaaad;             
+    border-collapse:collapse;
+}
+table tr:nth-child(odd){ 
+	background: #b8d1f3;
+}
+table tr:nth-child(even){
+	background: #dae5f4;
+}
+table td {
+    border:solid 1px #adaaad;             
+    border-collapse:collapse;
+}
+.wid50 {
+	width:50px;
+}
