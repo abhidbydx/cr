@@ -48,22 +48,25 @@
 			        	<option value='2'>Approved</option>
 			        	<option value='3'>Reject</option>
 			        </select></p>
-			        <div class="clear"></div>
-			        
-
+			         <p class='frmleft'>Upload Files</p>
+			         <p><input type="file" ng-file-select="onFileSelect($files)" multiple></p> 
+			         <p class='frmleft' ng-if='file_name.length'>Attached Files</p>
+			         <li ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <a> Delete </a></li>
+			          <div class='clear'>&nbsp;</div>
 			        <p class='frmleft'>&nbsp;</p>
 			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
-			        <div class="clear"></div>
+			        <div class='clear'>&nbsp;</div>
 		        </form>		        
 	      	</dd>
 	  	</dl>	
 </div>
+
 <div id='content_center'>
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>
 		<dd> <br />
 		    <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
-		    <div class='leftlink'><a  ng-click='showadd();'> Create New CR.(+)</a></div>
+		    <div class='leftlink' ng-show='!addCR'><a  ng-click='showadd();'> Create New CR.(+)</a></div>
 		    <table style='width:900px;' ng-if='allCRs'>
 		    	<tr class='about'>
 		    		<th class='frmhead' style='width:90px;'>ID</th>
