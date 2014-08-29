@@ -51,7 +51,7 @@
 			         <p class='frmleft'>Upload Files</p>
 			         <p><input type="file" ng-file-select="onFileSelect($files)" multiple></p> 
 			         <p class='frmleft' ng-if='file_name.length'>Attached Files</p>
-			         <li ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <a> Delete </a></li>
+			         <span ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <a> Delete </a><br></span>
 			          <div class='clear'>&nbsp;</div>
 			        <p class='frmleft'>&nbsp;</p>
 			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
@@ -87,7 +87,7 @@
 			        <p class="tdright" ng-if="cr_status==='3'">Rejected</p>
 			         <div class="clear"></div>
 			         <p class='tdleft' ng-if='file_name.length'>Attached Files</p>
-			         <li ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> </li>
+			         <p class="tdright"><span ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <br></span></p>
 			         <div class='clear'>&nbsp;</div>
 	      	</dd>
 	  	</dl>	

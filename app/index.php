@@ -23,6 +23,7 @@
 <div id="banner">
   <!-- <a href='/'><img src='images/logo-kelltontech.jpg' /></a> -->
 </div>
+
 <div id="container">
   <div ng-view=""></div>
 </div>
@@ -38,7 +39,7 @@
         <script src="scripts/controllers/invitation.js"></script>  
         <script src="scripts/controllers/registers.js"></script>      
         <!-- services-->
-        <script src="scripts/services/userService.js"></script>
+        <script src="scripts/services/userService.js"></script>      
         <script src="scripts/controllers/changeRequest.js"></script>
 
 </body>
