@@ -77,8 +77,25 @@
 */  
 	function getAllActiveProject($userId,$userType){
 		if($userType=='pms') {
-			$query = sprintf("SELECT p.id, p.name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
+			$query = sprintf("SELECT p.id, p.name, p.leader_name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
     where pu.user_id='%s' and p.status='active' group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
+			$result = executeQuery($query);
+			if(mysql_num_rows($result)) {
+				$posts = $projectIds = array();
+				while($post = mysql_fetch_assoc($result)) { 
+					$query = sprintf("SELECT concat(cu.first_name,' ',cu.last_name) as client from cr_users cu where FIND_IN_SET(%s, project_id)", mysql_real_escape_string(stripslashes($post['id'])));
+					$clientResult = executeQuery($query);
+					if(mysql_num_rows($clientResult)) {
+						while($val = mysql_fetch_assoc($clientResult)) {
+							$post['client'] .= $val['client'].", ";
+						}
+					} else {
+						$post['client'] = '-';
+					}
+					$posts[] = $post;
+				}
+				return $posts;
+			}
 		} else {
 			$query = sprintf("SELECT cu.project_id from cr_users cu where cu.id='%s'", mysql_real_escape_string(stripslashes($userId)));
 			$result = executeQuery($query);

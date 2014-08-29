@@ -3,8 +3,21 @@
 	<dl class="curved">
 		<dt><span  class='heading'>My Projects</span></dt>
       	<dd> <br />
-    		<div ng-repeat="project in projects">
-        		<p><span>{{project.id}}</span> -<a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.id}}'> {{project.name}}</a></p>
+    		<div>
+    			<table>
+    				<tr>
+    					<th class="wid50">Sno.</th>
+    					<th>Project Name</th>
+    					<th>Project Leader</th>
+    					<th ng-if="loginUser==='pms'">Client Name</th>
+					</tr>
+					<tr ng-repeat="project in projects">
+    					<td align="center">{{$index+1}}</td>
+    					<td align="center"><a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.id}}'> {{project.name}}</a></td>
+    					<td align="center">{{project.leader_name}}</td>
+    					<td ng-if="loginUser==='pms'" align="center">{{project.client}}</td>
+					</tr>
+    			</table>
           	</div>
         <p class="last">&nbsp;</p>
       	</dd>

@@ -102,28 +102,26 @@
 		     <div class='clear'>&nbsp;</div>
 		    <table style='width:900px;' ng-if='allCRs'>
 		    	<tr class='about'>
-		    		<th class='frmhead' style='width:90px;'>ID</th>
-		    		<th class='frmhead' style='width:150px;'>Title</th>
-		    		<th class='frmhead' style='width:280px;'>Description</th>
-		    		<th class='frmhead' style='width:60px;'>Status</th>
-		    		<th class='frmhead' style='width:60px;'>Date</th>
-		    		<td class='frmhead' style='width:60px;'>Files</td>
-		    		
-		    		<th class='frmhead'>Action</th>
+		    		<th style='width:90px;'>ID</th>
+		    		<th style='width:150px;'>Title</th>
+		    		<th style='width:280px;'>Description</th>
+		    		<th style='width:60px;'>Status</th>
+		    		<th style='width:60px;'>Date</th>
+		    		<th style='width:60px;'>Files</th>
+		    		<th>Action</th>
 		    	</tr>
 		    
 			<tr ng-repeat="cr in allCRs" class='about'>
-				<td class='frmleft' style='width:90px;'>{{10000+cr.id}}</td>
-				<td class='frmleft' style='width:150px;'> {{cr.title | limitTo:30}}</td>
-				<td class='frmleft' style='width:280px;'>{{cr.description | limitTo:70}} </td>
-				<td class='frmleft' style='width:60px;' ng-if='cr.status==1'>Pending</td>
-				<td class='frmleft' style='width:50px;color:green' ng-if='cr.status==2'>Approved</td>
-				<td class='frmleft' style='width:50px;color:red' ng-if='cr.status==3' >Rejected</td>
-				<td class='frmleft' style='width:60px;'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
-				<td class='frmleft' style='width:60px;' ng-if='cr.file_name.length'><li><a target='_blank' >Files <span style='color:red'>( {{cr.file_name.length}} )</span></a></td>
-				<td class='frmleft' style='width:60px;' ng-if='!cr.file_name.length'><li>Files <span style='color:red'>( 0 )</span> </li></td>
-							
-				<th class='frmleft'><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View | </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)">Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms'"> | Delete</a></th>				
+				<td style='width:90px;'>{{10000+cr.id}}</td>
+				<td style='width:150px;'> {{cr.title | limitTo:30}}</td>
+				<td style='width:280px;'>{{cr.description | limitTo:70}} </td>
+				<td style='width:60px;' ng-if='cr.status==1'>Pending</td>
+				<td style='width:50px;color:green' ng-if='cr.status==2'>Approved</td>
+				<td style='width:50px;color:red' ng-if='cr.status==3' >Rejected</td>
+				<td style='width:60px;'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
+				<td style='width:60px;' ng-if='cr.file_name.length'>{{cr.file_name.length}}</td>
+				<td style='width:60px;' ng-if='!cr.file_name.length'>0</td>
+				<td><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View | </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)">Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms'"> | Delete</a></td>				
 			</tr>
 			</table>
 			<p class="last">&nbsp;</p>
