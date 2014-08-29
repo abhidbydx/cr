@@ -101,7 +101,29 @@ angular.module('intranetApp')
                       });  
               });
       
-            } }
+            } }else{
+               $http({
+                    method : 'POST',
+                    url :  'functions/webservices.php',
+                    data : $.param( loginData ),    //  url encode ( kind of )
+                    headers: {
+                      'Content-Type' : 'application/x-www-form-urlencoded'
+                  }
+                  })
+                        .then( function( data ) {
+                              var res=data.data;
+                              if(res!=='error'){                                
+                                  $scope.allCRs = res.cr;
+                                  $scope.cr_title=null;
+                                  $scope.cr_description=null;
+                                  $scope.addCR=false;
+                                  delete $rootScope.selectedFile;
+                              }else{
+                                  $scope.valErrMsg = 'error in addition!!';
+                                  return false;
+                              }
+                      });  
+            }
           
         }else{
             $scope.valErrMsg = res.message;
@@ -206,7 +228,7 @@ angular.module('intranetApp')
                                   $scope.allCRs = res.cr;
                                   $scope.cr_title=null;
                                   $scope.cr_description=null;
-                                   $scope.editCR=false;
+                                  $scope.editCR=false;
                                   delete $rootScope.selectedFile;
                               }else{
                                   $scope.valErrMsg = 'error in addition!!';
@@ -216,6 +238,27 @@ angular.module('intranetApp')
               });
       
             } }
+            else{ $http({
+                    method : 'POST',
+                    url :  'functions/webservices.php',
+                    data : $.param( loginData ),    //  url encode ( kind of )
+                    headers: {
+                      'Content-Type' : 'application/x-www-form-urlencoded'
+                  }
+                  })
+                        .then( function( data ) {
+                              var res=data.data;
+                              if(res!=='error'){                                
+                                  $scope.allCRs = res.cr;
+                                  $scope.cr_title=null;
+                                  $scope.cr_description=null;
+                                  $scope.editCR=false;
+                                  delete $rootScope.selectedFile;
+                              }else{
+                                  $scope.valErrMsg = 'error in addition!!';
+                                  return false;
+                              }
+                      });  }
         }else{
             $scope.valErrMsg = res.message;
             return false;
