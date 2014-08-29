@@ -6,7 +6,7 @@ body {
 font: 73% helvetica, arial, sans-serif;
 line-height:1.8em;
 background: #fff url(/images/02.gif) repeat;
-color: #666;
+color: #141313;
 }
 			/*BANNER PROPERTIES*/
 #banner {
@@ -254,20 +254,26 @@ table th {
     padding:0px 2px;
     font:bold 10px/25px Verdana, Arial, Helvetica, sans-serif;
     cursor: pointer;
+    text-align:left;
+	padding-left:10px;
 }
 table tr {
     border:solid 1px #adaaad;             
     border-collapse:collapse;
 }
 table tr:nth-child(odd){ 
-	background: #b8d1f3;
+	background: #eee;
+	
 }
 table tr:nth-child(even){
-	background: #dae5f4;
+	background: #ddd;	
 }
 table td {
     border:solid 1px #adaaad;             
     border-collapse:collapse;
+    text-align:left;
+	padding-left:10px;
+	line-height:30px;
 }
 .wid50 {
 	width:50px;
