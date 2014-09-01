@@ -8,7 +8,7 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-    .controller('updateProfile', function ($scope,$http,UserService,$cookies) {
+    .controller('updateProfile', function ($scope,$http,UserService,$cookies,CommonValidators) {
         var userData   = UserService.getUserCookie($cookies.USER_INFO)  ;
         var loginData={};
         $scope.viewProfile = true;
@@ -62,6 +62,20 @@ angular.module('intranetApp')
             loginData.first_name = $scope.first_name;
             loginData.last_name  = $scope.last_name;
             loginData.mobile_no    = $scope.mobile_no;
+            if(!CommonValidators.isValidString($scope.first_name)){      
+                $scope.valErrMsg = 'Please Enter First Name';
+                return false;
+            }
+            if(!CommonValidators.isValidString($scope.last_name)){      
+                $scope.valErrMsg = 'Please Enter Last Name';
+                return false;
+            }
+            if(CommonValidators.isValidString($scope.mobile_no)){      
+                if(!CommonValidators.isMobile($scope.mobile_no)){      
+                    $scope.valErrMsg = 'Please Enter Valid Mobile No.';
+                    return false;
+                }
+            }
             $http({
                 method : 'POST',
                 url :  'functions/webservices.php',
@@ -75,6 +89,7 @@ angular.module('intranetApp')
                 if(res!=='Error'){
                     $scope.userDetails = res.details;
                     $scope.viewProfile = true;
+                    $scope.valErrMsg = '';
                     $scope.updateProfile = false;
                 }
             }); 

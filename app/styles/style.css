@@ -278,3 +278,7 @@ table td {
 .wid50 {
 	width:50px;
 }
+.error{
+	padding-left: 11px;
+	color :red;
+}
