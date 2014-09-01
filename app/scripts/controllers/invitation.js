@@ -8,7 +8,7 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-  .controller('sendInvitation', function ($scope,$http,$rootScope,UserService,$cookies) {
+  .controller('sendInvitation', function ($scope,$http,$rootScope,UserService,$cookies,CommonValidators) {
 
     var loginData={};
     loginData.page = 'getAllProjects'; 
@@ -38,9 +38,13 @@ angular.module('intranetApp')
         loginData.page = 'checkEmail';
         loginData.email = $scope.email;
         loginData.projectIds = $scope.project_id;
-        if(typeof(loginData.email)==='undefined'){
-            $scope.valErrMsg = 'Please enter email';
-            return false;
+        if(!CommonValidators.isValidString($scope.email)){      
+          $scope.valErrMsg = 'Please Enter Email';
+          return false;
+        }
+        if(!CommonValidators.isEmail($scope.email)){      
+          $scope.valErrMsg = 'Please Enter Valid Email';
+          return false;
         }
         if(typeof(loginData.projectIds)==='undefined' || loginData.projectIds.length < 1){
             $scope.valErrMsg = 'Please select project';

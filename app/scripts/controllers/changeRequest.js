@@ -8,7 +8,7 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-  .controller('changeRequest', function ($scope,$http,$rootScope,$routeParams,$location,UserService,$cookies,$upload) {
+  .controller('changeRequest', function ($scope,$http,$rootScope,$routeParams,$location,UserService,$cookies,$upload,CommonValidators) {
       var loginData={};
       var userData=UserService.getUserCookie($cookies.USER_INFO); 
       $scope.valErrMsg=null;
@@ -51,12 +51,12 @@ angular.module('intranetApp')
     
     cr.project_id=project_id;
     cr.page= 'addCR';    
-    if(typeof(cr.crtitle)==='undefined' || cr.crtitle===null){
-      $scope.valErrMsg = 'Please enter title';
+    if(!CommonValidators.isValidString($scope.cr_title)){      
+      $scope.valErrMsg = 'Please Enter Title';
       return false;
     }
-    if(typeof(cr.crdesc)==='undefined' || cr.crdesc===null){
-      $scope.valErrMsg = 'Please enter description';
+     if(!CommonValidators.isValidString($scope.cr_description)){      
+      $scope.valErrMsg = 'Please Enter Description';
       return false;
     }    
     $http({
@@ -198,12 +198,12 @@ angular.module('intranetApp')
     cr.cr_date      = new Date();
     cr.created_by   = userData.id;    
     cr.page= 'editCR';    
-    if(typeof(cr.crtitle)==='undefined'){
-      $scope.valErrMsg = 'Please enter title';
+    if(!CommonValidators.isValidString($scope.cr_title)){      
+      $scope.valErrMsg = 'Please Enter Title';
       return false;
     }
-    if(typeof(cr.crdesc)==='undefined'){
-      $scope.valErrMsg = 'Please enter description';
+     if(!CommonValidators.isValidString($scope.cr_description)){      
+      $scope.valErrMsg = 'Please Enter Description';
       return false;
     }    
     $http({

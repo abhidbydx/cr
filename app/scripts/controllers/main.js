@@ -8,21 +8,21 @@
  * Controller of the intranetApp
  */
 angular.module('intranetApp')
-  .controller('MainCtrl', function ($scope,$location,$http,$rootScope,UserService) {
+  .controller('MainCtrl', function ($scope,$location,$http,$rootScope,UserService,CommonValidators) {
     $scope.check_login = function(){
     var loginData={};
     $scope.valErrMsg=null;
     loginData.username=$scope.username;
     loginData.password=$scope.password;
     loginData.page= 'checkLogin';
-    if(typeof(loginData.username)==='undefined'){
-    	$scope.valErrMsg = 'Please enter username';
-    	return false;
+    if(!CommonValidators.isValidString($scope.username)){      
+      $scope.valErrMsg = 'Please Enter UserName';
+      return false;
     }
-    if(typeof(loginData.password)==='undefined'){
-    	$scope.valErrMsg = 'Please enter password';
-    	return false;
-    }
+     if(!CommonValidators.isValidString($scope.password)){      
+      $scope.valErrMsg = 'Please Enter Password';
+      return false;
+    } 
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
