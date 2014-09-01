@@ -296,6 +296,7 @@ angular.module('intranetApp')
     $scope.showNoti=false;
     $scope.cr_title = null;
     $scope.cr_description = null;
+    $scope.valErrMsg=null;
    }; 
 
     //show cr edit form

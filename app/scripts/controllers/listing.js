@@ -17,6 +17,9 @@ angular.module('intranetApp')
     $scope.loginUser = userData.user;
     $scope.hideClientProfile = true;
     $scope.showClientProfile = false;
+    $rootScope.$on('showClientProfile', function(new_val) {
+        $scope.showClientProfile = false;
+    });
     $http({
         method : 'POST',
         url :  'functions/webservices.php',

@@ -33,7 +33,7 @@ angular.module('intranetApp')
 
     $scope.invite = function(){
         var loginData={};
-        loginData.page = 'checkEmail';
+        loginData.page  = 'checkEmail';
         loginData.email = $scope.email;
         loginData.projectIds = $scope.project_id;
         if(!CommonValidators.isValidString($scope.email)){      
@@ -59,17 +59,17 @@ angular.module('intranetApp')
         })
         .then( function( data ) {
             var res=data.data;
-            var errorRes = '';
+            var errorRes   = '';
             var successRes = '';
             $.each( res, function( key, value ) {
                 if(value.status!=='Error') {
                     successRes = successRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
                 } else {
-                    errorRes = errorRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
+                    errorRes   = errorRes+"<span class='heading1'>"+key+"</span>" + ": " + value.message+"<br />";
                 }
             });
             $scope.valSucsMsg = successRes;
-            $scope.valErrMsg = errorRes;
+            $scope.valErrMsg  = errorRes;
         });   
     };  
   });

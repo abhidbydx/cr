@@ -23,7 +23,11 @@ angular.module('intranetApp').directive('leftPanel', [
 
             $scope.logout =function(){                
                 $location.path('logout.php');
-             };         
+             };  
+             $scope.show_listing =function(){ 
+               $rootScope.$broadcast("showClientProfile", false);   
+             };  
+              
             
             
 		}

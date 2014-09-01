@@ -11,10 +11,10 @@ angular.module('intranetApp')
     .controller('updateProfile', function ($scope,$http,UserService,$cookies,CommonValidators) {
         var userData   = UserService.getUserCookie($cookies.USER_INFO)  ;
         var loginData={};
-        $scope.viewProfile = true;
-        loginData.page = 'getUserInfo'; 
-        loginData.user_id = userData.id;
-        loginData.user    = userData.user;
+        $scope.viewProfile  = true;
+        loginData.page      = 'getUserInfo'; 
+        loginData.user_id   = userData.id;
+        loginData.user      = userData.user;
         $http({
             method : 'POST',
             url :  'functions/webservices.php',
@@ -30,12 +30,12 @@ angular.module('intranetApp')
             }
         });    
         $scope.edit_profile = function(){
-            $scope.viewProfile = '';
-            $scope.updateProfile = true;
+            $scope.viewProfile      = '';
+            $scope.updateProfile    = true;
             var loginData={};
-            loginData.page = 'getUserInfo'; 
-            loginData.user_id = userData.id;
-            loginData.user    = userData.user;
+            loginData.page      = 'getUserInfo'; 
+            loginData.user_id   = userData.id;
+            loginData.user      = userData.user;
             $http({
                 method : 'POST',
                 url :  'functions/webservices.php',
@@ -47,21 +47,21 @@ angular.module('intranetApp')
             .then( function( data ) {
                 var res=data.data;
                 if(res!=='Error'){
-                    $scope.first_name = res.details.first_name;
-                    $scope.last_name = res.details.last_name;
-                    $scope.email = res.details.email;
-                    $scope.mobile_no = res.details.mobile_no;
+                    $scope.first_name  = res.details.first_name;
+                    $scope.last_name   = res.details.last_name;
+                    $scope.email       = res.details.email;
+                    $scope.mobile_no   = res.details.mobile_no;
                 }
             }); 
         };  
         $scope.profile_submit = function(){
             var loginData={};
-            loginData.page = 'updateUserInfo'; 
-            loginData.user_id = userData.id;
-            loginData.user    = userData.user;
-            loginData.first_name = $scope.first_name;
-            loginData.last_name  = $scope.last_name;
-            loginData.mobile_no    = $scope.mobile_no;
+            loginData.page          = 'updateUserInfo'; 
+            loginData.user_id       = userData.id;
+            loginData.user          = userData.user;
+            loginData.first_name    = $scope.first_name;
+            loginData.last_name     = $scope.last_name;
+            loginData.mobile_no     = $scope.mobile_no;
             if(!CommonValidators.isValidString($scope.first_name)){      
                 $scope.valErrMsg = 'Please Enter First Name';
                 return false;
@@ -87,9 +87,9 @@ angular.module('intranetApp')
             .then( function( data ) {
                 var res=data.data;
                 if(res!=='Error'){
-                    $scope.userDetails = res.details;
-                    $scope.viewProfile = true;
-                    $scope.valErrMsg = '';
+                    $scope.userDetails   = res.details;
+                    $scope.viewProfile   = true;
+                    $scope.valErrMsg     = '';
                     $scope.updateProfile = false;
                 }
             }); 
