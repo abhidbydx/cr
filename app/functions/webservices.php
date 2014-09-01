@@ -195,7 +195,8 @@
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
 		}
-		echo json_encode($response_arr);exit();
+		echo json_encode($response_arr);
+		exit();
 	}
 
 /*
@@ -324,5 +325,5 @@
 			$response_arr = array('status' => 'Error', 'message' => "Id cannot be null.");
 		}
 		echo json_encode($response_arr);
-	} 
+	}
 ?>

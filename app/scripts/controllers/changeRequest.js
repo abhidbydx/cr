@@ -50,6 +50,7 @@ angular.module('intranetApp')
     cr.created_by   = userData.id;   
     
     cr.project_id=project_id;
+    cr.user=userData.user;
     cr.page= 'addCR';    
     if(!CommonValidators.isValidString($scope.cr_title)){      
       $scope.valErrMsg = 'Please Enter Title';
@@ -146,6 +147,8 @@ angular.module('intranetApp')
         var cr={};
         cr.id=cr_id;
         cr.page= 'deleteCR';
+        cr.user = userData.user; 
+        cr.modified_by = userData.id; 
         $http({
         method : 'POST',
         url : 'functions/webservices.php',
@@ -196,7 +199,8 @@ angular.module('intranetApp')
     cr.crdesc       = $scope.cr_description;   
     cr.crstatus     = $scope.cr_status; 
     cr.cr_date      = new Date();
-    cr.created_by   = userData.id;    
+    cr.created_by   = userData.id;   
+    cr.user = userData.user; 
     cr.page= 'editCR';    
     if(!CommonValidators.isValidString($scope.cr_title)){      
       $scope.valErrMsg = 'Please Enter Title';

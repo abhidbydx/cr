@@ -106,7 +106,7 @@
 				}
 				$projectIds = $posts[0]['project_id'];
 			}
-			$query = sprintf("SELECT p.id,p.name from 22959_projects p where p.id in (%s)", mysql_real_escape_string(stripslashes($projectIds)));
+			$query = sprintf("SELECT p.id,p.name,p.leader_name from 22959_projects p where p.id in (%s)", mysql_real_escape_string(stripslashes($projectIds)));
 		}		
 		$result = executeQuery($query);
 		if(mysql_num_rows($result)) {
@@ -240,15 +240,18 @@
  * 	Purpose    : Db operations for insetion of cr 
 */  
 	function insertCR($data){
-		    $project_id   =$data['project_id'];
-		    $crTitle      =$data['crtitle'];
-		    $crDesc       =$data['crdesc'];
-		    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
-		    $crCreated    =$data['created_by'];
-			$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
-			$result = executeQuery($query);
-			$last_id= mysql_insert_id();
-		
+	    $project_id   =$data['project_id'];
+	    $crTitle      =$data['crtitle'];
+	    $crDesc       =$data['crdesc'];
+	    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
+	    $crCreated    =$data['created_by'];
+		$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
+		$result = executeQuery($query);
+		$last_id= mysql_insert_id();
+		if($last_id) {
+			$data['cr_id'] = $last_id;
+			insertCRLog($data,'add');
+		}	
 		return $last_id;
 	}
 
@@ -258,10 +261,13 @@
  * 	Purpose    : Db operations for deletion of cr 
 */  
 	function deleteCRData($data){
-		    $cr_id   =$data['id'];		    
-			$query = "UPDATE cr_projects set is_deleted=1 where id=".$cr_id; 
-			$result = executeQuery($query);
-		
+	    $cr_id   =$data['id'];		   
+	    $modified_by   =$data['modified_by'];		    
+		$query = "UPDATE cr_projects set is_deleted=1,modified_by=".$modified_by." where id=".$cr_id; 
+		$result = executeQuery($query);
+		if($result) {
+			insertCRLog($data,'delete');
+		}	
 		return $result;
 	}
 
@@ -271,15 +277,17 @@
  * 	Purpose    : Db operations for updation of cr 
 */  
 	function updateCRData($data){
-		    $cr_id        =$data['id'];
-		    $crTitle      =$data['crtitle'];
-		    $crDesc       =$data['crdesc'];
-		    $crStatus     =$data['crstatus'];
-		    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
-		    $crCreated    =$data['created_by'];
-			$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated' where id=".$cr_id; 
-			$result = executeQuery($query);
-		
+	    $cr_id        =$data['id'];
+	    $crTitle      =$data['crtitle'];
+	    $crDesc       =$data['crdesc'];
+	    $crStatus     =$data['crstatus'];
+	    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
+	    $crCreated    =$data['created_by'];
+		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated' where id=".$cr_id; 
+		$result = executeQuery($query);
+		if($result) {
+			insertCRLog($data,'update');
+		}	
 		return $result;
 	}
 
@@ -304,6 +312,47 @@
 			return false;
 		
 		
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-01
+ * 	Purpose    : Db operations for maintaining CR logs
+*/  
+	function insertCRLog($data,$cameFrom){
+		if($cameFrom=='add') {
+			$cr_project_id   = $data['cr_id'];
+		    $crTitle      = $data['crtitle'];
+		    $crDesc       = $data['crdesc'];
+		    $modified_by    = $data['created_by'];
+		    $user_type    = $data['user'];
+		    $query  = "INSERT INTO cr_logs (cr_project_id ,title , description, modified_by, user_type, created, modified) VALUES ('".$cr_project_id."', '".$crTitle."' ,  '".$crDesc."',".$modified_by.",'".$user_type."',NOW() , NOW())"; 
+		   
+		}
+		if($cameFrom=='update') {
+			$cr_id        =$data['id'];
+		    $crTitle      =$data['crtitle'];
+		    $crDesc       =$data['crdesc'];
+		    $crStatus     =$data['crstatus'];
+		    $modified_by    =$data['created_by'];
+		    $user_type    = $data['user'];
+		    $query  = "INSERT INTO cr_logs (cr_project_id ,title , description, status, modified_by, user_type, created, modified) VALUES ('".$cr_id."', '".$crTitle."' ,  '".$crDesc."' ,  '".$crStatus."',".$modified_by.",'".$user_type."',NOW() , NOW())"; 
+		}
+		if($cameFrom=='delete') {
+			$cr_id =$data['id'];
+			$user_type = $data['user'];
+			$modified_by = $data['modified_by'];
+			$query =  "select title, description, status, is_deleted from cr_projects where id=".$cr_id;
+		    $crDetails = executeQuery($query);
+		    $logData = array();
+			if(mysql_num_rows($crDetails)){ 
+				while($post = mysql_fetch_assoc($crDetails)) {
+					$logData = array('title'=> $post['title'], 'description'=> $post['description'], 'status'=> $post['status']);
+				}
+			}
+		    $query  = "INSERT INTO cr_logs (cr_project_id ,title , description, status, modified_by,is_deleted, user_type, created, modified) VALUES ('".$cr_id."', '".$logData['title']."' ,  '".$logData['description']."' ,  '".$logData['status']."',".$modified_by.",1,'".$user_type."',NOW() , NOW())"; 
+		}
+		executeQuery($query);
 	}
 
 ?>
