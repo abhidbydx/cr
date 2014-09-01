@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="styles/main.scss">
     <link href="styles/style.css" rel="stylesheet" type="text/css">   
     <script src="bower_components/jquery/jquery.min.js"></script>
-    <script src="http://angular-file-upload.appspot.com/js/angular-file-upload-shim.js"></script> 
+    <script src="bower_components/angular-file-upload-shim.js"></script> 
     <script src="bower_components/angular/angular.min.js"></script> 
-    <script src="http://angular-file-upload.appspot.com/js/angular-file-upload.js"></script>  
+    <script src="bower_components/angular-file-upload.js"></script>  
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>

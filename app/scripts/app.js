@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('intranetApp', ['ngRoute','ngGrid', 'ngSanitize','angularFileUpload',
+  .module('intranetApp', ['ngRoute','ngGrid', 'ngSanitize','angularFileUpload', 
     'ngCookies',
     'ngResource'    
   ])

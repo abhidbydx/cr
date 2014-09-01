@@ -16,7 +16,7 @@ angular.module('intranetApp')
       loginData.projectId= $routeParams.projectID;      
       loginData.user_id = userData.id;
       $scope.userType = userData.user;
-      $scope.projectId=loginData.projectId;
+      $scope.projectId=loginData.projectId;      
       $http({
           method : 'POST',
           url :  'functions/webservices.php',
@@ -28,7 +28,7 @@ angular.module('intranetApp')
         .then( function( data ) {
           var res=data.data;
           if(res!=='error'){          
-              $scope.allCRs = res.cr;
+              $scope.allCRs = res.cr;              
           }else{
               $scope.valErrMsg = 'Invalid credentials!!';
               return false;
@@ -91,6 +91,8 @@ angular.module('intranetApp')
                               var res=data.data;
                               if(res!=='error'){ 
                                   $scope.showNoti=true;
+                                  $scope.addCR=false;
+                                  $scope.viewCR  =false;
                                   $scope.msg='Added Succsfully';                                 
                                   $scope.allCRs = res.cr;
                                   $scope.cr_title=null;
