@@ -27,9 +27,7 @@ angular.module('intranetApp')
         var res=data.data;
         if(res!=='error'){
             $scope.projects = res.projects;
-        }else{
-           // $scope.valErrMsg = 'Invalid credentials!!';
-            //return false;
+        }else{           
         }
       });    
 
