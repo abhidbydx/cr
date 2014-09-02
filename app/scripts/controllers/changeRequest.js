@@ -193,7 +193,7 @@ angular.module('intranetApp')
         }; 
 
     $scope.cr_edit = function(cr_id){
-    var cr={};
+    var cr={}, msgText='';
     cr.id           = cr_id;
     cr.crtitle      = $scope.cr_title;
     cr.crdesc       = $scope.cr_description;   
@@ -214,7 +214,20 @@ angular.module('intranetApp')
     if(!CommonValidators.isValidString($scope.cr_reason) && ($scope.cr_status==3)){      
       $scope.valErrMsg = 'Please Enter Reason';
       return false;
-    }  
+    } 
+    if($scope.cr_status==2) {
+      msgText='Approve';
+    }
+    else if($scope.cr_status==3) {
+      msgText='Reject';
+    }
+    
+    if(msgText!==''){
+      var x = confirm("Are you sure you want to "+msgText+ " CR. You can't undone the status further.");
+    }else{
+      x=true;
+    }
+    if(x) { 
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -290,7 +303,7 @@ angular.module('intranetApp')
             return false;
         }
       });       
-
+     }
   };  
 
       //show cr add form
