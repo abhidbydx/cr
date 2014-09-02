@@ -39,11 +39,17 @@
 			        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea></p>
 			        <div class="clear"></div>
 			        <p class='frmleft' ng-if="userType==='cr'">Status</p>			        
-			        <p class="frmright" ng-if="userType==='cr'"><select ng-model='$parent.cr_status' >			        	
+			        <p class="frmright" ng-if="userType==='cr'"><select ng-model='$parent.cr_status' ng-click='show_reason_box();'>			        	
 			        	<option value='1'>Pending</option>
 			        	<option value='2'>Approved</option>
 			        	<option value='3'>Reject</option>
 			        </select></p>
+			        <div class="clear"></div>
+			        <div ng-if='showreason'>
+			        <p class='frmleft'>Reason Comments</p>
+			        <p class="frmright">
+			        <textarea rows="7" cols="35" name="reason_comment" value="" ng-model='$parent.cr_reason'></textarea></p>
+			        </div>
 			        <div class="clear"></div>
 			         <p class='frmleft'>Upload Files</p>
 			         <p><input type="file" ng-file-select="onFileSelect($files)" multiple></p> 
@@ -82,6 +88,11 @@
 			        <p class="tdright" ng-if="cr_status==='1'">Pending</p>
 			        <p class="tdright" ng-if="cr_status==='2'">Approved</p>
 			        <p class="tdright" ng-if="cr_status==='3'">Rejected</p>
+			        <div class="clear"></div>
+			        <p class='tdleft' ng-if="cr_status==='3'">Reject Reason</p>
+			       
+			        <p class="tdright" ng-if="cr_status==='3'">{{cr_reason}}</p>
+			       
 			         <div class="clear"></div>
 			         <p class='tdleft' ng-if='file_name.length'>Attached Files</p>
 			         <p class="tdright"><span ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <br></span></p>
@@ -110,7 +121,7 @@
 		    		<th>Action</th>
 		    	</tr>
 		    
-			<tr ng-repeat="cr in allCRs " class='about'>
+			<tr ng-repeat="cr in allCRs " class='about' ng-animate="{show: 'flipInY', hide: 'flipOutY'}">
 				<td style='width:90px;'>{{10000+cr.id}}</td>
 				<td style='width:150px;'> {{cr.title | limitTo:30}}</td>
 				<td style='width:280px;'>{{cr.description | limitTo:70}} </td>
@@ -120,7 +131,7 @@
 				<td style='width:60px;'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
 				<td style='width:60px;' ng-if='cr.file_name.length'>{{cr.file_name.length}}</td>
 				<td style='width:60px;' ng-if='!cr.file_name.length'>0</td>
-				<td><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View | </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)">Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms'"> | Delete</a></td>				
+				<td><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View  </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)" ng-if='cr.status==1'> | Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms' && cr.status==1"> | Delete</a></td>				
 			</tr>
 			</table>
 			<p class="last">&nbsp;</p>

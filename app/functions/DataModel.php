@@ -281,9 +281,11 @@
 	    $crTitle      =$data['crtitle'];
 	    $crDesc       =$data['crdesc'];
 	    $crStatus     =$data['crstatus'];
+	    $crReason     =$data['crreason'];
 	    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
 	    $crCreated    =$data['created_by'];
-		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated' where id=".$cr_id; 
+	    if($crStatus!=3) $crReason='';
+		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated',reason='$crReason' where id=".$cr_id; 
 		$result = executeQuery($query);
 		if($result) {
 			insertCRLog($data,'update');
@@ -305,7 +307,7 @@
 				while($post = mysql_fetch_assoc($result)) {
 					if(!empty($post['real_name']) && $post['file_deleted']==0)
 						$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
-						$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>$post['cr_date'],'created_by'=>$post['created_by']);
+						$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>$post['cr_date'],'created_by'=>$post['created_by'],'reason'=>$post['reason']);
 				}
 				return $posts;
 			}

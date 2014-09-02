@@ -198,6 +198,7 @@ angular.module('intranetApp')
     cr.crtitle      = $scope.cr_title;
     cr.crdesc       = $scope.cr_description;   
     cr.crstatus     = $scope.cr_status; 
+    cr.crreason     = $scope.cr_reason; 
     cr.cr_date      = new Date();
     cr.created_by   = userData.id;   
     cr.user = userData.user; 
@@ -209,7 +210,11 @@ angular.module('intranetApp')
      if(!CommonValidators.isValidString($scope.cr_description)){      
       $scope.valErrMsg = 'Please Enter Description';
       return false;
-    }    
+    } 
+    if(!CommonValidators.isValidString($scope.cr_reason) && ($scope.cr_status==3)){      
+      $scope.valErrMsg = 'Please Enter Reason';
+      return false;
+    }  
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -362,6 +367,7 @@ angular.module('intranetApp')
               $scope.cr_status       = res.cr.status;
               $scope.file_name       =  res.cr.file_name;
               $scope.cr_date         =  res.cr.cr_date;
+              $scope.cr_reason       =  res.cr.reason;
           }else{
               return false;
           }
@@ -380,6 +386,14 @@ angular.module('intranetApp')
      else if(div_id==='viewCR') {
         $scope.viewCR   = false;
       }
+    };
+
+    //show cr edit form
+    $scope.show_reason_box = function(){
+      $scope.showreason  = false;
+      if($scope.cr_status==3){
+          $scope.showreason=true;
+       }
     };
 
      
