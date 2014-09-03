@@ -113,6 +113,7 @@
 		if(mysql_num_rows($result)) {
 			$posts = array();
 			while($post = mysql_fetch_assoc($result)) {
+				$post['encryptedProjectId'] = urlencode(base64_encode(serialize($post['id'])));
 				$posts[] = $post;
 			}
 			return $posts;
