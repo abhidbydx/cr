@@ -45,7 +45,7 @@ angular
         controller: 'updateProfile'
       })
       .otherwise({
-        templateUrl: '/404.html'
+        redirectTo: '/'
       });
   });
   
