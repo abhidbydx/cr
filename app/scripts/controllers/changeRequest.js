@@ -13,7 +13,7 @@ angular.module('intranetApp')
       var userData=UserService.getUserCookie($cookies.USER_INFO); 
       $scope.valErrMsg=null;
       loginData.page= 'getAllCr';      
-      loginData.projectId= $routeParams.projectID;      
+      loginData.projectId= unserialize(base64_decode(urldecode($routeParams.projectID)));      
       loginData.user_id = userData.id;
       $scope.userType = userData.user;
       $scope.projectId=loginData.projectId;      

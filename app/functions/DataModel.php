@@ -83,6 +83,7 @@
 			if(mysql_num_rows($result)) {
 				$posts = $projectIds = array();
 				while($post = mysql_fetch_assoc($result)) { 
+					$post['encryptedProjectId'] = urlencode(base64_encode(serialize($post['id'])));
 					$query = sprintf("SELECT concat(cu.first_name,' ',cu.last_name) as client,id from cr_users cu where FIND_IN_SET(%s, project_id)", mysql_real_escape_string(stripslashes($post['id'])));
 					$clientResult = executeQuery($query);
 					if(mysql_num_rows($clientResult)) {

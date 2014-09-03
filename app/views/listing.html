@@ -32,7 +32,7 @@
 					</tr>
 					<tr ng-repeat="project in projects">
     					<td align="center">{{$index+1}}</td>
-    					<td align="center"><a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.id}}'> {{project.name}}</a></td>
+    					<td align="center"><a style="cursor:pointer;" ng-href='/showChangeRequests/{{project.encryptedProjectId}}'> {{project.name}}</a></td>
     					<td align="center">{{project.leader_name}}</td>
     					<td ng-if="loginUser==='pms'" align="center"><a style="cursor:pointer;color:#286e87" ng-repeat="(client_id,client) in project.client" ng-click="view_client_profile(client_id)">{{client}}  </a></td>
 					</tr>
