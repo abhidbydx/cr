@@ -6,6 +6,7 @@
       	<li><a ng-click='show_listing()' href='/crlisting'  >My Projects</a></li>
       	<li ng-if="userInfo.user==='pms'"><a href='/sendInvitation' >Send invitation</a></li>
         <li ng-if="userInfo.user==='cr'" ><a href='/profile' >Profile</a></li>
+        <li ng-if="userInfo.user==='cr'" ><a href='/changePassword' >Change Password</a></li>
       	<li><a href='javascript:void(0);' ng-click='logout()' >Log out</a></li>
       </ul>
       <p class="last">&nbsp;</p>
