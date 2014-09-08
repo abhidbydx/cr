@@ -38,11 +38,16 @@
 						break;
 				case "deleteCR":
 						deleteCR($arrayObject);
+						break;
 				case "editCR":
 						editCR($arrayObject);
+						break;
 				case "getCRById":
 						getCRById($arrayObject);
-				break;
+						break;
+				case "changePassword":
+						changePassword($arrayObject);
+						break;
 				default:
 						echo '{"status":"Error","message":"No such webservice available!"}';
 			}
@@ -243,7 +248,28 @@
 		echo json_encode($response_arr);
 		exit();
 	}
-	
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-03
+ * 	Purpose    : change password
+*/
+	function changePassword($arrayObject){
+        $user_id = $arrayObject['user_id'];
+		$user    = $arrayObject['user'];
+		if($user_id!='' && $user_id!=null && $user=='cr'){
+			$data = changePasswordDb($arrayObject);
+			if($data)
+				$response_arr = array('status' => 'Success', 'message' => 'Password has been changed successfully.');
+			else
+				$response_arr = array('status' => 'Error', 'message' => "Current password is incorrect.");
+		}else{
+			$response_arr = array('status' => 'Error', 'message' => "User id cannot be null and User should be a CR user.");
+		}
+		echo json_encode($response_arr);
+		exit();
+	}
+		
 /*
  *	Created By : Soumya Pandey
  * 	Created On : 2014-08-27

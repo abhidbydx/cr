@@ -188,6 +188,31 @@
         	return false;
         }   
 	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-08-22
+ * 	Purpose    : Db operations for changing password
+*/  
+	function changePasswordDb($data){
+		$user_id = $data['user_id'];
+		$password = $data['current_passowrd'];
+		$password = 'qgxKJ32HCKqEdPvZi4nx5ungMcPG003f106vg9nz' . $password;
+        $password = sha1($password);
+		$query = sprintf("SELECT id FROM cr_users WHERE password='%s' and id=%s", mysql_real_escape_string(stripslashes($password)), mysql_real_escape_string(stripslashes($user_id)));
+        $result = executeQuery($query);
+		$posts = array();
+		if(mysql_num_rows($result)){ 
+			$password = $data['new_passowrd'];
+			$password = 'qgxKJ32HCKqEdPvZi4nx5ungMcPG003f106vg9nz' . $password;
+	        $password = sha1($password);
+			$query = sprintf("UPDATE cr_users set password='%s' WHERE id=%s", mysql_real_escape_string(stripslashes($password)), mysql_real_escape_string(stripslashes($user_id)));
+        	$result = executeQuery($query);
+			return $result;
+		} else {
+			return false;
+		}
+	}
 	
 /*
  *	Created By : Soumya Pandey

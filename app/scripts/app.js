@@ -44,6 +44,10 @@ angular
         templateUrl: 'views/updateProfile.html',
         controller: 'updateProfile'
       })
+      .when('/changePassword', {
+        templateUrl: 'views/changePassword.html',
+        controller: 'changePassword'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name intranetApp.controller:AboutCtrl
+ * @name intranetApp.controller:updateProfile
  * @description
  * # AboutCtrl
  * Controller of the intranetApp
