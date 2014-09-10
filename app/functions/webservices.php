@@ -92,7 +92,8 @@
 					   	if( $retval == true )  {
 					       $response_arr[$val] = array('status' => 'Success', 'message' => 'Invitation sent successfully.');
 					    } else { 
-					       $response_arr[$val] = array('status' => 'Error', 'message' => 'http://'.$_SERVER["HTTP_HOST"].'/registers/'.$serial_arr);
+					      // $response_arr[$val] = array('status' => 'Error', 'message' => 'http://'.$_SERVER["HTTP_HOST"].'/registers/'.$serial_arr);
+					    	 $response_arr[$val] = array('status' => 'Error', 'message' => 'something went wrong');
 					    }
 					} else {
 						$response_arr = array('status' => 'Error', 'message' => 'Projects list cannot be empty.');
