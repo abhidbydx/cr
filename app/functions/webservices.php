@@ -116,7 +116,11 @@
         $pwd      = $arrayObject['password']; 
         $data = checkLoginDb($userName,$pwd);
         if($data) {    
-            echo json_encode($data);exit();
+        	if($data=='invalid') {
+        		echo json_encode(array('status' => 'Error', 'message' => "You are not an authorised user!!."));exit();
+        	} else {
+        		echo json_encode($data);exit();
+        	}
         }  else  {
             echo json_encode(array('status' => 'Error', 'message' => "Invalid Credentials!!."));exit();
         }
