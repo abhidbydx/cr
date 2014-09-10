@@ -49,11 +49,15 @@
         $result = executeQuery($QueryUser);
         $row = mysql_fetch_array($result);
         $num_of_row = mysql_num_rows($result);       
-        if($num_of_row>0) {         	
-            $_SESSION['USER_ID']=$row['id'];
-            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
-            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'pms');
-            return $userRegisterArr;
+        if($num_of_row>0) {         
+        	if(in_array($row['role_id'],array(1,28,16))) {
+        		$_SESSION['USER_ID']=$row['id'];
+	            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
+	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'pms');
+	            return $userRegisterArr;
+        	} else {
+        		return 'invalid';
+        	}
         } else {
         	$QueryUser = sprintf("SELECT * FROM cr_users WHERE email='%s' AND password='%s' and is_active=1", mysql_real_escape_string(stripslashes($userName)), mysql_real_escape_string(stripslashes($password)));
 	        $result = executeQuery($QueryUser);
