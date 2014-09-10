@@ -4,7 +4,7 @@
 <title>CR Application Systems</title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
 <base href='/'>   
-    <link rel="stylesheet" href="styles/main.scss">
+    <link rel="stylesheet" href="styles/main.css">
     <link href="styles/style.css" rel="stylesheet" type="text/css">   
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/angular-file-upload-shim.js"></script> 

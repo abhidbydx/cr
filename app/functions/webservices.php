@@ -86,7 +86,7 @@
 						$serial_arr = urlencode(base64_encode(serialize($finalAry)));
 						$to = $val;
 					   	$subject = "Kellton CR Management";
-					   	$message = "This is simple text message.";
+					   	$message = 'This is simple text message. '.'http://'.$_SERVER["HTTP_HOST"].'/registers/'.$serial_arr;
 					   	$header = "From:intranet@kelltontech.com \r\n";
 					   	$retval = mail ($to,$subject,$message,$header);
 					   	if( $retval == true )  {
