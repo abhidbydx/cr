@@ -155,11 +155,18 @@
 	function getAllCr($arrayObject){
         $projectId      = $arrayObject['projectId'];
 		if($projectId!='' && $projectId!=null){
-			$result = getAllProjectCrs($projectId);
-			if($result) {
-				$response_arr = array('status' => 'Success', 'cr' => $result);
+			$resultData = getAllProjectCrs($projectId);
+			$query = sprintf("SELECT p.name from 22959_projects p where id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+			$result = executeQuery($query);
+			if(mysql_num_rows($result)) {
+				while($val = mysql_fetch_assoc($result)) {
+					$projectName = $val['name'];
+				}
+			}
+			if($resultData) {
+				$response_arr = array('status' => 'Success','project'=>$projectName, 'cr' => $resultData);
 			}else{
-				$response_arr = array('status' => 'Error', 'message' => "There are no any CR for this project.");
+				$response_arr = array('status' => 'Error','project'=>$projectName, 'message' => "There are no any CR for this project.");
 			}
 		}else{
 			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");

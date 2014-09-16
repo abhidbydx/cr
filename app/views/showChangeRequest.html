@@ -5,20 +5,55 @@
 	      	<div class='pad30' ng-if="valErrMsg!==''" style='color:red;padding-left:165px;'>{{valErrMsg}} </div>
 	      	<dd> 
 			    <form name="loginForm"  id="login-form" style='width:600px' >
-			      
-			        <p class='frmleft'>Title</p>
+					<p class='frmleft padLeft30'>Project Name:</p>
+			        <p class="frmright blue">{{project_name}}</p>	
+			        <div class="clear"></div>		      
+			        <p class='frmleft padLeft30'>Title:</p>
 			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
 			      	<div class="clear"></div>
-			        <p class='frmleft'>Description</p>
+			        <p class='frmleft padLeft30'>Description:</p>
 			        <p class="frmright">
 			        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea>
 			        </p>
 			        <div class="clear"></div>
-			       <p class='frmleft'>Upload Files</p>
+			        <p class='frmleft padLeft30'>Effort(In Man Days):</p>
+			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_effort'></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Is Billable:</p>
+			        <p class="frmright">
+			        	<input ng-click="show_billable_reason_box()" checked=true type="radio" name="is_billable" value="1" ng-model='cr_billable'>Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        	<input type="radio" name="is_billable" ng-click="show_billable_reason_box()" value="0" ng-model='cr_billable'>No
+			        	<br>
+				        <div ng-if='showbillablereason'>
+				        	<textarea rows="7" cols="35" name="billable_reason" value="" ng-model='billable_reason'></textarea>
+				        </div>
+		        	</p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Actual Cost:</p>
+			        <p class="frmright">
+		        		<select ng-model='actual_cost_currency'>	
+				        	<option value=''>Select Currency</option>
+				        	<option value='1'>INR</option>
+				        	<option value='2'>USD</option>
+			        	</select>
+			        	<input style="width:90px;" type="text" name="title" value="" ng-model='actual_cost'>
+			        </p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Billed Cost:</p>
+			        <p class="frmright">
+			        	<select ng-model='billed_cost_currency'>	
+				        	<option value=''>Select Currency</option>
+				        	<option value='1'>INR</option>
+				        	<option value='2'>USD</option>
+			        	</select>
+			        	<input style="width:90px;" type="text" name="title" value="" ng-model='billed_cost'>
+			        </p>
+			        <div class="clear"></div>
+			       <p class='frmleft padLeft30'>Upload Files:</p>
 			       <p style='padding:0 10px;'><input type="file" ng-file-select="onFileSelect($files)" multiple></p>
 			       <div class="clear"></div>
-			        <p class='frmleft'>&nbsp;</p>
-			       <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='add_cr(projectId);'></p>
+			        <p class='frmleft padLeft30'>&nbsp;</p>
+			       <p class="frmleft padLeft30"><input type="submit" name="Login" value="Submit" ng-click='add_cr(projectId);'></p>
 			        <div class="clear"></div>
 		        </form>		        
 	      	</dd>
@@ -30,15 +65,17 @@
 	      <div class='pad30' ng-if="valErrMsg!==''" style='color:red;padding-left:165px;'>{{valErrMsg}} </div>
 	      	<dd> 
 			    <form name="loginForm"  id="login-form" style='width:600px' >
-			      
-			        <p class='frmleft'>Title</p>
+			      	<p class='frmleft padLeft30'>Project Name:</p>
+			        <p class="frmright blue">{{project_name}}</p>	
+			        <div class="clear"></div>		      
+			        <p class='frmleft padLeft30'>Title</p>
 			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_title'></p>
 			      	<div class="clear"></div>
-			        <p class='frmleft'>Description</p>
+			        <p class='frmleft padLeft30'>Description</p>
 			        <p class="frmright">
 			        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea></p>
 			        <div class="clear"></div>
-			        <p class='frmleft' ng-if="userType==='cr'">Status</p>			        
+			        <p class='frmleft padLeft30' ng-if="userType==='cr'">Status</p>			        
 			        <p class="frmright" ng-if="userType==='cr'"><select ng-model='$parent.cr_status' ng-click='show_reason_box();'>			        	
 			        	<option value='1'>Pending</option>
 			        	<option value='2'>Approved</option>
@@ -46,18 +83,51 @@
 			        </select></p>
 			        <div class="clear"></div>
 			        <div ng-if='showreason'>
-			        <p class='frmleft'>Reason Comments</p>
+			        <p class='frmleft padLeft30'>Reason Comments</p>
 			        <p class="frmright">
 			        <textarea rows="7" cols="35" name="reason_comment" value="" ng-model='$parent.cr_reason'></textarea></p>
 			        </div>
 			        <div class="clear"></div>
-			         <p class='frmleft'>Upload Files</p>
+			        <p class='frmleft padLeft30'>Effort(In Man Days):</p>
+			        <p class="frmright"><input type="text" name="title" value="" ng-model='cr_effort'></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Is Billable:</p>
+			        <p class="frmright">
+			        	<input ng-click="show_billable_reason_box()" checked=true type="radio" name="is_billable" value="1" ng-model='cr_billable'>Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			        	<input type="radio" name="is_billable" ng-click="show_billable_reason_box()" value="0" ng-model='cr_billable'>No
+			        	<br>
+				        <div ng-if='showbillablereason'>
+				        	<textarea rows="7" cols="35" name="billable_reason" value="" ng-model='billable_reason'></textarea>
+				        </div>
+		        	</p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Actual Cost:</p>
+			        <p class="frmright">
+		        		<select ng-model='actual_cost_currency'>	
+				        	<option value=''>Select Currency</option>
+				        	<option value='1'>INR</option>
+				        	<option value='2'>USD</option>
+			        	</select>
+			        	<input style="width:90px;" type="text" name="title" value="" ng-model='actual_cost'>
+			        </p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Billed Cost:</p>
+			        <p class="frmright">
+			        	<select ng-model='billed_cost_currency'>	
+				        	<option value=''>Select Currency</option>
+				        	<option value='1'>INR</option>
+				        	<option value='2'>USD</option>
+			        	</select>
+			        	<input style="width:90px;" type="text" name="title" value="" ng-model='billed_cost'>
+			        </p>
+			        <div class="clear"></div>
+			         <p class='frmleft padLeft30'>Upload Files</p>
 			         <p><input type="file" ng-file-select="onFileSelect($files)" multiple></p> 
-			         <p class='frmleft' ng-if='file_name.length'>Attached Files</p>
+			         <p class='frmleft padLeft30' ng-if='file_name.length'>Attached Files</p>
 			         <span ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <br></span>
 			          <div class='clear'>&nbsp;</div>
-			        <p class='frmleft'>&nbsp;</p>
-			        <p class="frmleft"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
+			        <p class='frmleft padLeft30'>&nbsp;</p>
+			        <p class="frmleft padLeft30"><input type="submit" name="Login" value="Submit" ng-click='cr_edit(cr_id);'></p>
 			        <div class='clear'>&nbsp;</div>
 		        </form>		        
 	      	</dd>
@@ -68,35 +138,55 @@
 		<dl class="curved">
 			<dt><span  class='heading'>View CR</span><span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close("viewCR")'> X </span></dt>	      	
 	      	<dd> 
-			  
-			        <p class='tdleft'>ID</p>
-			        <p class="tdright">{{10000+cr_id}}</p>
+	      		<div style="width:60%;float:left">
+			        <p class='tdleft padLeft30 wid90'>ID</p>
+			        <p class="tdright wid425">{{10000+cr_id}}</p>
 			      	<div class="clear"></div>
-			        <p class='tdleft'>Title</p>
-			        <p class="tdright">{{cr_title}}</p>
+			        <p class='tdleft padLeft30 wid90'>Title</p>
+			        <p class="tdright wid425">{{cr_title}}</p>
 			      	<div class="clear"></div>
-			        <p class='tdleft'>Description</p>
-			        <p class="tdright">{{cr_description}}
+			        <p class='tdleft padLeft30 wid90'>Description</p>
+			        <p class="tdright wid425">{{cr_description}}
 			        </p>
 			        <div class="clear"></div>
-			        <p class='tdleft'>Date</p>
-			        <p class="tdright">{{cr_date}}
+			        <p class='tdleft padLeft30 wid90'>Date</p>
+			        <p class="tdright wid425">{{cr_date}}
 			        </p>
 			        <div class="clear"></div>
-			        <p class='tdleft'>Status</p>
-			       
-			        <p class="tdright" ng-if="cr_status==='1'">Pending</p>
-			        <p class="tdright" ng-if="cr_status==='2'">Approved</p>
-			        <p class="tdright" ng-if="cr_status==='3'">Rejected</p>
+			        <p class='tdleft padLeft30 wid90'>Status</p>
+			        <p class="tdright wid425" ng-if="cr_status==='1'">Pending</p>
+			        <p class="tdright wid425" ng-if="cr_status==='2'">Approved</p>
+			        <p class="tdright wid425" ng-if="cr_status==='3'">Rejected</p>
 			        <div class="clear"></div>
-			        <p class='tdleft' ng-if="cr_status==='3'">Reject Reason</p>
-			       
-			        <p class="tdright" ng-if="cr_status==='3'">{{cr_reason}}</p>
-			       
+			        <p class='tdleft padLeft30 wid90' ng-if="cr_status==='3'">Reject Reason</p>
+			        <p class="tdright wid425" ng-if="cr_status==='3'">{{cr_reason}}</p>
+			       	<div class="clear"></div>
+			        <p class='tdleft padLeft30 wid90'>Effort<br>(In Man Days)</p>
+			        <p class="tdright wid425">{{cr_effort}}</p>
+			        <div class="clear"></div>
+			        <p class='tdleft padLeft30 wid90'>Is Billable</p>
+			        <p class="tdright wid425" ng-if="cr_billable==='1'">Yes</p>
+			        <p class="tdright wid425" ng-if="cr_billable==='0'">No</p>
+			        <div class="clear"></div>
+			        <p class='tdleft padLeft30 wid90'>Actual Cost</p>
+			        <p class="tdright wid425">
+			        	{{actual_cost}}&nbsp;
+			        	<span ng-if="actual_cost_currency==='1'">INR</span>
+			        	<span ng-if="actual_cost_currency==='2'">USD</span>
+			        </p>
+			        <div class="clear"></div>
+			        <p class='tdleft padLeft30 wid90'>Billed Cost</p>
+			        <p class="tdright wid425">
+			        	{{billed_cost}}&nbsp;
+			        	<span ng-if="billed_cost_currency==='1'">INR</span>
+			        	<span ng-if="billed_cost_currency==='2'">USD</span>
+			        </p>
 			         <div class="clear"></div>
-			         <p class='tdleft' ng-if='file_name.length'>Attached Files</p>
-			         <p class="tdright"><span ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <br></span></p>
+			         <p class='tdleft padLeft30 wid90' ng-if='file_name.length'>Attached Files</p>
+			         <p class="tdright wid425"><span ng-repeat='file1 in file_name'><a target='_blank' href='/cr_files/{{file1.file_name}}'>{{file1.real_name}}</a> <br></span></p>
 			         <div class='clear'>&nbsp;</div>
+	        	</div>
+	         	<div client-info projectId="{{projectId}}"></div>
 	      	</dd>
 	  	</dl>	
 </div>
@@ -105,33 +195,40 @@
 	<dl class="curved">
 		<dt><span  class='heading'>CR Listing</span></dt>
 	<div align='center' ng-show='showNoti' style='background:#34567;color: red;background-color: #F68310;color:#fff;'>{{msg}}</div>
-		
 		<dd> <br />
-		    <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
-		    <div class='leftlink' style='color:#286e87' ng-show='!addCR'><a  ng-click='showadd();'> Create New CR(+)</a></div>
-		     <div class='clear'>&nbsp;</div>
-		    <table style='width:900px;' ng-if='allCRs'>
+		    <div class='leftlink' style='color:#286e87' ng-show='!addCR'>
+		    	Change Request For: {{project_name}}<a style="float:right;padding-right:30px;"  ng-click='showadd();'> Add New(+)</a></div>
+		     <div class='clear' style="height:10px;">&nbsp;</div>
+		     <div ng-if='!allCRs' class='msg'> There is No CR Added yet!!.</div>
+		    <table style='width:938px;' ng-if='allCRs'>
 		    	<tr class='about'>
 		    		<th style='width:90px;'>ID</th>
 		    		<th style='width:150px;'>Title</th>
 		    		<th style='width:280px;'>Description</th>
+		    		<th style='width:60px;'>Logged Date</th>
 		    		<th style='width:60px;'>Status</th>
-		    		<th style='width:60px;'>Date</th>
+		    		<th style='width:60px;'>Effort(In Man Days)</th>
 		    		<th style='width:60px;'>Files</th>
 		    		<th>Action</th>
 		    	</tr>
-		    
 			<tr ng-repeat="cr in allCRs " class='about' ng-animate="{show: 'flipInY', hide: 'flipOutY'}">
 				<td style='width:90px;'>{{10000+cr.id}}</td>
-				<td style='width:150px;'> {{cr.title | limitTo:30}}</td>
-				<td style='width:280px;'>{{cr.description | limitTo:70}} </td>
-				<td style='width:60px;' ng-if='cr.status==1'>Pending</td>
-				<td style='width:50px;color:green' ng-if='cr.status==2'>Approved</td>
-				<td style='width:50px;color:red' ng-if='cr.status==3' >Rejected</td>
-				<td style='width:60px;'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
+				<td style='width:100px;'> {{cr.title | limitTo:30}}</td>
+				<td style='width:250px;'>{{cr.description | limitTo:70}} </td>
+				<td style='width:80px;'>{{cr.cr_date | date:'dd-MM-yyyy'}}</td>
+				<td style='width:100px;' ng-if='cr.status==1'>Pending</td>
+				<td style='width:100px;color:green' ng-if='cr.status==2'>
+					Approved
+					<span ng-if="cr.action_date">on {{cr.action_date}}</span>
+				</td>
+				<td style='width:100px;color:red' ng-if='cr.status==3' >
+					Rejected
+					<span ng-if="cr.action_date">on {{cr.action_date}}</span>
+				</td>
+				<td style='width:30px;'>{{cr.effort}}</td>
 				<td style='width:60px;' ng-if='cr.file_name.length'>{{cr.file_name.length}}</td>
 				<td style='width:60px;' ng-if='!cr.file_name.length'>0</td>
-				<td><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View  </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)" ng-if='cr.status==1'> | Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms' && cr.status==1"> | Delete</a></td>				
+				<td style='width:100px;'><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View  </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)" ng-if='cr.status==1'> | Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms' && cr.status==1"> | Delete</a></td>				
 			</tr>
 			</table>
 			<p class="last">&nbsp;</p>

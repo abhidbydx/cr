@@ -156,7 +156,7 @@
 			while($post = mysql_fetch_assoc($result)) {
 				if(!empty($post['real_name']) && $post['file_deleted']==0)
 				$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
-				$posts[$post['crid']] = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>$post['cr_date'],'created_by'=>$post['created_by']);
+				$posts[$post['crid']] = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>date('jS M, Y',strtotime($post['cr_date'])),'created_by'=>$post['created_by'],'effort'=>$post['effort'],'action_date'=>date('jS M, Y',strtotime($post['action_taken_on'])));
 			}
 			return $posts;
 		}
@@ -276,7 +276,14 @@
 	    $crDesc       =$data['crdesc'];
 	    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
 	    $crCreated    =$data['created_by'];
-		$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated." )"; 
+	    $effort       =$data['creffort'];
+	    $crbillable   =$data['crbillable'];
+	    $actual_cost_currency = $data['actual_cost_currency'];
+	    $actual_cost  = $data['actual_cost'];
+	    $billed_cost_currency = $data['billed_cost_currency'];
+	    $billed_cost  = $data['billed_cost'];
+	    $billable_reason  = $data['billable_reason'];
+		$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by,effort,is_billable,is_not_billable_reason,actual_cost,billed_cost,actual_cost_currency,billed_cost_currency,created,modified) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated.",".$effort.",".$crbillable.",'".$billable_reason."',".$actual_cost.",".$billed_cost.",".$actual_cost_currency.",".$billed_cost_currency.",NOW(),NOW() )"; 
 		$result = executeQuery($query);
 		$last_id= mysql_insert_id();
 		if($last_id) {
@@ -312,11 +319,22 @@
 	    $crTitle      =$data['crtitle'];
 	    $crDesc       =$data['crdesc'];
 	    $crStatus     =$data['crstatus'];
+	    $cr_effort     =$data['creffort'];
+	    $cr_billable     =$data['crbillable'];
+	    $actual_cost_currency     =$data['actual_cost_currency'];
+	    $actual_cost     =$data['actual_cost'];
+	    $billed_cost_currency     =$data['billed_cost_currency'];
+	    $billed_cost     =$data['billed_cost'];
+	    $billable_reason     =$data['billable_reason'];
 	    $crReason     =$data['crreason'];
 	    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
+	    $action_taken_on = null;
+	    if(!empty($data['action_taken_on'])) {
+	    	$action_taken_on       =date('Y-m-d H:i:s',strtotime($data['action_taken_on']));
+	    }
 	    $crCreated    =$data['created_by'];
 	    if($crStatus!=3) $crReason='';
-		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated',reason='$crReason' where id=".$cr_id; 
+		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated',reason='$crReason',effort='$cr_effort',is_billable='$cr_billable',is_not_billable_reason='$billable_reason',actual_cost='$actual_cost',billed_cost='$billed_cost',actual_cost_currency='$actual_cost_currency',billed_cost_currency='$billed_cost_currency',action_taken_on='$action_taken_on' where id=".$cr_id; 
 		$result = executeQuery($query);
 		if($result) {
 			insertCRLog($data,'update');
@@ -330,21 +348,18 @@
  * 	Purpose    : Db operations for get of cr by id
 */  
 	function getCRDataByID($data){
-		    $cr_id   =$data['id'];		    
-			$query = "SELECT *,cp.id as crid, cf.is_deleted as file_deleted from cr_projects as cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.id=".$cr_id; 
-			$result = executeQuery($query);
-			//$posts = array();
-			if(mysql_num_rows($result)) {
-				while($post = mysql_fetch_assoc($result)) {
-					if(!empty($post['real_name']) && $post['file_deleted']==0)
-						$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
-						$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>$post['cr_date'],'created_by'=>$post['created_by'],'reason'=>$post['reason']);
-				}
-				return $posts;
+	    $cr_id   =$data['id'];		    
+		$query = "SELECT *,cp.id as crid, cf.is_deleted as file_deleted from cr_projects as cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.id=".$cr_id; 
+		$result = executeQuery($query);
+		if(mysql_num_rows($result)) {
+			while($post = mysql_fetch_assoc($result)) {
+				if(!empty($post['real_name']) && $post['file_deleted']==0)
+					$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
+					$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>date('jS M, Y',strtotime($post['cr_date'])),'created_by'=>$post['created_by'],'reason'=>$post['reason'],'effort'=>$post['effort'],'is_billable'=>$post['is_billable'],'is_not_billable_reason'=>$post['is_not_billable_reason'],'actual_cost'=>$post['actual_cost'],'billed_cost'=>$post['billed_cost'],'actual_cost_currency'=>$post['actual_cost_currency'],'billed_cost_currency'=>$post['billed_cost_currency']);
 			}
-			return false;
-		
-		
+			return $posts;
+		}
+		return false;		
 	}
 
 /*

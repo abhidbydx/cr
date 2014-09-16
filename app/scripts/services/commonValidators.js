@@ -110,6 +110,17 @@ angular.module('intranetApp')
       return false;
     };
 
+    var multipleEmailCheck = function( emails ) {
+      var email = emails.split(",");
+      var flag = true;
+      $.each(email, function( index, value ) {
+          if(!isEmail(value)) {
+              flag = false;
+          }
+      });
+      return flag;
+    };
+
     return {
       isName    : isName,
       isDate    : isDate,
@@ -122,6 +133,7 @@ angular.module('intranetApp')
       getlengthRegex : getlengthRegex,
       isAlphanumeric : isAlphanumeric,
       haveSpecialCharacters : haveSpecialCharacters,
-      isCountry :isCountry
+      isCountry :isCountry,
+      multipleEmailCheck : multipleEmailCheck
     };
 });
