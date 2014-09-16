@@ -40,10 +40,10 @@ angular.module('intranetApp')
           $scope.valErrMsg = 'Please Enter Email';
           return false;
         }
-        /*if(!CommonValidators.isEmail($scope.email)){      
+        if(!CommonValidators.multipleEmailCheck($scope.email)){      
           $scope.valErrMsg = 'Please Enter Valid Email';
           return false;
-        }*/
+        }
         if(typeof(loginData.projectIds)==='undefined' || loginData.projectIds.length < 1){
             $scope.valErrMsg = 'Please select project';
             return false;

@@ -12,6 +12,7 @@ angular.module('intranetApp')
       var loginData={};
       var userData=UserService.getUserCookie($cookies.USER_INFO); 
       $scope.valErrMsg=null;
+      $scope.cr_billable = '1';
       loginData.page= 'getAllCr';      
       loginData.projectId= unserialize(base64_decode(urldecode($routeParams.projectID)));      
       loginData.user_id = userData.id;
@@ -28,7 +29,8 @@ angular.module('intranetApp')
         .then( function( data ) {
           var res=data.data;
           if(res!=='error'){          
-              $scope.allCRs = res.cr;              
+              $scope.allCRs = res.cr; 
+              $scope.project_name = res.project;              
           }else{
               $scope.valErrMsg = 'Invalid credentials!!';
               return false;
@@ -46,17 +48,25 @@ angular.module('intranetApp')
     $scope.valErrMsg=null;
     cr.crtitle      = $scope.cr_title;
     cr.crdesc       = $scope.cr_description;
+    cr.creffort     = $scope.cr_effort;
+    cr.crbillable   = $scope.cr_billable;
+    if(CommonValidators.isValidString($scope.billable_reason)){      
+        cr.billable_reason = $scope.billable_reason;
+    } 
+    cr.actual_cost_currency = $scope.actual_cost_currency;
+    cr.actual_cost = $scope.actual_cost;
+    cr.billed_cost_currency  = $scope.billed_cost_currency;
+    cr.billed_cost  = $scope.billed_cost;
     cr.cr_date      = new Date();
-    cr.created_by   = userData.id;   
-    
+    cr.created_by   = userData.id; 
     cr.project_id=project_id;
     cr.user=userData.user;
-    cr.page= 'addCR';    
+    cr.page= 'addCR'; 
     if(!CommonValidators.isValidString($scope.cr_title)){      
       $scope.valErrMsg = 'Please Enter Title';
       return false;
     }
-     if(!CommonValidators.isValidString($scope.cr_description)){      
+    if(!CommonValidators.isValidString($scope.cr_description)){      
       $scope.valErrMsg = 'Please Enter Description';
       return false;
     }    
@@ -199,6 +209,15 @@ angular.module('intranetApp')
     cr.crdesc       = $scope.cr_description;   
     cr.crstatus     = $scope.cr_status; 
     cr.crreason     = $scope.cr_reason; 
+    cr.creffort     = $scope.cr_effort;
+    cr.crbillable   = $scope.cr_billable;
+    if(CommonValidators.isValidString($scope.billable_reason)){      
+        cr.billable_reason = $scope.billable_reason;
+    } 
+    cr.actual_cost_currency = $scope.actual_cost_currency;
+    cr.actual_cost = $scope.actual_cost;
+    cr.billed_cost_currency  = $scope.billed_cost_currency;
+    cr.billed_cost  = $scope.billed_cost;
     cr.cr_date      = new Date();
     cr.created_by   = userData.id;   
     cr.user = userData.user; 
@@ -223,6 +242,7 @@ angular.module('intranetApp')
     }
     
     if(msgText!==''){
+      cr.action_taken_on  = new Date();
       var x = confirm("Are you sure you want to "+msgText+ " CR. You can't undone the status further.");
     }else{
       x=true;
@@ -343,7 +363,13 @@ angular.module('intranetApp')
               $scope.cr_description  = res.cr.description;
               $scope.cr_status       = res.cr.status;
               $scope.file_name       =  res.cr.file_name;
-              $scope.cr_date         =  res.cr.cr_date;
+              $scope.cr_effort       =  res.cr.effort;
+              $scope.cr_billable     =  res.cr.is_billable;
+              $scope.billable_reason =  res.cr.is_not_billable_reason;
+              $scope.actual_cost_currency =  res.cr.actual_cost_currency;
+              $scope.actual_cost         =  res.cr.actual_cost;
+              $scope.billed_cost_currency  =  res.cr.billed_cost_currency;
+              $scope.billed_cost         =  res.cr.billed_cost;
           }else{
               $scope.valErrMsg = 'error in updation!!';
               return false;
@@ -381,6 +407,13 @@ angular.module('intranetApp')
               $scope.file_name       =  res.cr.file_name;
               $scope.cr_date         =  res.cr.cr_date;
               $scope.cr_reason       =  res.cr.reason;
+              $scope.cr_effort       =  res.cr.effort;
+              $scope.cr_billable     =  res.cr.is_billable;
+              $scope.billable_reason =  res.cr.is_not_billable_reason;
+              $scope.actual_cost_currency =  res.cr.actual_cost_currency;
+              $scope.actual_cost         =  res.cr.actual_cost;
+              $scope.billed_cost_currency  =  res.cr.billed_cost_currency;
+              $scope.billed_cost         =  res.cr.billed_cost;
           }else{
               return false;
           }
@@ -409,8 +442,12 @@ angular.module('intranetApp')
        }
     };
 
-     
-
-
+    //show cr edit form
+    $scope.show_billable_reason_box = function(){ 
+      $scope.showbillablereason  = false;
+      if($scope.cr_billable==="0"){
+          $scope.showbillablereason=true;
+       }
+    };
 
   });
