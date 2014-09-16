@@ -402,5 +402,21 @@
 		}
 		executeQuery($query);
 	}
-
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-16
+ * 	Purpose    : Db operations to get client details
+*/  
+	function getPrimaryClientDb($pId){
+		$query = sprintf("SELECT email, first_name, last_name, phone_no FROM cr_clients where project_id='%s'", mysql_real_escape_string(stripslashes($pId)));
+		$result = executeQuery($query);
+		$posts = array();
+		if(mysql_num_rows($result)){ 
+			while($post = mysql_fetch_assoc($result)) {
+				$posts[] = $post;
+			}
+			return $posts;
+		}
+		return false;
+	}
 ?>

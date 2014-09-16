@@ -48,6 +48,9 @@
 				case "changePassword":
 						changePassword($arrayObject);
 						break;
+				case "getPrimaryClient":
+						getPrimaryClient($arrayObject);
+						break;
 				default:
 						echo '{"status":"Error","message":"No such webservice available!"}';
 			}
@@ -363,5 +366,26 @@
 			$response_arr = array('status' => 'Error', 'message' => "Id cannot be null.");
 		}
 		echo json_encode($response_arr);
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-16
+ * 	Purpose    : get primary client info
+*/   
+	function getPrimaryClient($arrayObject){
+        $projectId = $arrayObject['project_id'];
+        if($projectId) {    
+        	$data = getPrimaryClientDb($projectId);
+        	if($data) {
+        		$response_arr = array('status' => 'Success', 'details' => $data[0]);
+        		echo json_encode($response_arr);
+        	} else {
+        		echo json_encode(array('status' => 'None', 'message' => "There is no client associated to this project."));
+        	}
+        }  else  {
+            echo json_encode(array('status' => 'Error', 'message' => "Project Id cannot be null."));
+        }
+        exit();
 	}
 ?>
