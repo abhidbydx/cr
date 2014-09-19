@@ -51,6 +51,15 @@
 				case "getPrimaryClient":
 						getPrimaryClient($arrayObject);
 						break;
+				case "getAllClients":
+						getAllClients($arrayObject);
+						break;
+				case "updateClientDetail":
+						updateClientDetail($arrayObject);
+						break;
+				case "saveClientDetail":
+						saveClientDetail($arrayObject);
+						break;
 				default:
 						echo '{"status":"Error","message":"No such webservice available!"}';
 			}
@@ -383,6 +392,52 @@
         	} else {
         		echo json_encode(array('status' => 'None', 'message' => "There is no client associated to this project."));
         	}
+        }  else  {
+            echo json_encode(array('status' => 'Error', 'message' => "Project Id cannot be null."));
+        }
+        exit();
+	}
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-17
+ * 	Purpose    : get all clients info
+*/   
+	function getAllClients($arrayObject){
+        $user_id = $arrayObject['user_id'];
+        if($user_id) {    
+        	$data = getAllClientsDb($user_id);
+    		echo json_encode($data);
+        }  else  {
+            echo json_encode(array('status' => 'Error', 'message' => "User Id cannot be null."));
+        }
+        exit();
+	}
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-18
+ * 	Purpose    : update clients info
+*/   
+	function updateClientDetail($arrayObject){
+        $project_id = $arrayObject['project_id'];
+        if($project_id) {    
+        	$data = updateClientDetailDb($arrayObject);
+    		echo json_encode($data);
+        }  else  {
+            echo json_encode(array('status' => 'Error', 'message' => "Project Id cannot be null."));
+        }
+        exit();
+	}
+	
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-18
+ * 	Purpose    : insert clients info
+*/   
+	function saveClientDetail($arrayObject){
+        $project_id = $arrayObject['project_id'];
+        if($project_id) {    
+        	$data = saveClientDetailDb($arrayObject);
+    		echo json_encode($data);
         }  else  {
             echo json_encode(array('status' => 'Error', 'message' => "Project Id cannot be null."));
         }

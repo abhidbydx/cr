@@ -1,0 +1,124 @@
+<div left-panel></div>
+<div id='content_center' ng-show='addClientDiv'>
+		<dl class="curved">
+			<dt>
+				<span  class='heading'>Add Client</span>
+				<span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close("addClientDiv")'> X </span>
+			</dt>
+	        <div class='pad30' ng-if="valErrMsg!==''" style='color:red;padding-left:165px;'>{{valErrMsg}} </div>
+	      	<dd> 
+			    <form name="loginForm"  id="login-form" style='width:600px' >
+			      	<p class='frmleft padLeft30'>Project:</p>
+			        <p class="frmright blue">
+			        	<select ng-model='project_id'>
+			                <option value=''>Please Select</option>
+			        		<option ng-repeat="project in projects" value='{{project.id}}'>
+			        			{{project.name}}
+				          	</option>
+			        	</select>
+			        </p>	
+			        <div class="clear"></div>		      
+			        <p class='frmleft padLeft30'>First Name</p>
+			        <p class="frmright"><input type="text" name="first_name" value="" ng-model='first_name'></p>
+			      	<div class="clear"></div>
+			        <p class='frmleft padLeft30'>Last Name</p>
+			        <p class="frmright">
+			        <input type="text" name="last_name" value="" ng-model='last_name'></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Email</p>			        
+			        <p class="frmright"><input type="text" name="email" value="" ng-model='email'></p></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Secondary Email</p>
+			        <p class="frmright">
+			        <input type="text" name="secondary_email" value="" ng-model='secondary_email'></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Phone No.</p>
+			        <p class="frmright"><input type="text" name="phone_no" value="" ng-model='phone_no'></p>
+			        <div class='clear'>&nbsp;</div>
+			        <div ng-if='message' style="color:red;" class='msg'> {{message}}</div>
+			        <p class='frmleft padLeft30'>&nbsp;</p>
+			        <p class="frmleft padLeft30"><input type="submit" name="Login" value="Submit" ng-click='client_add();'></p>
+			        <div class='clear'>&nbsp;</div>
+		        </form>		        
+	      	</dd>
+	  	</dl>	
+</div>
+<div id='content_center' ng-show='editClientDiv'>
+		<dl class="curved">
+			<dt>
+				<span  class='heading'>Edit Client</span>
+				<span style='float:right;color:#000;cursor:pointer' title='Close' ng-click='close("editClientDiv")'> X </span>
+			</dt>
+	        <div class='pad30' ng-if="valErrMsg!==''" style='color:red;padding-left:165px;'>{{valErrMsg}} </div>
+	      	<dd> 
+			    <form name="loginForm"  id="login-form" style='width:600px' >
+			      	<p class='frmleft padLeft30'>Project:</p>
+			        <p class="frmright blue">
+			        	<select ng-model='project_id'>
+			                <option value=''>Please Select</option>
+			        		<option ng-repeat="project in projects" value='{{project.id}}'>
+			        			{{project.name}}
+				          	</option>
+			        	</select>
+			        </p>	
+			        <div class="clear"></div>		      
+			        <p class='frmleft padLeft30'>First Name</p>
+			        <p class="frmright"><input type="text" name="first_name" value="" ng-model='first_name'></p>
+			      	<div class="clear"></div>
+			        <p class='frmleft padLeft30'>Last Name</p>
+			        <p class="frmright">
+			        <input type="text" name="last_name" value="" ng-model='last_name'></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Email</p>			        
+			        <p class="frmright"><input type="text" name="email" value="" ng-model='email'></p></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Secondary Email</p>
+			        <p class="frmright">
+			        <input type="text" name="secondary_email" value="" ng-model='secondary_email'></p>
+			        <div class="clear"></div>
+			        <p class='frmleft padLeft30'>Phone No.</p>
+			        <p class="frmright"><input type="text" name="phone_no" value="" ng-model='phone_no'></p>
+			        <div class='clear'>&nbsp;</div>
+			        <div ng-if='message' style="color:red;" class='msg'> {{message}}</div>
+			        <p class='frmleft padLeft30'>&nbsp;</p>
+			        <p class="frmleft padLeft30"><input type="submit" name="Login" value="Submit" ng-click='client_edit(client_id);'></p>
+			        <div class='clear'>&nbsp;</div>
+		        </form>		        
+	      	</dd>
+	  	</dl>	
+</div>
+<div id='content_center'>
+	<dl class="curved">
+		<dt><span  class='heading'>Client Listing</span></dt>
+	<div align='center' ng-show='showNoti' style='background:#34567;color: red;background-color: #F68310;color:#fff;'>{{msg}}</div>
+		<dd> <br />
+		    <div class='leftlink' style='color:#286e87'>
+		    	<a style="float:right;padding-right:30px;"  ng-click='addClient();'> Add New(+)</a>
+		    </div>
+	        <div class='clear' style="height:10px;">&nbsp;</div>
+		    <table style='width:938px;' ng-if='clients'>
+		    	<tr class='about'>
+		    		<th>SNo.</th>
+		    		<th>Project</th>
+		    		<th>Name</th>
+		    		<th>Email</th>
+		    		<th>Secondary Email</th>
+		    		<th>Phone No.</th>
+		    		<th>Action</th>
+		    	</tr>
+			<tr ng-repeat="client in clients " class='about' ng-animate="{show: 'flipInY', hide: 'flipOutY'}">
+				<td>{{$index+1}}</td>
+				<td>{{client.name}}</td>
+				<td>{{client.first_name}}&nbsp;{{client.last_name}} </td>
+				<td>{{client.email}}</td>
+				<td>{{client.secondary_email}}</td>
+				<td>{{client.phone_no}}</td>
+				<td>
+					<a style="cursor:pointer;color:#286e87" ng-click="editClient(client.project_id)">Edit</a>
+				</td>				
+			</tr>
+			</table>
+			<p class="last">&nbsp;</p>
+      	</dd>
+	</dl>
+</div>
