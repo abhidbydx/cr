@@ -214,7 +214,7 @@ padding: 10px;
 			/*CURVED CORNERS*/
 dl.curved {background:#bbd9ee url(/images/c_tl.gif) top left no-repeat; margin:15px 0; padding:0; width:100%;}
 dl.curved dt {background:transparent url(/images/c_tr.gif) top right no-repeat; padding:10px; text-align:center; font-weight: bold; color:#fff;}
-dl.curved dd {background:#eee url(/images/c_bl.gif) bottom left no-repeat; padding:0; margin:0; width:100%; float:left;}
+dl.curved dd {background:#eee url(/images/c_bl.gif) bottom left no-repeat; padding:0; margin:0; width:100%;}
 dl.curved dd .clientInfo {background: #fff url(/images/02.gif) repeat; bottom left no-repeat; padding:0; margin:0; width:100%; float:left;}
 dl.curved dd p {margin:0; padding:10px; line-height:1.53em;}
 dl.curved dd p.last {background:transparent url(/images/c_br.gif) bottom right no-repeat; }
@@ -294,4 +294,7 @@ table td {
 }
 .clientInfoBox {
 	width:30% !important;padding-right:20px !important; padding-top:40px;
+}
+.flt {
+	float : left;
 }

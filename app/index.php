@@ -36,6 +36,7 @@
         <script src="scripts/directives/left-panel.js"></script>
         <script src="scripts/directives/client-info.js"></script>
         <script src="scripts/controllers/listing.js"></script>
+        <script src="scripts/controllers/showClient.js"></script>
         <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/controllers/invitation.js"></script>  
         <script src="scripts/controllers/registers.js"></script>      
