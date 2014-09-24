@@ -50,7 +50,7 @@
         $row = mysql_fetch_array($result);
         $num_of_row = mysql_num_rows($result);       
         if($num_of_row>0) {         
-        	if(in_array($row['role_id'],array(1,28,16))) {
+        	if(in_array($row['role_id'],array(1,28,16,3))) {
         		$_SESSION['USER_ID']=$row['id'];
 	            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
 	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'pms');
