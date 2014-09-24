@@ -48,7 +48,7 @@
 	   	$semi_rand = md5(time()); 
 		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 		// headers for attachment 
-		$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
+		$headers .= "\nMIME-Version: 1.0\n" . "Content-type:text/html;charset=UTF-8;\n" . " boundary=\"{$mime_boundary}\""; 
 		// multipart boundary 
 		$message = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/plain; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message . "\n\n"; 
 		$message .= "--{$mime_boundary}\n";
@@ -67,7 +67,7 @@
 				$message .= "--{$mime_boundary}\n";
 		   	}
 	    }  
-	   	$retval = mail ($to,$subject,$message,$header);
+	   	$retval = mail ($to,$subject,$message,$headers);
 	   	return $clientId;
 	}
 
