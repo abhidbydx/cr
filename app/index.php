@@ -40,6 +40,7 @@
         <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/controllers/invitation.js"></script>  
         <script src="scripts/controllers/registers.js"></script>      
+        <script src="scripts/controllers/crAction.js"></script>      
         <script src="scripts/controllers/changePassword.js"></script>      
         <!-- services-->
         <script src="scripts/services/userService.js"></script> 

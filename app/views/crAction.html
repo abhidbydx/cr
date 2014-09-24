@@ -1,0 +1,14 @@
+<div ng-if="action == 'Approved'" class='padTop50'>
+	<div class="login">
+		<dl>
+	  		<dt><span class='heading' style="color:green;">CR #{{10000+cr_id}} has been {{action}}.</span></dt>
+		</dl>
+	</div>
+</div>
+<div ng-if="action == 'Rejected'" class='padTop50'>
+	<div class="login">
+		<dl>
+	  		<dt><span class='heading' style="color:red;">CR #{{10000+cr_id}} has been {{action}}.</span></dt>
+		</dl>
+	</div>
+</div>

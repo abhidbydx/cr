@@ -8,7 +8,7 @@ angular.module('intranetApp').directive('clientInfo', [
 		scope: {
             projectid:'='
         },
-		controller: function($scope,$http) {
+		controller: function($scope,$http,$rootScope) {
             var loginData={};
             loginData.page = 'getPrimaryClient';    
             loginData.project_id = $scope.projectid;
@@ -23,7 +23,9 @@ angular.module('intranetApp').directive('clientInfo', [
             .then( function( data ) {
               var res=data.data;
               if(res!=='Error'){          
-                  $scope.client = res.details;     
+                  $scope.client = res.details;   
+                  $rootScope.secondary_email = res.details.secondary_email;  
+                  $rootScope.clnt_email = res.details.email;   
               }else{
                   $scope.valErrMsg = 'Invalid credentials!!';
                   return false;

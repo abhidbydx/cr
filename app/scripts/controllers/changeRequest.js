@@ -69,7 +69,10 @@ angular.module('intranetApp')
     if(!CommonValidators.isValidString($scope.cr_description)){      
       $scope.valErrMsg = 'Please Enter Description';
       return false;
-    }    
+    } 
+    if($scope.client_scndry_email) {
+        cr.client_secondary_email = $rootScope.secondary_email;
+    }
     $http({
         method : 'POST',
         url :  'functions/webservices.php',
@@ -80,76 +83,50 @@ angular.module('intranetApp')
       })
       .then( function( data ) {       
         var res=data.data;
+        res = res.response;
         if(res.status!=='Error'){ 
           if(typeof($rootScope.selectedFile)!=='undefined') {         
             for (var i = 0; i < $rootScope.selectedFile.length; i++) {
               var file = $rootScope.selectedFile[i];
               $scope.upload = $upload.upload({
-                url: 'functions/fileupload.php', 
-                data: {cr_id:res.last_id},
-                file: file,
+                  url: 'functions/fileupload.php', 
+                  data: {cr_id:res.last_id},
+                  file: file,
               }).progress(function(evt) {       
               }).success(function(data, status, headers, config) {
-                  $http({
-                    method : 'POST',
-                    url :  'functions/webservices.php',
-                    data : $.param( loginData ),    //  url encode ( kind of )
-                    headers: {
-                      'Content-Type' : 'application/x-www-form-urlencoded'
-                  }
-                  })
-                        .then( function( data ) {
-                              var res=data.data;
-                              if(res!=='error'){ 
-                                  $scope.showNoti=true;
-                                  $scope.addCR=false;
-                                  $scope.viewCR  =false;
-                                  $scope.msg='Added Succsfully';                                 
-                                  $scope.allCRs = res.cr;
-                                  $scope.cr_title=null;
-                                  $scope.cr_description=null;
-                                  delete $rootScope.selectedFile;
-                              }else{
-                                  $scope.valErrMsg = 'error in addition!!';
-                                  return false;
-                              }
-                      });  
               });
-      
-            } }else{
-               $http({
-                    method : 'POST',
-                    url :  'functions/webservices.php',
-                    data : $.param( loginData ),    //  url encode ( kind of )
-                    headers: {
-                      'Content-Type' : 'application/x-www-form-urlencoded'
-                  }
-                  })
-                        .then( function( data ) {
-                              var res=data.data;
-                              if(res!=='error'){  
-                                  $scope.showNoti=true;
-                                  $scope.msg='Added Successfully';                               
-                                  $scope.allCRs = res.cr;
-                                  $scope.cr_title=null;
-                                  $scope.cr_description=null;
-                                  $scope.addCR=false;
-                                  $scope.viewCR  =false;
-                                  delete $rootScope.selectedFile;
-                              }else{
-                                  $scope.valErrMsg = 'error in addition!!';
-                                  return false;
-                              }
-                      });  
             }
-          
-        }else{
+          }
+          $http({
+              method : 'POST',
+              url :  'functions/webservices.php',
+              data : $.param( loginData ),    //  url encode ( kind of )
+              headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded'
+              }
+          })
+          .then( function( data ) {
+              var res=data.data;
+              if(res!=='error'){ 
+                  $scope.showNoti=true;
+                  $scope.addCR=false;
+                  $scope.viewCR  =false;
+                  $scope.msg='Added Succsfully';                                 
+                  $scope.allCRs = res.cr;
+                  $scope.cr_title=null;
+                  $scope.cr_description=null;
+                  delete $rootScope.selectedFile;
+              }else{
+                  $scope.valErrMsg = 'error in addition!!';
+                  return false;
+              }
+          }); 
+        } else{
             $scope.valErrMsg = res.message;
             return false;
         }
-      });       
-
-  };   
+    }); 
+  }  
 
     $scope.cr_delete = function(cr_id){
         var x = confirm("Are you sure you want to delete?");
@@ -234,13 +211,15 @@ angular.module('intranetApp')
       $scope.valErrMsg = 'Please Enter Reason';
       return false;
     } 
-    if($scope.cr_status==2) {
+    if($scope.client_scndry_email) {
+        cr.client_secondary_email = $rootScope.secondary_email;
+    }
+    if($scope.cr_status==3) {
       msgText='Approve';
     }
-    else if($scope.cr_status==3) {
+    else if($scope.cr_status==4) {
       msgText='Reject';
     }
-    
     if(msgText!==''){
       cr.action_taken_on  = new Date();
       var x = confirm("Are you sure you want to "+msgText+ " CR. You can't undone the status further.");
@@ -259,65 +238,41 @@ angular.module('intranetApp')
       .then( function( data ) {       
         var res=data.data;      
         if(res.status!=='Error'){            
-         if(typeof($rootScope.selectedFile)!=='undefined') {         
-            for (var i = 0; i < $rootScope.selectedFile.length; i++) {
-              var file = $rootScope.selectedFile[i];
-              $scope.upload = $upload.upload({
-                url: 'functions/fileupload.php', 
-                data: {cr_id:cr_id},
-                file: file,
-              }).progress(function(evt) {       
-              }).success(function(data, status, headers, config) {
-                  $http({
-                    method : 'POST',
-                    url :  'functions/webservices.php',
-                    data : $.param( loginData ),    //  url encode ( kind of )
-                    headers: {
-                      'Content-Type' : 'application/x-www-form-urlencoded'
-                  }
-                  })
-                        .then( function( data ) {
-                              var res=data.data;
-                              if(res!=='error'){ 
-                                  $scope.showNoti=true;
-                                  $scope.msg='Updated Successfully';                               
-                                  $scope.allCRs = res.cr;
-                                  $scope.cr_title=null;
-                                  $scope.cr_description=null;
-                                  $scope.editCR=false;
-                                  delete $rootScope.selectedFile;
-                              }else{
-                                  $scope.valErrMsg = 'error in addition!!';
-                                  return false;
-                              }
-                      });  
-              });
-      
-            } }
-            else{ $http({
-                    method : 'POST',
-                    url :  'functions/webservices.php',
-                    data : $.param( loginData ),    //  url encode ( kind of )
-                    headers: {
-                      'Content-Type' : 'application/x-www-form-urlencoded'
-                  }
-                  })
-                        .then( function( data ) {
-                              var res=data.data;
-                              if(res!=='error'){
-                                  $scope.showNoti=true;
-                                  $scope.msg='Updated Successfully';                                
-                                  $scope.allCRs = res.cr;
-                                  $scope.cr_title=null;
-                                  $scope.cr_description=null;
-                                  $scope.editCR=false;
-                                  $scope.viewCR  =false;
-                                  delete $rootScope.selectedFile;
-                              }else{
-                                  $scope.valErrMsg = 'error in addition!!';
-                                  return false;
-                              }
-                      });  }
+          if(typeof($rootScope.selectedFile)!=='undefined') {         
+              for (var i = 0; i < $rootScope.selectedFile.length; i++) {
+                  var file = $rootScope.selectedFile[i];
+                  $scope.upload = $upload.upload({
+                    url: 'functions/fileupload.php', 
+                    data: {cr_id:cr_id},
+                    file: file,
+                  }).progress(function(evt) {       
+                  }).success(function(data, status, headers, config) {
+                  });
+              } 
+          }
+          $http({
+              method : 'POST',
+              url :  'functions/webservices.php',
+              data : $.param( loginData ),    //  url encode ( kind of )
+              headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded'
+              }
+          })
+          .then( function( data ) {
+              var res=data.data;
+              if(res!=='error'){ 
+                  $scope.showNoti=true;
+                  $scope.msg='Updated Successfully';                               
+                  $scope.allCRs = res.cr;
+                  $scope.cr_title=null;
+                  $scope.cr_description=null;
+                  $scope.editCR=false;
+                  delete $rootScope.selectedFile;
+              }else{
+                  $scope.valErrMsg = 'error in addition!!';
+                  return false;
+              }
+          }); 
         }else{
             $scope.valErrMsg = res.message;
             return false;
@@ -327,15 +282,23 @@ angular.module('intranetApp')
   };  
 
       //show cr add form
-    $scope.showadd = function(){
-    $scope.addCR   =true;
-    $scope.editCR  =false;
-    $scope.viewCR  =false;
-    $scope.showNoti=false;
-    $scope.cr_title = null;
-    $scope.cr_description = null;
-    $scope.valErrMsg=null;
-   }; 
+    $scope.showadd = function(projectId){
+        $scope.addCR   =true;
+        $scope.editCR  =false;
+        $scope.viewCR  =false;
+        $scope.showNoti=false;
+        $scope.cr_title = null;
+        $scope.cr_description = null;
+        $scope.cr_effort = null;
+        $scope.is_billable = null;
+        $scope.billable_reason = null;
+        $scope.actual_cost_currency = '';
+        $scope.actual_cost = null;
+        $scope.billed_cost_currency = '';
+        $scope.billed_cost = null;
+        $scope.valErrMsg=null; 
+        $scope.is_secondary_email = $rootScope.secondary_email;
+    }; 
 
     //show cr edit form
     $scope.showEdit = function(cr_id){
@@ -343,6 +306,7 @@ angular.module('intranetApp')
     $scope.editCR  =true;
     $scope.viewCR  =false;
     $scope.showNoti=false;
+    $scope.is_secondary_email = $rootScope.secondary_email;
     var cr={};
     cr.page = 'getCRById'; 
     cr.id   =  cr_id;
@@ -370,6 +334,7 @@ angular.module('intranetApp')
               $scope.actual_cost         =  res.cr.actual_cost;
               $scope.billed_cost_currency  =  res.cr.billed_cost_currency;
               $scope.billed_cost         =  res.cr.billed_cost;
+              $scope.client_scndry_email =  res.cr.send_on_secondary_email;
           }else{
               $scope.valErrMsg = 'error in updation!!';
               return false;
@@ -450,4 +415,130 @@ angular.module('intranetApp')
        }
     };
 
+    $scope.add_publish_cr = function(project_id){
+        var cr={};    
+        $scope.valErrMsg=null;
+        cr.crtitle      = $scope.cr_title;
+        cr.cameFrom      = 'publish';
+        cr.crdesc       = $scope.cr_description;
+        cr.creffort     = $scope.cr_effort;
+        cr.crbillable   = $scope.cr_billable;
+        if(CommonValidators.isValidString($scope.billable_reason)){      
+            cr.billable_reason = $scope.billable_reason;
+        } 
+        cr.actual_cost_currency = $scope.actual_cost_currency;
+        cr.actual_cost = $scope.actual_cost;
+        cr.billed_cost_currency  = $scope.billed_cost_currency;
+        cr.billed_cost  = $scope.billed_cost;
+        cr.cr_date      = new Date();
+        cr.created_by   = userData.id; 
+        cr.project_id=project_id;
+        cr.user=userData.user;
+        cr.page= 'addCR'; 
+        if(!CommonValidators.isValidString($scope.cr_title)){      
+          $scope.valErrMsg = 'Please Enter Title';
+          return false;
+        }
+        if(!CommonValidators.isValidString($scope.cr_description)){      
+          $scope.valErrMsg = 'Please Enter Description';
+          return false;
+        }
+        cr.client_email = $rootScope.clnt_email;
+        if($scope.client_scndry_email) {
+            cr.client_secondary_email = $rootScope.secondary_email;
+        }
+        $http({
+            method : 'POST',
+            url :  'functions/webservices.php',
+            data : $.param( cr ),    //  url encode ( kind of )
+            headers: {
+              'Content-Type' : 'application/x-www-form-urlencoded'
+            }
+        })
+        .then( function( data ) {       
+            var res = data.data;
+            res = res.response;
+            if(res.status!=='Error'){ 
+                if(typeof($rootScope.selectedFile)!=='undefined') {         
+                    for (var i = 0; i < $rootScope.selectedFile.length; i++) {
+                        var file = $rootScope.selectedFile[i];
+                        $scope.upload = $upload.upload({
+                            url: 'functions/fileupload.php', 
+                            data: {cr_id:res.last_id},
+                            file: file,
+                        }).progress(function(evt) {       
+                        }).success(function(data, status, headers, config) {
+                        });
+                    }
+                }
+                var postData = {};
+                postData.page = 'sendMailToClient';
+                postData.user_id = loginData.user_id;
+                postData.projectId = loginData.projectId;
+                postData.response = res;
+                $http({
+                    method : 'POST',
+                    url :  'functions/webservices.php',
+                    data : $.param(postData),    //  url encode ( kind of )
+                    headers: {
+                      'Content-Type' : 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then( function( data ) {
+                    var res=data.data;
+                    if(res!=='error'){ 
+                        $scope.showNoti=true;
+                        $scope.addCR=false;
+                        $scope.viewCR  =false;
+                        $scope.msg='Added Succsfully';                                 
+                        $scope.allCRs = res.cr;
+                        $scope.cr_title=null;
+                        $scope.cr_description=null;
+                        delete $rootScope.selectedFile;
+                    }else{
+                        $scope.valErrMsg = 'error in addition!!';
+                        return false;
+                    }
+                });
+            } else {
+                $scope.valErrMsg = res.message;
+                return false;
+            }
+
+        });  
+     };
+
+     $scope.cr_publish = function(cr_id){
+        var postData  = {};
+        var x = confirm("Are you sure you want to publish?");
+        if(x) {
+            postData.cr_id = cr_id;
+            postData.page = 'publishCR';
+            postData.modified_by = userData.id; 
+            postData.projectId = loginData.projectId;  
+            $http({
+                method : 'POST',
+                url :  'functions/webservices.php',
+                data : $.param( postData ),    //  url encode ( kind of )
+                headers: {
+                  'Content-Type' : 'application/x-www-form-urlencoded'
+                }
+            })
+            .then( function( data ) {       
+                var res=data.data;
+                if(res!=='error'){ 
+                    $scope.showNoti=true;
+                    $scope.msg='Updated Successfully';                               
+                    $scope.allCRs = res.cr;
+                    $scope.cr_title=null;
+                    $scope.cr_description=null;
+                    $scope.editCR=false;
+                    delete $rootScope.selectedFile;
+                }else{
+                    $scope.valErrMsg = 'error in addition!!';
+                    return false;
+                }
+            });  
+        }       
+     };      
   });

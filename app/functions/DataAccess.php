@@ -10,7 +10,7 @@
 	function executeQuery($query) {		
 		$result = mysql_query($query); 
 		if($result==false){
-			throw new Exception('DB Access Exception');
+			throw new Exception('DB Access Exception-'.mysql_error());
 		}
 		return $result;
 	}
