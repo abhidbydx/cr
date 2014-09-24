@@ -298,3 +298,6 @@ table td {
 .flt {
 	float : left;
 }
+.pointer {
+	cursor: pointer;
+}

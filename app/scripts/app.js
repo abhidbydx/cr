@@ -52,6 +52,10 @@ angular
         templateUrl: 'views/showClient.html',
         controller: 'showClient'
       })
+      .when('/crAction/:actionParam', {
+        templateUrl: 'views/crAction.html',
+        controller: 'crAction'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -21,6 +21,9 @@
 				case "getAllCr":
 						getAllCr($arrayObject);
 						break;
+				case "sendMailToClient":
+						sendMailToClient($arrayObject);
+						break;
 				case "register":
 						signup($arrayObject);
 						break;
@@ -59,6 +62,15 @@
 						break;
 				case "saveClientDetail":
 						saveClientDetail($arrayObject);
+						break;
+				case "checkSecondaryEmail":
+						checkSecondaryEmail($arrayObject);
+						break;
+				case "publishCR":
+						publishCR($arrayObject);
+						break;
+				case "updateCrAction":
+						updateCrAction($arrayObject);
 						break;
 				default:
 						echo '{"status":"Error","message":"No such webservice available!"}';
@@ -185,6 +197,36 @@
 		}
 		echo json_encode($response_arr);exit();
 	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-24
+ * 	Purpose    : send Mail to client on cr initiation 
+*/
+	function sendMailToClient($arrayObject){
+		if(!empty($arrayObject['response']['primaryClient']) || !empty($arrayObject['response']['secondaryClient'])) {
+			$resultData = sendMailToClientDb($arrayObject);
+		}
+        $projectId      = $arrayObject['projectId'];
+		if($projectId!='' && $projectId!=null){
+			$query = sprintf("SELECT p.name from 22959_projects p where id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+			$result = executeQuery($query);
+			if(mysql_num_rows($result)) {
+				while($val = mysql_fetch_assoc($result)) {
+					$projectName = $val['name'];
+				}
+			}
+			if($resultData) {
+				$response_arr = array('status' => 'Success','project'=>$projectName, 'cr' => $resultData);
+			}else{
+				$response_arr = array('status' => 'Error','project'=>$projectName, 'message' => "There are no any CR for this project.");
+			}
+		}else{
+			$response_arr = array('status' => 'Error', 'message' => "Project Id cannot be null.");
+		}
+		echo json_encode($response_arr);
+		exit();
+	}
 	
 /*
  *	Created By : Soumya Pandey
@@ -217,7 +259,7 @@
 		if($projectId!='' && $projectId!=null){
 			$result = insertCR($arrayObject);
 			if($result) {
-				$response_arr = array('status' => 'Success','last_id'=>$result);
+				$response_arr = array('status' => 'Success','response'=>$result);
 			}else{
 				$response_arr = array('status' => 'Error', 'message' => ".");
 			}
@@ -440,6 +482,57 @@
     		echo json_encode($data);
         }  else  {
             echo json_encode(array('status' => 'Error', 'message' => "Project Id cannot be null."));
+        }
+        exit();
+	}
+
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-18
+ * 	Purpose    : check secondary Email
+*/   
+	function publishCR($arrayObject){
+        $cr_id = $arrayObject['cr_id'];
+        if($cr_id) {    
+        	$resultData = publishCrDb($arrayObject);
+        	$projectId      = $arrayObject['projectId'];
+			$query = sprintf("SELECT p.name from 22959_projects p where id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+			$result = executeQuery($query);
+			if(mysql_num_rows($result)) {
+				while($val = mysql_fetch_assoc($result)) {
+					$projectName = $val['name'];
+				}
+			}
+			if($resultData) {
+				$response_arr = array('status' => 'Success','project'=>$projectName, 'cr' => $resultData);
+			}else{
+				$response_arr = array('status' => 'Error','project'=>$projectName, 'message' => "There are no any CR for this project.");
+			}
+			echo json_encode($response_arr);
+        }  else  {
+            echo json_encode(array('status' => 'Error', 'message' => "CR Id cannot be null."));
+        }
+        exit();
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-18
+ * 	Purpose    : check secondary Email
+*/   
+	function updateCrAction($arrayObject){
+        $cr_id = $arrayObject['cr_id'];
+        if($cr_id) {    
+        	$resultData = updateCrActionDb($arrayObject);
+			if($resultData) {
+				$response_arr = array('status' => 'Success','project'=>$projectName, 'cr' => $resultData);
+			}else{
+				$response_arr = array('status' => 'Error','project'=>$projectName, 'message' => "There are no any CR for this project.");
+			}
+			echo json_encode($response_arr);
+        }  else  {
+            echo json_encode(array('status' => 'Error', 'message' => "CR Id cannot be null."));
         }
         exit();
 	}

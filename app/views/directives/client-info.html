@@ -1,17 +1,20 @@
-<div id='content_center' class="clientInfoBox">
+<div ng-if='client' id='content_center' class="clientInfoBox">
 	<dl class="curved">
 		<dt><span  class='heading'>Client's Information</span></dt>	      	
 			<dd class='clientInfo'> 
 	        <p class='tdleft wid90'>Contact Person</p>
-	        <p class="tdright wid158">{{client.email}}</p>
+	        <p class="tdright wid158">{{client.first_name}}&nbsp;{{client.last_name}}</p>
 	      	<div class="clear"></div>
 	        <p class='tdleft wid90'>Phone No.</p>
 	        <p class="tdright wid158">{{client.phone_no}}</p>
 	      	<div class="clear"></div>
 	        <p class='tdleft wid90'>Email</p>
 	        <p class="tdright wid158">{{client.email}}
-	        </p>					        
- 			<div class='clear'>&nbsp;</div>
+	        </p>		
+	        <div class="clear"></div>
+	        <p class='tdleft wid90'>Secondary Email</p>
+	        <p class="tdright wid158">{{client.secondary_email}}
+	        </p>
 			</dd>
 		</dl>	
 </div>

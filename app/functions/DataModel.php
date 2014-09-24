@@ -162,6 +162,42 @@
 		}
 		return false;
 	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-24
+ * 	Purpose    : Db operations for Sending mail to client 
+*/  
+	function sendMailToClientDb($data){
+		$crId  = $data['response']['last_id'];
+	    $query = sprintf("SELECT *,p.name as project_name,cp.id as crid, cf.is_deleted as file_deleted FROM cr_projects cp left join cr_files as cf on(cp.id=cf.cr_id) inner join 22959_projects as p on(p.id=cp.project_id) where cp.is_deleted=0 and cp.id='%s'", mysql_real_escape_string(stripslashes($crId)));
+		$result = executeQuery($query);
+		$crData = array();
+		if(mysql_num_rows($result)) {
+			while($post = mysql_fetch_assoc($result)) {
+				if(!empty($post['real_name']) && $post['file_deleted']==0)
+				$fileData[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
+				$crData['data'] = array('file_name'=>$fileData[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>date('jS M, Y',strtotime($post['cr_date'])),'created_by'=>$post['created_by'],'effort'=>$post['effort'],'action_date'=>date('jS M, Y',strtotime($post['action_taken_on'])),'is_billable'=>$post['is_billable'],'is_not_billable_reason'=>$post['is_not_billable_reason'],'actual_cost'=>$post['actual_cost'],'billed_cost'=>$post['billed_cost'],'actual_cost_currency'=>$post['actual_cost_currency'],'billed_cost_currency'=>$post['billed_cost_currency'],'send_on_secondary_email'=>$post['send_on_secondary_email'],'project_name'=>$post['project_name']);
+			}
+			if(!empty($data['response']['primaryClient'])) {
+				$primaryData = $data['response']['primaryClient'];
+				$clientID = sendMailCRInitiated($primaryData['email'],$primaryData['id'],$crData['data']);
+				if ($primaryData['send_login_mail']) { //echo "sending login mail primary".$primaryData['send_login_mail'];
+					sendLoginMail($primaryData['email'],$primaryData['id']);
+				}
+			}
+			if(!empty($data['response']['secondaryClient'])) {
+				$secondaryData = $data['response']['secondaryClient'];
+				$clientID = sendMailCRInitiated($secondaryData['email'],$secondaryData['id'],$crData['data']);
+				if ($secondaryData['send_login_mail']) {// echo "sending login mail secondary".$secondaryData['send_login_mail'];
+					sendLoginMail($secondaryData['email'],$secondaryData['id']);
+				}
+			}
+		} else {
+			return array('Status'=>'Error','message'=>'Cr id cannnot be blank');
+		}
+		return getAllProjectCrs($data['projectId']);
+	}
 	
 /*
  *	Created By : Soumya Pandey
@@ -283,14 +319,45 @@
 	    $billed_cost_currency = $data['billed_cost_currency'];
 	    $billed_cost  = $data['billed_cost'];
 	    $billable_reason  = $data['billable_reason'];
-		$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by,effort,is_billable,is_not_billable_reason,actual_cost,billed_cost,actual_cost_currency,billed_cost_currency,created,modified) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated.",".$effort.",".$crbillable.",'".$billable_reason."',".$actual_cost.",".$billed_cost.",".$actual_cost_currency.",".$billed_cost_currency.",NOW(),NOW() )"; 
+	    $status = '1';
+	    if($data['cameFrom']=='publish') {
+	    	$status = '2';
+	    }
+	    $send_on_secondary_email = 0;
+	    if($data['client_secondary_email']) {
+	    	$send_on_secondary_email = 1;
+	    }
+		$query  = "INSERT INTO cr_projects (project_id ,title , description, cr_date,created_by,effort,is_billable,is_not_billable_reason,actual_cost,billed_cost,actual_cost_currency,billed_cost_currency,created,modified,status,send_on_secondary_email) VALUES ('".$project_id."', '".$crTitle."' ,  '".$crDesc."','".$crDate."',".$crCreated.",".$effort.",".$crbillable.",'".$billable_reason."',".$actual_cost.",".$billed_cost.",".$actual_cost_currency.",".$billed_cost_currency.",NOW(),NOW(),'".$status."','".$send_on_secondary_email."')"; 
 		$result = executeQuery($query);
-		$last_id= mysql_insert_id();
+		$last_id= mysql_insert_id(); 
 		if($last_id) {
+			if($data['cameFrom']=='publish') {
+		    	$clientEmail = $data['client_email'];
+		    	$primaryClient = $secondaryClient = array();
+		    	$clientDetails = registerCrUser($clientEmail,$project_id,1);
+		    	$primaryClient['email'] = $clientEmail;
+		    	$primaryClient['id'] = $clientDetails['client_id'];
+		    	$primaryClient['send_login_mail'] = $clientDetails['send_mail'];
+		    	//$clientID = sendMailCRInitiated($clientEmail,$clientDetails['client_id'],$data);
+		    	//if($clientDetails['send_mail']) {
+		    		//$loginEmail = sendLoginMail($clientEmail,$clientDetails['client_id']);
+		    	//}
+		    	if($send_on_secondary_email==1) {
+		    		$secondaryEmail = $data['client_secondary_email'];
+		    		$clientDetails = registerCrUser($secondaryEmail,$project_id,0);
+		    		$secondaryClient['email'] = $secondaryEmail;
+			    	$secondaryClient['id'] = $clientDetails['client_id'];
+			    	$secondaryClient['send_login_mail'] = $clientDetails['send_mail'];
+			    	//$secondrytClientId = sendMailCRInitiated($clientEmail,$clientDetails['client_id'],$data);
+			    	//if($clientDetails['send_mail']) {
+			    		//$loginSEmail = sendLoginMail($clientEmail,$clientDetails['client_id']);
+			    	//}
+		    	}
+		    }
 			$data['cr_id'] = $last_id;
 			insertCRLog($data,'add');
 		}	
-		return $last_id;
+		return array('last_id'=>$last_id,'primaryClient'=>$primaryClient,'secondaryClient'=>$secondaryClient);
 	}
 
 /*
@@ -332,9 +399,13 @@
 	    if(!empty($data['action_taken_on'])) {
 	    	$action_taken_on       =date('Y-m-d H:i:s',strtotime($data['action_taken_on']));
 	    }
+	    $send_on_secondary_email = 0;
+	    if($data['client_secondary_email']) {
+	    	$send_on_secondary_email = 1;
+	    }
 	    $crCreated    =$data['created_by'];
 	    if($crStatus!=3) $crReason='';
-		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated',reason='$crReason',effort='$cr_effort',is_billable='$cr_billable',is_not_billable_reason='$billable_reason',actual_cost='$actual_cost',billed_cost='$billed_cost',actual_cost_currency='$actual_cost_currency',billed_cost_currency='$billed_cost_currency',action_taken_on='$action_taken_on' where id=".$cr_id; 
+		$query = "UPDATE cr_projects set title='$crTitle', description='$crDesc' , status='$crStatus', modified_by='$crCreated',reason='$crReason',effort='$cr_effort',is_billable='$cr_billable',is_not_billable_reason='$billable_reason',actual_cost='$actual_cost',billed_cost='$billed_cost',actual_cost_currency='$actual_cost_currency',billed_cost_currency='$billed_cost_currency',action_taken_on='$action_taken_on',send_on_secondary_email='$send_on_secondary_email' where id=".$cr_id; 
 		$result = executeQuery($query);
 		if($result) {
 			insertCRLog($data,'update');
@@ -355,7 +426,7 @@
 			while($post = mysql_fetch_assoc($result)) {
 				if(!empty($post['real_name']) && $post['file_deleted']==0)
 					$file_arr[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
-					$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>date('jS M, Y',strtotime($post['cr_date'])),'created_by'=>$post['created_by'],'reason'=>$post['reason'],'effort'=>$post['effort'],'is_billable'=>$post['is_billable'],'is_not_billable_reason'=>$post['is_not_billable_reason'],'actual_cost'=>$post['actual_cost'],'billed_cost'=>$post['billed_cost'],'actual_cost_currency'=>$post['actual_cost_currency'],'billed_cost_currency'=>$post['billed_cost_currency']);
+					$posts = array('file_name'=>$file_arr[$post['crid']],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>date('jS M, Y',strtotime($post['cr_date'])),'created_by'=>$post['created_by'],'reason'=>$post['reason'],'effort'=>$post['effort'],'is_billable'=>$post['is_billable'],'is_not_billable_reason'=>$post['is_not_billable_reason'],'actual_cost'=>$post['actual_cost'],'billed_cost'=>$post['billed_cost'],'actual_cost_currency'=>$post['actual_cost_currency'],'billed_cost_currency'=>$post['billed_cost_currency'],'send_on_secondary_email'=>$post['send_on_secondary_email']);
 			}
 			return $posts;
 		}
@@ -503,5 +574,112 @@
 				return getAllClientsDb($data['user_id']);
 			}			
 		}
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-19
+ * 	Purpose    : Db operations to register client details
+*/  
+	function registerCrUser($email,$project_id,$isPrimary=1){
+		$query  = sprintf("SELECT email,is_active,id FROM cr_users where email='%s'", mysql_real_escape_string(stripslashes($email)));
+		$result = executeQuery($query);
+		if(mysql_num_rows($result)) {
+			$posts = array();
+			while($post = mysql_fetch_assoc($result)) {
+				$posts[] = $post;
+			}
+			//if($posts[0]['is_active']==0) {
+			//	$query_insert_new_user = "UPDATE cr_users set is_active=1 where email='".$email."'"; 
+			//	$result = executeQuery($query_insert_new_user);
+			//} 
+			return array('client_id'=>$posts[0]['id'],'send_mail'=>false);
+		} else {
+			if($isPrimary==1) {
+				$query = sprintf("SELECT first_name, last_name, phone_no, project_id FROM cr_clients where email='%s'", mysql_real_escape_string(stripslashes($email)));
+				$result = executeQuery($query);
+				$posts = array();
+				if(mysql_num_rows($result)){ 
+					while($post = mysql_fetch_assoc($result)) {
+						$query_insert_new_user = "INSERT INTO cr_users (first_name ,last_name , email  ,project_id,created) VALUES (
+							'".$post['first_name']."', '".$post['last_name']."' ,  '".$email."','".$project_id."',NOW() )"; 
+						$result = executeQuery($query_insert_new_user);
+					}
+				}
+			} else {
+				$query_insert_new_user = "INSERT INTO cr_users (  email ,project_id,created) VALUES (
+							 '".$email."','".$project_id."',NOW() )"; 
+				$result = executeQuery($query_insert_new_user);
+			}
+			$QueryUser = sprintf("SELECT id FROM cr_users WHERE email='%s' and is_active=1", mysql_real_escape_string(stripslashes($email)));
+	        $result = executeQuery($QueryUser);
+	        $row = mysql_fetch_array($result);
+	        $num_of_row = mysql_num_rows($result);  
+	        if($num_of_row>0) {
+	        	return array('client_id'=>$row['id'],'send_mail'=>true);  
+	        } 
+		}
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-22
+ * 	Purpose    : Db operations to publish CR
+*/  
+	function publishCrDb($data){
+		$crId = $data['cr_id'];
+		$modified_by = $data['modified_by'];
+		$query = "UPDATE cr_projects set status='2',modified_by=".$modified_by." where id=".$crId; 
+		$result = executeQuery($query);
+		$query = sprintf("SELECT *,p.name as project_name,cp.id as crid, cf.is_deleted as file_deleted,cc.email,cc.secondary_email,cc.first_name,cc.last_name FROM cr_projects cp left join cr_files as cf on(cp.id=cf.cr_id) left join cr_clients cc on (cp.project_id=cc.project_id) inner join 22959_projects p on (p.id=cp.project_id) where cp.is_deleted=0 and cp.id='%s'", mysql_real_escape_string(stripslashes($crId)));
+		$result = executeQuery($query);
+		if(mysql_num_rows($result)) {
+			$crData = array();
+			while($post = mysql_fetch_assoc($result)) {
+				if(!empty($post['real_name']) && $post['file_deleted']==0)
+				$fileData[$post['crid']][]=array('real_name'=>$post['real_name'],'file_name'=>$post['file_name']);
+				$crData['data'] = array('file_name'=>$fileData[$post['crid']],'project_id'=>$post['project_id'],'id'=>$post['crid'],'title'=>$post['title'],'description'=>$post['description'],'status'=>$post['status'],'cr_date'=>date('jS M, Y',strtotime($post['cr_date'])),'created_by'=>$post['created_by'],'effort'=>$post['effort'],'action_date'=>date('jS M, Y',strtotime($post['action_taken_on'])),'send_on_secondary_email'=>$post['send_on_secondary_email'],'is_billable'=>$post['is_billable'],'is_not_billable_reason'=>$post['is_not_billable_reason'],'actual_cost'=>$post['actual_cost'],'billed_cost'=>$post['billed_cost'],'actual_cost_currency'=>$post['actual_cost_currency'],'billed_cost_currency'=>$post['billed_cost_currency'],'project_name'=>$post['project_name']);
+				$crData['clients'] = array('primary'=>$post['email'],'secondary'=>$post['secondary_email']);
+			}
+		}
+		$row = mysql_fetch_array($result);
+        $num_of_row = mysql_num_rows($result);  
+		if(!empty($crData['clients']['primary'])) {
+			$clientDetails = registerCrUser($crData['clients']['primary'],$crData['data']['project_id'],1);
+			$clientID = sendMailCRInitiated($crData['clients']['primary'],$clientDetails['client_id'],$crData['data']);
+	    	if($clientDetails['send_mail']) {
+	    		$loginEmail = sendLoginMail($crData['clients']['primary'],$clientDetails['client_id']);
+	    	}
+			if($crData['data']['send_on_secondary_email']==1) {
+				if(!empty($crData['clients']['secondary'])) {
+					$clientDetails = registerCrUser($crData['clients']['secondary'],$crData['data']['project_id'],0);
+					$clientID = sendMailCRInitiated($crData['clients']['secondary'],$clientDetails['client_id'],$crData['data']);
+			    	if($clientDetails['send_mail']) {
+			    		$loginEmail = sendLoginMail($crData['clients']['secondary'],$clientDetails['client_id']);
+			    	}
+				}
+			} 
+		}
+		return getAllProjectCrs($crData['data']['project_id']);
+	}
+
+/*
+ *	Created By : Soumya Pandey
+ * 	Created On : 2014-09-22
+ * 	Purpose    : Db operations to publish CR
+*/  
+	function updateCrActionDb($data){
+		$crId = $data['cr_id'];
+		$modified_by = $data['client_id'];
+		if($data['action']=='approve') {
+			$status = 3;
+		}
+		if($data['action']=='reject') {
+			$status = 4;
+		}
+		$action_taken_on       =date('Y-m-d H:i:s');
+		$query = "UPDATE cr_projects set status='".$status."',modified_by=".$modified_by.",action_taken_on='".$action_taken_on."' where id=".$crId; 
+		$result = executeQuery($query);
+		return true;
 	}
 ?>
