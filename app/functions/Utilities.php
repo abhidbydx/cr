@@ -44,16 +44,18 @@
 	   			</td>
    			</tr>
 	   	</table>';
-	   	$header = "From:intranet@kelltontech.com \r\n";
-	   	$semi_rand = md5(time()); 
-		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+	   //	$semi_rand = md5(time()); 
+		//$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 		// headers for attachment 
-		$headers .= "\nMIME-Version: 1.0\n" . "Content-type:text/html;charset=UTF-8;\n" . " boundary=\"{$mime_boundary}\""; 
+		//$headers .= "\nMIME-Version: 1.0\n" . "Content-type:text/html;charset=UTF-8;\n" . " boundary=\"{$mime_boundary}\""; 
 		// multipart boundary 
-		$message = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/plain; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message . "\n\n"; 
-		$message .= "--{$mime_boundary}\n";
-
-	   	if(!empty($data['file_name'])) {
+	//	$message = "This is a multi-part message in MIME format.\n\n" . "--{$mime_boundary}\n" . "Content-Type: text/plain; charset=\"iso-8859-1\"\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message . "\n\n"; 
+	//	$message .= "--{$mime_boundary}\n";
+	   	$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		// More headers
+		$headers .= 'From: <intranet@kelltontech.com>' . "\r\n";
+	   	/*if(!empty($data['file_name'])) {
 	   		$upload_path='../cr_files/';
 		   	foreach ($data['file_name'] as $fileData) {
 		   		$filepath = $upload_path.$fileData['file_name'];
@@ -66,7 +68,7 @@
 				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
 				$message .= "--{$mime_boundary}\n";
 		   	}
-	    }  
+	    }  */
 	   	$retval = mail ($to,$subject,$message,$headers);
 	   	return $clientId;
 	}
