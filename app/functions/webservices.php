@@ -158,8 +158,9 @@
 	function getAllProjects($arrayObject){
 		$user_id      = $arrayObject['user_id'];
 		$userType     = $arrayObject['user'];
+		$role_id     = $arrayObject['role_id'];
 		if($user_id!='' && $user_id!=null && $userType!='' && $userType!=null){
-			$result = getAllActiveProject($user_id,$userType);
+			$result = getAllActiveProject($user_id,$userType,$role_id);
 			if($result) {
 				$response_arr = array('status' => 'Success', 'projects' => $result);
 			}else{
@@ -448,7 +449,7 @@
 	function getAllClients($arrayObject){
         $user_id = $arrayObject['user_id'];
         if($user_id) {    
-        	$data = getAllClientsDb($user_id);
+        	$data = getAllClientsDb($user_id,$arrayObject['role_id']);
     		echo json_encode($data);
         }  else  {
             echo json_encode(array('status' => 'Error', 'message' => "User Id cannot be null."));

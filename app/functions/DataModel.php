@@ -53,7 +53,7 @@
         	if(in_array($row['role_id'],array(1,28,16,3))) {
         		$_SESSION['USER_ID']=$row['id'];
 	            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
-	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'pms');
+	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'pms','role_id'=>$row['role_id']);
 	            return $userRegisterArr;
         	} else {
         		return 'invalid';
@@ -66,7 +66,7 @@
 	        if($num_of_row>0) {         	
 	            $_SESSION['USER_ID']=$row['id'];
 	            $_SESSION['USER_NAME']=$row['first_name'].' '.$row['last_name'];                    
-	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'cr');
+	            $userRegisterArr=array('name'=>$row['first_name'].' '.$row['last_name'],'id'=>$row['id'],'user'=>'cr','role_id'=>-1);
 	            return $userRegisterArr;
 	        } else {
 	        	return false;
@@ -79,10 +79,15 @@
  * 	Created On : 2014-27-03
  * 	Purpose    : Db operations to get all active projects
 */  
-	function getAllActiveProject($userId,$userType){
+	function getAllActiveProject($userId,$userType,$role_id){
 		if($userType=='pms') {
-			$query = sprintf("SELECT p.id, p.name, p.leader_name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
+			if($role_id!=1) {
+				$query = sprintf("SELECT p.id, p.name, p.leader_name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
     where pu.user_id='%s' and p.status='active' group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
+			} else {
+				$query = sprintf("SELECT p.id, p.name, p.leader_name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
+    where p.status='active' and ((p.group_id between 3 and 7) && (p.group_id!=4)) group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
+			}
 			$result = executeQuery($query);
 			if(mysql_num_rows($result)) {
 				$posts = $projectIds = array();
@@ -505,18 +510,25 @@
  * 	Created On : 2014-09-17
  * 	Purpose    : Db operations to get all client details
 */  
-	function getAllClientsDb($userId){
-		$query = sprintf("SELECT p.id, p.name, p.leader_name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
-    where pu.user_id='%s' and p.status='active' group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
-		$result = executeQuery($query);
-		$projectIds = array();
-		if(mysql_num_rows($result)){ 
-			while($post = mysql_fetch_assoc($result)) {
-				$projectIds[] = $post['id'];
+	function getAllClientsDb($userId,$role_id){
+		if($role_id!=1) {
+			$query = sprintf("SELECT p.id, p.name, p.leader_name from 22959_project_users pu inner join 22959_projects p on (p.id=pu.project_id)
+	    where pu.user_id='%s' and p.status='active' group by pu.project_id", mysql_real_escape_string(stripslashes($userId)));
+			$result = executeQuery($query);
+			$projectIds = array();
+			if(mysql_num_rows($result)){ 
+				while($post = mysql_fetch_assoc($result)) {
+					$projectIds[] = $post['id'];
+				}
 			}
 		}
-		if(!empty($projectIds)) {
-			$query = sprintf("SELECT cc.id client_id,p.id project_id,cc.email, cc.first_name, cc.last_name, cc.phone_no,cc.secondary_email, p.name FROM cr_clients cc inner join 22959_projects p on (p.id=cc.project_id) where project_id in (%s)", mysql_real_escape_string(stripslashes(implode(",",$projectIds))));
+		
+		if(!empty($projectIds) || ($role_id==1)) {
+			if($role_id==1) {
+				$query = sprintf("SELECT cc.id client_id,p.id project_id,cc.email, cc.first_name, cc.last_name, cc.phone_no,cc.secondary_email, p.name FROM cr_clients cc inner join 22959_projects p on (p.id=cc.project_id)");
+			}else {
+				$query = sprintf("SELECT cc.id client_id,p.id project_id,cc.email, cc.first_name, cc.last_name, cc.phone_no,cc.secondary_email, p.name FROM cr_clients cc inner join 22959_projects p on (p.id=cc.project_id) where project_id in (%s)", mysql_real_escape_string(stripslashes(implode(",",$projectIds))));
+			}
 			$result = executeQuery($query);
 			$posts = array();
 			if(mysql_num_rows($result)){ 
@@ -547,7 +559,7 @@
 				$query = "UPDATE cr_clients set first_name='".$data['first_name']."', last_name='".$data['last_name']."' , email='".$data['email']."', secondary_email='".$data['secondary_email']."',phone_no='".$data['phone_no']."',modified=NOW(),modified_by='".$data['user_id']."' where project_id=".$data['project_id']; 
 				$result = executeQuery($query);
 				if($result) {
-					return getAllClientsDb($data['user_id']);
+					return getAllClientsDb($data['user_id'],$data['role_id']);
 				}
 			} else {
 				$query = sprintf("SELECT id FROM cr_clients where project_id='%s'", mysql_real_escape_string(stripslashes($data['project_id'])));
@@ -555,10 +567,10 @@
 				if(mysql_num_rows($result)){ 
 					return array('status' => 'Error', 'message' => "There is already a client associated to this project.");
 				} else {
-					$query = "UPDATE cr_clients set first_name='".$data['first_name']."', last_name='".$data['last_name']."' , email='".$data['email']."', secondary_email='".$data['secondary_email']."',phone_no='".$data['phone_no']."',modified=NOW(),modified_by='".$data['user_id']."' where project_id=".$data['project_id']; 
+					$query = "UPDATE cr_clients set project_id='".$data['project_id']."',first_name='".$data['first_name']."', last_name='".$data['last_name']."' , email='".$data['email']."', secondary_email='".$data['secondary_email']."',phone_no='".$data['phone_no']."',modified=NOW(),modified_by='".$data['user_id']."' where id=".$data['client_id']; 
 					$result = executeQuery($query);
 					if($result) {
-						return getAllClientsDb($data['user_id']);
+						return getAllClientsDb($data['user_id'],$data['role_id']);
 					}		
 				}
 			}			
@@ -581,7 +593,7 @@
 			$query = "INSERT INTO cr_clients(project_id,created_by,created,modified,modified_by,first_name,last_name,email,secondary_email,phone_no) VALUES (".$data['project_id'].",".$data['user_id'].",NOW(),NOW(),".$data['user_id'].",'".$data['first_name']."','".$data['last_name']."' , '".$data['email']."','".$data['secondary_email']."','".$data['phone_no']."')"; 
 			$result = executeQuery($query);
 			if($result) {
-				return getAllClientsDb($data['user_id']);
+				return getAllClientsDb($data['user_id'],$data['role_id']);
 			}			
 		}
 	}

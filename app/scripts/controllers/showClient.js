@@ -15,6 +15,7 @@ angular.module('intranetApp')
         var userData=UserService.getUserCookie($cookies.USER_INFO)  ;    
         loginData.user_id = userData.id;
         loginData.user    = userData.user;
+        loginData.role_id    = userData.role_id;
         $http({
             method : 'POST',
             url :  'functions/webservices.php',
@@ -67,6 +68,7 @@ angular.module('intranetApp')
             var userData=UserService.getUserCookie($cookies.USER_INFO)  ;    
             loginData.user_id = userData.id;
             loginData.user    = userData.user;
+            loginData.role_id   =  userData.role_id;
             $http({
                 method : 'POST',
                 url :  'functions/webservices.php',
@@ -96,6 +98,7 @@ angular.module('intranetApp')
             clientData.secondary_email   =  $scope.secondary_email;
             clientData.phone_no   =  $scope.phone_no;
             clientData.user_id = userData.id;
+            clientData.role_id = userData.role_id;
             $scope.valErrMsg=null;
             $http({
                   method : 'POST',
@@ -131,6 +134,7 @@ angular.module('intranetApp')
             var userData=UserService.getUserCookie($cookies.USER_INFO)  ;    
             loginData.user_id = userData.id;
             loginData.user    = userData.user;
+            loginData.role_id    = userData.role_id;
             $http({
                 method : 'POST',
                 url :  'functions/webservices.php',
@@ -159,6 +163,7 @@ angular.module('intranetApp')
             clientData.secondary_email   =  $scope.secondary_email;
             clientData.phone_no   =  $scope.phone_no;
             clientData.user_id = userData.id;
+            clientData.role_id    = userData.role_id;
             $scope.valErrMsg=null;
             $http({
                   method : 'POST',
