@@ -293,7 +293,7 @@ table td {
 	width:158px;
 }
 .clientInfoBox {
-	width:30% !important;padding-right:20px !important; padding-top:40px;
+	width:35% !important;padding-right:15px !important; padding-top:40px; margin-left:20px !important;
 }
 .flt {
 	float : left;

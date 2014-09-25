@@ -29,21 +29,27 @@
 	   	$subject = "New CR Initiated";
 	   	$message = 'New CR has been initiated for the project <b>"'.$data['project_name'].'"</b>. Please find the details
 	   	given below:<br>
-	   	<table>
-	   		<tr><th width="40%">Title<th><td>'.$data['title'].'</td></tr>
-	   		<tr><th width="40%">Description<th><td>'.$data['description'].'</td></tr>
-	   		<tr><th width="40%">Date<th><td>'.$data['cr_date'].'</td></tr>
-	   		<tr><th width="40%">Effort<th><td>'.$data['effort'].' Days</td></tr>
-	   		<tr><th width="40%">Is Billable<th><td>'.$isBillable.'</td></tr>
-	   		<tr><th width="40%">Billed Cost<th><td>'.$data['billed_cost'].'&nbsp;'.$currency.'</td></tr>
-	   		<tr>
-	   			<th width="40%">&nbsp;<th>
-	   			<td>
-	   				<a href="http://'.$_SERVER["HTTP_HOST"].'/crAction/'.$postDataAprv.'" style="cursor:pointer;"><input type="button" value="Approve" name="Approve"></a>&nbsp;
-	   				<a href="http://'.$_SERVER["HTTP_HOST"].'/crAction/'.$postDataRejct.'" style="cursor:pointer;"><input type="button" value="Reject" name="Reject"></a>
-	   			</td>
-   			</tr>
-	   	</table>';
+	   	<table>';
+	   	if(!empty($data['title'])) {
+	   		$message .= '<tr><th width="40%">Title<th><td>'.$data['title'].'</td></tr>';
+	   	}
+	   	if(!empty($data['description'])) {
+	   		$message .= '<tr><th width="40%">Description<th><td>'.$data['description'].'</td></tr>';
+	   	}
+	   	if(!empty($data['cr_date'])) {
+	   		$message .= '<tr><th width="40%">Date<th><td>'.$data['cr_date'].'</td></tr>';
+	   	}
+	   	if(!empty($data['effort'])) {
+	   		$message .= '<tr><th width="40%">Effort<th><td>'.$data['effort'].'</td></tr>';
+	   	}
+   		$message .= '<tr><th width="40%">Is Billable<th><td>'.$isBillable.'</td></tr>';
+   		if(!empty($data['billed_cost'])) {
+	   		$message .= '<tr><th width="40%">Billed Cost<th><td>'.$data['billed_cost'].'&nbsp;'.$currency.'</td></tr>';
+	   	}
+	   	$message .=	'<tr><th width="40%">&nbsp;<th><td>
+	   				<a target="_blank" href="http://'.$_SERVER["HTTP_HOST"].'/crAction/'.$postDataAprv.'" style="cursor:pointer;"><input type="button" value="Approve" name="Approve"></a>&nbsp;
+	   				<a target="_blank" href="http://'.$_SERVER["HTTP_HOST"].'/crAction/'.$postDataRejct.'" style="cursor:pointer;"><input type="button" value="Reject" name="Reject"></a>
+	   				</td></tr></table>';
 	   //	$semi_rand = md5(time()); 
 		//$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 		// headers for attachment 

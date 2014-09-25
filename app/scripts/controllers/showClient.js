@@ -11,6 +11,7 @@ angular.module('intranetApp')
     .controller('showClient', function ($scope,$http,UserService,$cookies,CommonValidators) {
         var loginData={};
         loginData.page = 'getAllClients'; 
+        $scope.message = '';
         var userData=UserService.getUserCookie($cookies.USER_INFO)  ;    
         loginData.user_id = userData.id;
         loginData.user    = userData.user;
@@ -122,6 +123,7 @@ angular.module('intranetApp')
             });  
         }; 
         $scope.addClient = function(){
+            $scope.message = '';
             $scope.addClientDiv   =true;
             $scope.editClientDiv  =false;
             var loginData={};

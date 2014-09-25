@@ -91,11 +91,11 @@
 				        <p class="frmright">
 				        <textarea rows="7" cols="35" name="description" value="" ng-model='cr_description'></textarea></p>
 				        <div class="clear"></div>
-				        <p class='frmleft padLeft30' ng-if="userType==='cr'">Status</p>			        
+				        <p class='frmleft padLeft30' ng-if="userType==='cr'">Status</p>		        
 				        <p class="frmright" ng-if="userType==='cr'"><select ng-model='$parent.cr_status' ng-click='show_reason_box();'>			        	
-				        	<option value='1'>Pending</option>
-				        	<option value='2'>Pending</option>
-				        	<option value='3'>Approved</option>
+				        	<option ng-if='cr_status==1' value='1'>Pending</option>
+				        	<option ng-if='cr_status==2' value='2'>Pending</option>
+				        	<option value='3'>Approve</option>
 				        	<option value='4'>Reject</option>
 				        </select></p>
 				        <div class="clear"></div>
@@ -183,9 +183,10 @@
 			        </p>
 			        <div class="clear"></div>
 			        <p class='tdleft padLeft30 wid90'>Status</p>
-			        <p class="tdright wid425" ng-if="cr_status==='1'">Pending</p>
-			        <p class="tdright wid425" ng-if="cr_status==='2'">Approved</p>
-			        <p class="tdright wid425" ng-if="cr_status==='3'">Rejected</p>
+			        <p class="tdright wid425" ng-if='cr_status==1 || (cr_status==2 && userType==="cr")'>Pending</p>
+			        <p class="tdright wid425" ng-if="userType==='pms' && cr_status==2">Published</p>
+			        <p class="tdright wid425" ng-if="cr_status==='3'">Approved</p>
+			        <p class="tdright wid425" ng-if="cr_status==='4'">Rejected</p>
 			        <div class="clear"></div>
 			        <p class='tdleft padLeft30 wid90' ng-if="cr_status==='3'">Reject Reason</p>
 			        <p class="tdright wid425" ng-if="cr_status==='3'">{{cr_reason}}</p>
@@ -259,7 +260,7 @@
 				<td style='width:30px;'>{{cr.effort}}</td>
 				<td style='width:60px;' ng-if='cr.file_name.length'>{{cr.file_name.length}}</td>
 				<td style='width:60px;' ng-if='!cr.file_name.length'>0</td>
-				<td style='width:100px;'><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View  </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)" ng-if='cr.status==1'> | Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms' && cr.status==1"> | Delete</a>
+				<td style='width:100px;'><a style="cursor:pointer;color:#286e87" ng-click="showCR(cr.id)">View  </a><a style="cursor:pointer;color:#286e87" ng-click="showEdit(cr.id)" ng-if='cr.status==1 || (cr.status==2 && userType==="cr")'> | Edit</a>  <a style="cursor:pointer;color:#286e87" ng-click="cr_delete(cr.id)" ng-if="userType==='pms' && cr.status==1"> | Delete</a>
 					<a style="cursor:pointer;color:#286e87" ng-click="cr_publish(cr.id)" ng-if="userType==='pms' && cr.status==1"> | Publish</a></td>				
 			</tr>
 			</table>

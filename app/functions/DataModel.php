@@ -148,8 +148,13 @@
  * 	Created On : 2014-27-03
  * 	Purpose    : Db operations for Sign In 
 */  
-	function getAllProjectCrs($projectId){
-		$query = sprintf("SELECT *,cp.id as crid, cf.is_deleted as file_deleted FROM cr_projects cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.is_deleted=0  and project_id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+	function getAllProjectCrs($projectId,$userType='pms'){
+		if($userType=='cr') {
+			$query = sprintf("SELECT *,cp.id as crid, cf.is_deleted as file_deleted FROM cr_projects cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.is_deleted=0 and cp.status!=1  and project_id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+		} else {
+			$query = sprintf("SELECT *,cp.id as crid, cf.is_deleted as file_deleted FROM cr_projects cp left join cr_files as cf on(cp.id=cf.cr_id) where cp.is_deleted=0  and project_id='%s'", mysql_real_escape_string(stripslashes($projectId)));
+		}
+		
 		$result = executeQuery($query);
 		$posts = array();
 		if(mysql_num_rows($result)) {
@@ -308,16 +313,29 @@
 */  
 	function insertCR($data){
 	    $project_id   =$data['project_id'];
+	    $effort = $actual_cost = $billed_cost = 0;
+	    $actual_cost_currency = $billed_cost_currency = 1;
 	    $crTitle      =$data['crtitle'];
 	    $crDesc       =$data['crdesc'];
 	    $crDate       =date('Y-m-d H:i:s',strtotime($data['cr_date']));
 	    $crCreated    =$data['created_by'];
 	    $effort       =$data['creffort'];
 	    $crbillable   =$data['crbillable'];
-	    $actual_cost_currency = $data['actual_cost_currency'];
-	    $actual_cost  = $data['actual_cost'];
-	    $billed_cost_currency = $data['billed_cost_currency'];
-	    $billed_cost  = $data['billed_cost'];
+	    if(!empty($data['effort'])) {
+	    	$effort = $data['effort'];
+	    }
+	    if(!empty($data['actual_cost_currency'])) {
+	    	$actual_cost_currency = $data['actual_cost_currency'];
+	    }
+	    if(!empty($data['actual_cost'])) {
+	    	$actual_cost = $data['actual_cost'];
+	    }
+	    if(!empty($data['billed_cost_currency'])) {
+	    	$billed_cost_currency = $data['billed_cost_currency'];
+	    }
+	    if(!empty($data['billed_cost'])) {
+	    	$billed_cost = $data['billed_cost'];
+	    }
 	    $billable_reason  = $data['billable_reason'];
 	    $status = '1';
 	    if($data['cameFrom']=='publish') {
@@ -338,20 +356,12 @@
 		    	$primaryClient['email'] = $clientEmail;
 		    	$primaryClient['id'] = $clientDetails['client_id'];
 		    	$primaryClient['send_login_mail'] = $clientDetails['send_mail'];
-		    	//$clientID = sendMailCRInitiated($clientEmail,$clientDetails['client_id'],$data);
-		    	//if($clientDetails['send_mail']) {
-		    		//$loginEmail = sendLoginMail($clientEmail,$clientDetails['client_id']);
-		    	//}
 		    	if($send_on_secondary_email==1) {
 		    		$secondaryEmail = $data['client_secondary_email'];
 		    		$clientDetails = registerCrUser($secondaryEmail,$project_id,0);
 		    		$secondaryClient['email'] = $secondaryEmail;
 			    	$secondaryClient['id'] = $clientDetails['client_id'];
 			    	$secondaryClient['send_login_mail'] = $clientDetails['send_mail'];
-			    	//$secondrytClientId = sendMailCRInitiated($clientEmail,$clientDetails['client_id'],$data);
-			    	//if($clientDetails['send_mail']) {
-			    		//$loginSEmail = sendLoginMail($clientEmail,$clientDetails['client_id']);
-			    	//}
 		    	}
 		    }
 			$data['cr_id'] = $last_id;

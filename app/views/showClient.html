@@ -95,6 +95,7 @@
 		    <div class='leftlink' style='color:#286e87'>
 		    	<a class='pointer' style="float:right;padding-right:30px;"  ng-click='addClient();'> Add New(+)</a>
 		    </div>
+	        <div ng-if='message' class='msg'> {{message}}</div>
 	        <div class='clear' style="height:10px;">&nbsp;</div>
 		    <table style='width:938px;' ng-if='clients'>
 		    	<tr class='about'>

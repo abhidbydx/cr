@@ -177,9 +177,10 @@
  * 	Purpose    : SignIn Validation 
 */
 	function getAllCr($arrayObject){
-        $projectId      = $arrayObject['projectId'];
+        $projectId = $arrayObject['projectId'];
+        $userType = $arrayObject['user'];
 		if($projectId!='' && $projectId!=null){
-			$resultData = getAllProjectCrs($projectId);
+			$resultData = getAllProjectCrs($projectId,$userType);
 			$query = sprintf("SELECT p.name from 22959_projects p where id='%s'", mysql_real_escape_string(stripslashes($projectId)));
 			$result = executeQuery($query);
 			if(mysql_num_rows($result)) {

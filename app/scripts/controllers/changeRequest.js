@@ -16,6 +16,7 @@ angular.module('intranetApp')
       loginData.page= 'getAllCr';      
       loginData.projectId= unserialize(base64_decode(urldecode($routeParams.projectID)));      
       loginData.user_id = userData.id;
+      loginData.user = userData.user;
       $scope.userType = userData.user;
       $scope.projectId=loginData.projectId;      
       $http({
@@ -207,7 +208,7 @@ angular.module('intranetApp')
       $scope.valErrMsg = 'Please Enter Description';
       return false;
     } 
-    if(!CommonValidators.isValidString($scope.cr_reason) && ($scope.cr_status==3)){      
+    if(!CommonValidators.isValidString($scope.cr_reason) && ($scope.cr_status==4)){      
       $scope.valErrMsg = 'Please Enter Reason';
       return false;
     } 
@@ -402,7 +403,7 @@ angular.module('intranetApp')
     //show cr edit form
     $scope.show_reason_box = function(){
       $scope.showreason  = false;
-      if($scope.cr_status==3){
+      if($scope.cr_status==4){
           $scope.showreason=true;
        }
     };
